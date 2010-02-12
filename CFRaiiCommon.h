@@ -4,7 +4,7 @@
  *
  * Copyright (c) 2009-2010 Richard A. Brown
  * 
- * See license.rtf for licensing terms and conditions.
+ * See license.txt for licensing terms and conditions.
  */
 
 #ifndef _CFRAII_COMMON_GUARD_
