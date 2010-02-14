@@ -59,32 +59,45 @@ public:
 		QCRelease(array);
 	}
 	
-	
+	// helper classes
 	
 	
 	class CFTypeProxy
 	{
 	private:
 		// data members
-		CFMutableArrayRef		array;
-		CFIndex					index;
-		
+		CFArrayRef		array;
+		CFIndex			index;
 		
 		// no copy-assignment
 		CFTypeProxy & operator = (CFTypeProxy const &);
 		
 	public:
-		CFTypeProxy(CFMutableArrayRef const arrayRef, CFIndex const idx)
+		// ctor
+		CFTypeProxy(CFArrayRef const arrayRef, CFIndex const idx)
 		: array(QCRetain(arrayRef)), index(idx)
 		{ }
 		
+		// copy ctor
 		CFTypeProxy(CFTypeProxy const &proxy)
 		: array(QCRetain(proxy.array)), index(proxy.index)
 		{ }
 		
+		// dtor
 		~CFTypeProxy()
 		{
 			QCRelease(array);
+		}
+		
+		// comparison operators
+		bool operator == (CFTypeProxy const &rhs) const
+		{
+			return array == rhs.array && index == rhs.index;
+		}
+		
+		bool operator != (CFTypeProxy const &rhs) const
+		{
+			return !(*this == rhs);
 		}
 		
 		// conversion operator
@@ -92,10 +105,124 @@ public:
 		{
 			return CFArrayGetValueAtIndex(array, index);
 		}
+	};
+	
+	class const_iterator
+	{
+	private:
+		// data members
+		CFArrayRef		array;
+		CFIndex			currentIndex;
 		
-		CFTypeProxy & operator = (CFTypeRef const rhs)
+		// no copy-assignment
+		const_iterator & operator = (const_iterator const &);
+		
+	public:
+		// ctor
+		const_iterator(CFArrayRef const arrayRef, CFIndex const idx)
+		: array(QCRetain(array)), currentIndex(idx)
+		{ }
+		
+		// copy ctor
+		const_iterator(const_iterator const &iter)
+		: array(QCRetain(iter.array)), currentIndex(iter.currentIndex)
+		{ }
+		
+		// dtor
+		~const_iterator()
 		{
-			// 'this' doesn't actually change
+			QCRelease(array);
+		}
+		
+		// prefix operators (must retrn by reference)
+		const_iterator & operator ++ ()
+		{
+			++ currentIndex;
+			return *this;
+		}
+		
+		const_iterator & operator -- ()
+		{
+			-- currentIndex;
+			return *this;
+		}
+		
+		// postfix operators (must not return by reference)
+		const_iterator operator ++ (int)
+		{
+			const_iterator temp(*this);
+			this -> operator ++();
+			return temp;
+		}
+		
+		const_iterator operator -- (int)
+		{
+			const_iterator temp(*this);
+			this -> operator --();
+			return temp;
+		}
+		
+		// comparison operators
+		bool operator == (const_iterator const &rhs) const
+		{
+			return array == rhs.array && currentIndex == rhs.currentIndex;
+		}
+		
+		bool operator != (const_iterator const &rhs) const
+		{
+			return !(*this == rhs);
+		}		
+		
+		// dereference operator
+		CFTypeProxy const operator * () const
+		{
+			return CFTypeProxy(array, currentIndex);
+		}
+		
+	};
+	
+	class CFMutableTypeProxy
+	{
+	private:
+		// data members
+		CFMutableArrayRef		array;
+		CFIndex					index;
+		
+		// no copy-assignment
+		CFMutableTypeProxy & operator = (CFMutableTypeProxy const &);
+		
+	public:
+		// ctor
+		CFMutableTypeProxy(CFMutableArrayRef const arrayRef, CFIndex const idx)
+		: array(QCRetain(arrayRef)), index(idx)
+		{ }
+		
+		// copy ctor
+		CFMutableTypeProxy(CFMutableTypeProxy const &proxy)
+		: array(QCRetain(proxy.array)), index(proxy.index)
+		{ }
+		
+		// dtor
+		~CFMutableTypeProxy()
+		{
+			QCRelease(array);
+		}
+		
+		// conversion operators
+		operator CFTypeRef () const
+		{
+			return CFArrayGetValueAtIndex(array, index);
+		}
+		
+		operator CFTypeProxy () const
+		{
+			return CFTypeProxy(array, index);
+		}
+		
+		// assignment replaces an element in the array
+		CFMutableTypeProxy & operator = (CFTypeRef const rhs)
+		{
+			// 'this' doesn't change, but the pointed-to array does
 			CFArraySetValueAtIndex(array, index, rhs);
 			return *this;
 		}
@@ -108,15 +235,21 @@ public:
 		CFMutableArrayRef	array;
 		CFIndex				currentIndex;
 		
+		// no copy-assignment (for now)
+		iterator & operator = (iterator const &);
+		
 	public:
+		// ctor
 		iterator(CFMutableArrayRef const arrayRef, CFIndex const idx)
 		: array(QCRetain(arrayRef)), currentIndex(idx)
 		{ }
 		
-		iterator(iterator const &it)
-		: array(QCRetain(it.array)), currentIndex(it.currentIndex)
+		// copy ctor
+		iterator(iterator const &iter)
+		: array(QCRetain(iter.array)), currentIndex(iter.currentIndex)
 		{ }
 		
+		// dtor
 		~iterator()
 		{
 			QCRelease(array);
@@ -151,7 +284,6 @@ public:
 		}
 		
 		// comparison operators
-		
 		bool operator == (iterator const &rhs) const
 		{
 			return array == rhs.array && currentIndex == rhs.currentIndex;
@@ -163,29 +295,47 @@ public:
 		}
 		
 		// dereference operator
-		CFTypeProxy operator * () const
+		CFMutableTypeProxy operator * () const
 		{
-			return CFTypeProxy(array, currentIndex);
+			return CFMutableTypeProxy(array, currentIndex);
 		}
 		
 		/* // doesn't apply
-		 CFTypeProxy operator -> () const
+		 CFMutableTypeProxy operator -> () const
 		 {
-		 return CFTypeProxy(array, currentIndex);
+		 return CFMutableTypeProxy(array, currentIndex);
 		 }
 		 */
+		
+		iterator & operator += (CFIndex const arg)
+		{
+			currentIndex += arg;
+			return *this;
+		}
 		
 		iterator operator + (CFIndex const arg)
 		{
 			return iterator(array, currentIndex + arg);
+			iterator temp(*this);
+			return temp += arg;
 		}
 		
-		CFTypeProxy operator [] (CFIndex const arg)
+		// operator [] must be a non-static member function
+		// and we use operator + in it, so we made operator + a member function rather than a free one
+		CFMutableTypeProxy operator [] (CFIndex const arg)
 		{
 			return * (this -> operator + (arg));
 		}
 		
+		// conversion operator
+		
+		operator const_iterator () const
+		{
+			return const_iterator(array, currentIndex);
+		}
+		
 	}; // class iterator
+	
 	
 	void makeUnique()
 	{
@@ -331,9 +481,9 @@ public:
 		return array;
 	}
 	
-	CFTypeProxy operator [] (CFIndex const idx) const
+	CFMutableTypeProxy operator [] (CFIndex const idx) const
 	{
-		return CFTypeProxy(array, idx);
+		return CFMutableTypeProxy(array, idx);
 	}
 		
 	void push_back(CFTypeRef value)
@@ -406,22 +556,19 @@ public:
 inline QCArray operator + (QCArray &lhs, QCArray const &rhs)
 {
 	QCArray temp(lhs);
-	temp += rhs;
-	return temp;
+	return temp += rhs;
 }
 
 inline QCArray operator + (QCArray &lhs, CFMutableArrayRef const &rhs)
 {
 	QCArray temp(lhs);
-	temp += rhs;
-	return temp;
+	return temp += rhs;
 }
 
 inline QCArray operator + (QCArray &lhs, CFArrayRef const &rhs)
 {
 	QCArray temp(lhs);
-	temp += rhs;
-	return temp;
+	return temp += rhs;
 }
 
 typedef QCArray const QCFixedArray;
