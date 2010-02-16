@@ -11,6 +11,7 @@
 #define _CFRAII_HEADER_GUARD_
 
 #include "CFRaiiCommon.h"
+#include "CFProxy.h"
 #include "QCArray.h"
 #include "QCBoolean.h"
 #include "QCData.h"
