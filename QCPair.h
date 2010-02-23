@@ -22,7 +22,6 @@ public:
 	U second;
 	
 public:
-	
 	// ctor
 	QCPair(T const a, U const b)
 	: first( QCRetain(a) )

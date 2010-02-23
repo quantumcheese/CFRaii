@@ -369,30 +369,7 @@ public:
 	}
 	
 	// Operators
-	
-	// ownership assignment
-	QCArray & operator = (CFArrayRef const rhs)
-	{
-		if (rhs != array)
-		{
-			CFMutableArrayRef temp = CFMutableArrayFromCFArray(rhs);
-			QCRelease(array);
-			array = temp;
-		}
-		return *this;
-	}
-	
-	QCArray & operator = (CFMutableArrayRef const rhs)
-	{
-		// avoid self-assignment
-		if (rhs != array)
-		{
-			QCRelease(array);
-			array = rhs;
-		}
-		return *this;
-	}
-	
+
 	// copy assignment
 	QCArray & operator = (QCArray const &rhs)
 	{

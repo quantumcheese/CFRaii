@@ -101,6 +101,14 @@ public:
 		return CFNumberCompare(number, rhs, NULL) == kCFCompareLessThan;
 	}
 	
+	// copy assignment
+	QCNumber & operator = (QCNumber const &rhs)
+	{
+		QCNumber temp(rhs);
+		std::swap(number, temp.number);
+		return *this;
+	}
+	
 	// conversion operator
 	operator CFNumberRef () const
 	{

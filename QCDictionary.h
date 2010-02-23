@@ -93,28 +93,6 @@ public:
 	// Operators
 	
 	// assignment
-	QCDictionary & operator = (CFDictionaryRef const &rhs)
-	{
-		// avoid self-assignment
-		if (dict != rhs)
-		{
-			QCRelease(dict);
-			dict = CFMutableDictionaryFromCFDictionary(rhs);
-		}
-		return *this;
-	}
-	
-	QCDictionary & operator = (CFMutableDictionaryRef const &rhs)
-	{
-		// avoid self-assignment
-		if (rhs != dict)
-		{
-			QCRelease(dict);
-			dict = rhs;
-		}
-		return *this;
-	}
-	
 	QCDictionary & operator = (QCDictionary &rhs)	
 	{
 		if (dict != rhs.dict)

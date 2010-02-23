@@ -16,30 +16,72 @@ template<class T>
 class CFProxy
 {
 private:
-	// data member
+	// data members
 	T obj;
-	// no copy assignment (for now)
-	CFProxy & operator = (CFProxy const &);
+	CFIndex *proxyCount;
 	
 public:
-	// ctor
+	// RAII ctor -- take ownership!
 	CFProxy(T const ptr)
-	: obj(QCRetain(ptr))
+	: obj(ptr), proxyCount(new CFIndex(1))
 	{ }
 	
 	// copy ctor
 	CFProxy(CFProxy const &proxy)
-	: obj(QCRetain(proxy.obj))
-	{ }
-	
-	// dtor
-	~ CFProxy()
+	: obj(proxy.obj), proxyCount(proxy.proxyCount)
 	{
-		QCRelease(obj);
+		++(*proxyCount);
 	}
 	
-	// comparators
+	// dtor
+	~CFProxy()
+	{
+		// last one out turn off the lights and close & lock the door
+		if (--(*proxyCount) == 0)
+		{
+			QCRelease(obj);
+			delete proxyCount;
+		}
+	}
 	
+	bool isNull() const
+	{
+		return obj == NULL;
+	}
+	
+	void release()
+	{
+		if ( --(*proxyCount) == 0)
+		{
+			QCRelease(obj);
+			obj = NULL;
+		}
+	}
+	
+	void retain()
+	{
+		++(*proxyCount);
+	}
+	
+	// copy assignment
+	CFProxy & operator = (CFProxy const &rhs)
+	{
+		release();
+		if (*proxyCount == 0)
+		{
+			// increment the reference count
+			rhs.retain();
+			
+			// replace my count with rhs'
+			delete proxyCount;
+			proxyCount = rhs.proxyCount;
+			
+			// and finally, replace my obj with rhs'
+			obj = rhs.obj;
+		}
+	}
+	
+	// equality comparators
 	bool operator == (CFProxy const &rhs) const
 	{
 		return CFEqual(obj, rhs.obj);
@@ -48,6 +90,18 @@ public:
 	bool operator != (CFProxy const &rhs) const
 	{
 		return ! (*this == rhs);
+	}
+	
+	// dereference operator reveals the proxied object
+	T operator * () const
+	{
+		return obj;
+	}
+	
+	// conversion operator
+	operator T () const
+	{
+		return obj;
 	}
 	
 };

@@ -61,17 +61,7 @@ public:
 	{
 		QCRelease(url);
 	}
-#if 0
-	void makeUnique()
-	{
-		if (! null() && CFGetRetainCount(url) > 1)
-		{
-			// TODO: figure out how to copy a CFURL object
-			#warning url not copied in makeUnique
-//			CFURLREF newURL = ? ;
-		}
-	}
-#endif
+	
 	bool null() const
 	{
 		return url == 0;
@@ -80,7 +70,6 @@ public:
 	// Operators
 	
 	// copy assignment
-	
 	QCURL & operator = (QCURL const &rhs)
 	{
 		QCRelease(url);

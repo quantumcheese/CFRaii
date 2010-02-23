@@ -156,34 +156,6 @@ public:
 	
 	// Operators
 	
-	// assignment -- taking ownership
-	QCString & operator = (CFMutableStringRef const &rhs)
-	{
-		// no self-assignment
-		if (rhs != mString)
-		{
-			// keep the new string, get rid of the old
-			QCRelease(mString);
-			mString = rhs;
-			QCRelease(string);
-			string = 0;
-		}
-		return *this;
-	}
-	
-	QCString & operator = (CFStringRef const &rhs)
-	{
-		// no self-assignment
-		if (rhs != string)
-		{
-			QCRelease(mString);
-			mString = 0;
-			QCRelease(string);
-			string = rhs;
-		}
-		return *this;
-	}
-	
 	// copy assignment -- copy and swap
 	QCString & operator = (QCString const &rhs)
 	{

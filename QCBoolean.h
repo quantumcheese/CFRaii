@@ -48,7 +48,7 @@ public:
 	: boolean( CFBooleanFromBoolean(inBool) )
 	{ }
 	
-	QCBoolean(CFBooleanRef const & inBool = kCFBooleanFalse)
+	QCBoolean(CFBooleanRef const & inBool)
 	: boolean( inBool )
 	{ }
 	
