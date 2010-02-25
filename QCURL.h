@@ -90,24 +90,6 @@ public:
 		return !(*this == rhs);
 	}
 #if 0
-	QCURL & operator += (CFStringRef const &rhs)
-	{
-		if (!null() && rhs != 0)
-		{
-			makeUnique();
-			QCURL newURL(CFURLCreateCopyAppendingPathExtension(kCFAllocatorDefault, url, rhs));
-			std::swap(url, newURL.url);
-		}
-		return *this;
-	}
-	
-	QCURL & operator += (QCString const &rhs)
-	{
-		makeUnique();
-		// static cast to avoid infinte loop
-		return (*this += static_cast<CFStringRef const> (rhs));
-	}
-#endif
 	// we don't need an overload to take a QCURL since QCURL will convert to CFURLRef
 	QCURL operator + (CFStringRef const &rhs) const
 	{
@@ -118,7 +100,7 @@ public:
 		}
 		return QCURL();
 	}
-	
+#endif
 	// conversion operators
 	operator CFURLRef () const
 	{

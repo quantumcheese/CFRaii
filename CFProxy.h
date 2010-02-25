@@ -63,6 +63,12 @@ public:
 		++(*proxyCount);
 	}
 	
+	
+	bool null() const
+	{
+		return obj == NULL;
+	}
+	
 	// copy assignment
 	CFProxy & operator = (CFProxy const &rhs)
 	{
