@@ -154,6 +154,11 @@ public:
 		return QCString(str);
 	}
 	
+	UniChar at(CFIndex const idx) const
+	{
+		return CFStringGetCharacterAtIndex(String(), idx);
+	}
+	
 	// Operators
 	
 	// copy assignment -- copy and swap
