@@ -61,7 +61,6 @@ public:
 	
 	// helper classes
 	
-	
 	class CFTypeProxy
 	{
 	private:
@@ -114,9 +113,6 @@ public:
 		CFArrayRef		array;
 		CFIndex			currentIndex;
 		
-		// no copy-assignment
-		const_iterator & operator = (const_iterator const &);
-		
 	public:
 		// ctor
 		const_iterator(CFArrayRef const arrayRef, CFIndex const idx)
@@ -132,6 +128,17 @@ public:
 		~const_iterator()
 		{
 			QCRelease(array);
+		}
+		
+		// copy-assignment
+		const_iterator & operator = (const_iterator const &rhs)
+		{
+			QCRelease(array);
+			
+			array = QCRetain(rhs.array);
+			currentIndex = rhs.currentIndex;
+			
+			return *this;
 		}
 		
 		// prefix operators (must retrn by reference)
@@ -234,9 +241,8 @@ public:
 		// data members
 		CFMutableArrayRef	array;
 		CFIndex				currentIndex;
+		friend class		QCArray; // for QCArray::insert()
 		
-		// no copy-assignment (for now)
-		iterator & operator = (iterator const &);
 		
 	public:
 		// ctor
@@ -253,6 +259,17 @@ public:
 		~iterator()
 		{
 			QCRelease(array);
+		}
+		
+		// copy-assignment
+		iterator & operator = (iterator const &rhs)
+		{
+			QCRelease(array);
+			
+			array = QCRetain(rhs.array);
+			currentIndex = rhs.currentIndex;
+			
+			return *this;
 		}
 		
 		// prefix operators (must return by reference)
@@ -383,7 +400,7 @@ public:
 	bool operator == (QCArray const &rhs) const
 	{
 		return (array == rhs.array)
-				|| (CFEqual(array, rhs.array) == true);
+				|| (CFEqual(array, rhs.array) == true); // convert from Boolean
 	}
 	
 	bool operator != (QCArray const &rhs) const
@@ -411,24 +428,7 @@ public:
 		return *this;
 	}
 	
-	QCArray & operator += (CFMutableArrayRef const &rhs)
-	{
-		if (rhs != 0)
-		{
-			makeUnique();
-			if (null())
-			{
-				CFRetain(rhs);
-				array = rhs;
-			}
-			else
-			{
-				CFArrayAppendArray(array, rhs, CFRangeMake(0, CFArrayGetCount(rhs)));
-			}
-		}
-		return *this;
-	}
-	
+	// CFArrayRef also includes CFMutableArrayRef
 	QCArray & operator += (CFArrayRef const &rhs)
 	{
 		if (rhs != 0)
@@ -463,7 +463,7 @@ public:
 		return CFMutableTypeProxy(array, idx);
 	}
 		
-	void push_back(CFTypeRef value)
+	void push_back(CFTypeRef const value)
 	{
 		if (value == 0)
 		{
@@ -513,6 +513,16 @@ public:
 	
 	static QCArray arrayFromFile(QCString const &filePath);
 	
+	const_iterator begin() const
+	{
+		return const_iterator(array, 0);
+	}
+	
+	const_iterator end() const
+	{
+		return const_iterator(array, count());
+	}
+	
 	iterator begin()
 	{
 		return iterator(array, 0);
@@ -526,6 +536,12 @@ public:
 	size_t size() const
 	{
 		return static_cast<size_t> ( null() ? 0u : CFArrayGetCount(array) );
+	}
+	
+	iterator insert(iterator where, CFTypeRef const val)
+	{
+		CFArrayInsertValueAtIndex(array, where.currentIndex, val);
+		return iterator(array, where.currentIndex);
 	}
 	
 };

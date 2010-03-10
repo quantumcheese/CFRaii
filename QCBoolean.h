@@ -64,33 +64,13 @@ public:
 	}
 	
 	// comparison operators
-	bool operator == (CFBooleanRef const rhs) const
-	{
-		// since the CFBoolean values are two constants, we can compare them
-		return boolean == rhs;
-	}
 	
 	bool operator == (QCBoolean const rhs) const
 	{
 		return boolean == rhs.boolean;
 	}
 	
-	bool operator == (bool const rhs) const
-	{
-		return BoolFromCFBoolean() == rhs;
-	}
-	
-	bool operator != (CFBooleanRef const rhs) const
-	{
-		return !(*this == rhs);
-	}
-	
 	bool operator != (QCBoolean const rhs) const
-	{
-		return !(*this == rhs);
-	}
-	
-	bool operator != (bool const rhs) const
 	{
 		return !(*this == rhs);
 	}

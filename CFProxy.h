@@ -72,25 +72,26 @@ public:
 	// copy assignment
 	CFProxy & operator = (CFProxy const &rhs)
 	{
+		// increment the reference count
+		rhs.retain();
+		
 		release();
 		if (*proxyCount == 0)
 		{
-			// increment the reference count
-			rhs.retain();
-			
-			// replace my count with rhs'
 			delete proxyCount;
-			proxyCount = rhs.proxyCount;
-			
-			// and finally, replace my obj with rhs'
-			obj = rhs.obj;
 		}
+		// replace my count with rhs'
+		proxyCount = rhs.proxyCount;
+		
+		// and finally, replace my obj with rhs'
+		obj = rhs.obj;
 	}
 	
 	// equality comparators
 	bool operator == (CFProxy const &rhs) const
 	{
-		return CFEqual(obj, rhs.obj);
+		// pointer equality
+		return obj == rhs.obj; // CFEqual(obj, rhs.obj);
 	}
 	
 	bool operator != (CFProxy const &rhs) const
@@ -135,6 +136,11 @@ public:
 	~CFObjectProxy()
 	{
 		QCRelease(obj);
+	}
+	
+	operator CFTypeRef () const
+	{
+		return obj;
 	}
 };
 
