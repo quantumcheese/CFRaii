@@ -14,7 +14,7 @@
 void QCArray::show() const
 {
 #ifndef NDEBUG
-	CFShow(array);
+	CFShow(Array());
 #endif
 }
 

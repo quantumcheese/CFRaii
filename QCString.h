@@ -21,6 +21,7 @@
 class QCString
 {
 private:
+	// class invariant: only one of string and mString may be non-NULL at a time
 	CFMutableStringRef	mString;
 	CFStringRef			string;
 	
@@ -100,6 +101,7 @@ public:
 	// destructor
 	~QCString()
 	{
+//		QCRelease(String());
 		QCRelease(string);
 		QCRelease(mString);
 	}

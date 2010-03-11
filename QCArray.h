@@ -20,7 +20,8 @@
 class QCArray
 {
 private:
-	CFMutableArrayRef array;
+	CFMutableArrayRef	mArray;
+	CFArrayRef			array;
 	
 	// provides error checking
 	CFMutableArrayRef CFMutableArrayFromCFArray(CFArrayRef const &inArray) const
@@ -35,28 +36,37 @@ private:
 	
 public:
 	QCArray( )
-	: array( CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks) )
+	: array( 0x0 ), mArray( CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks) )
 	{ }
 	
 	QCArray(CFMutableArrayRef const &inArray)
-	: array( inArray )
+	: array( 0x0 ), mArray( inArray )
 	{ }
 	
 	QCArray(CFArrayRef const &inArray)
-	: array( CFMutableArrayFromCFArray(inArray) )
-	{
-		QCRelease(inArray);
-	}
+	: array( inArray ), mArray( 0x0 )
+	{ }
 	
 	// copy constructor
 	QCArray(QCArray const &inArray)
-	: array( QCRetain(inArray.array) )
+	: array( QCRetain(inArray.array) ), mArray( QCRetain(inArray.mArray) )
 	{ }
 	
 	// destructor
 	~QCArray( )
 	{
 		QCRelease(array);
+		QCRelease(mArray);
+	}
+	
+	CFArrayRef Array() const
+	{
+		return isNotNull(mArray) ? mArray : array;
+	}
+	
+	CFArrayRef CFArray() const
+	{
+		return isNotNull(array) ? array : mArray;
 	}
 	
 	// helper classes
@@ -64,7 +74,7 @@ public:
 	class CFTypeProxy
 	{
 	private:
-		// data members
+		// class invariant: only one of array and mArray may be non-NULL at a time
 		CFArrayRef		array;
 		CFIndex			index;
 		
@@ -241,8 +251,6 @@ public:
 		// data members
 		CFMutableArrayRef	array;
 		CFIndex				currentIndex;
-		friend class		QCArray; // for QCArray::insert()
-		
 		
 	public:
 		// ctor
@@ -353,25 +361,35 @@ public:
 		
 	}; // class iterator
 	
+	void makeMutable()
+	{
+		if (mArray == 0x0)
+		{
+			mArray = CFMutableArrayFromCFArray(array);
+			QCRelease(array);
+			array = 0x0;
+		}
+	}
 	
 	void makeUnique()
 	{
-		if (! null() && CFGetRetainCount(array) > 1)
+		if (! null() && CFGetRetainCount(Array()) > 1)
 		{
-			CFMutableArrayRef newArray = CFArrayCreateMutableCopy(kCFAllocatorDefault, 0, array);
-			QCRelease(array);
-			array = newArray;
+			CFMutableArrayRef newArray = CFArrayCreateMutableCopy(kCFAllocatorDefault, 0, Array());
+			QCRelease(Array());
+			array = 0x0;
+			mArray = newArray;
 		}
 	}
 	
 	bool null() const
 	{
-		return array == 0;
+		return Array() == 0;
 	}
 	
 	CFIndex count() const
 	{
-		return null() ? 0 : CFArrayGetCount(array);
+		return null() ? 0 : CFArrayGetCount(Array());
 	}
 	
 	bool empty() const
@@ -417,12 +435,12 @@ public:
 			makeUnique();
 			if (null())
 			{
-				CFRetain(rhs.array);
-				array = rhs.array;
+				// TODO: determine if rhs.Array() is mutable
+				array = QCRetain( rhs.Array() );
 			}
 			else
 			{
-				CFArrayAppendArray(array, rhs, CFRangeMake(0, rhs.count()));		
+				CFArrayAppendArray(mArray, rhs, CFRangeMake(0, rhs.count()));		
 			}
 		}
 		return *this;
@@ -431,52 +449,46 @@ public:
 	// CFArrayRef also includes CFMutableArrayRef
 	QCArray & operator += (CFArrayRef const &rhs)
 	{
-		if (rhs != 0)
+		if (rhs != 0x0)
 		{
 			makeUnique();
-			QCArray temp(rhs);
-			if (null())
+			if (null()) // neither array nor mArray
 			{
-				array = temp;
+				array = rhs;
 			}
 			else
 			{
-				CFArrayAppendArray(array, temp, CFRangeMake(0, temp.count()));
+				CFArrayAppendArray(mArray, rhs, CFRangeMake(0, CFArrayGetCount(rhs)));
 			}
 		}
 		return *this;
 	}
 	
 	// conversion operators
-	operator CFMutableArrayRef ()
-	{
-		return array;
-	}
-	
 	operator CFArrayRef () const
 	{
-		return array;
+		return Array();
 	}
 	
-	CFMutableTypeProxy operator [] (CFIndex const idx) const
+	CFMutableTypeProxy operator [] (CFIndex const idx) // not const because it has the potential of assignment
 	{
-		return CFMutableTypeProxy(array, idx);
+		makeMutable();
+		return CFMutableTypeProxy(mArray, idx);
 	}
 		
 	void push_back(CFTypeRef const value)
 	{
-		if (value == 0)
+		// don't add non-value
+		if (value != 0x0)
 		{
-			// don't add non-value
-			return;
+			makeUnique();
+			if (null())
+			{
+				// create array if there isn't one yet
+				mArray = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
+			}
+			CFArrayAppendValue(mArray, value);
 		}
-		makeUnique();
-		if (null())
-		{
-			// create array if there isn't one yet
-			array = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
-		}
-		CFArrayAppendValue(array, value);
 	}
 	
 	void appendArray(CFArrayRef otherArray)
@@ -484,7 +496,7 @@ public:
 		if (otherArray != NULL)
 		{
 			makeUnique();
-			CFArrayAppendArray(array, otherArray, CFRangeMake(0, CFArrayGetCount(otherArray)));
+			CFArrayAppendArray(mArray, otherArray, CFRangeMake(0, CFArrayGetCount(otherArray)));
 		}
 	}
 	
@@ -502,7 +514,7 @@ public:
 		makeUnique();
 		if (idx < count()) // strict less-than because arrays are 0-indexed
 		{
-			CFArrayRemoveValueAtIndex(array, idx);
+			CFArrayRemoveValueAtIndex(mArray, idx);
 		}
 		// else-case error reporting?
 	}
@@ -515,35 +527,35 @@ public:
 	
 	const_iterator begin() const
 	{
-		return const_iterator(array, 0);
+		return const_iterator(Array(), 0);
 	}
 	
 	const_iterator end() const
 	{
-		return const_iterator(array, count());
+		return const_iterator(Array(), count());
 	}
 	
 	iterator begin()
 	{
-		return iterator(array, 0);
+		makeMutable();
+		return iterator(mArray, 0);
 	}
 	
 	iterator end()
 	{
-		return iterator(array, count());
+		makeMutable();
+		return iterator(mArray, count());
 	}
 	
 	size_t size() const
 	{
-		return static_cast<size_t> ( null() ? 0u : CFArrayGetCount(array) );
+		return static_cast<size_t> ( null() ? 0u : CFArrayGetCount(Array()) );
 	}
 	
-	iterator insert(iterator where, CFTypeRef const val)
+	CFTypeRef at(CFIndex const idx) const
 	{
-		CFArrayInsertValueAtIndex(array, where.currentIndex, val);
-		return iterator(array, where.currentIndex);
+		return CFArrayGetValueAtIndex(Array(), idx);
 	}
-	
 };
 
 inline QCArray operator + (QCArray &lhs, QCArray const &rhs)
