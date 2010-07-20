@@ -37,7 +37,7 @@ class QCURL
 	
 public:
 	QCURL()
-	: url( 0 )
+	: url( NULL )
 	{ }
 	
 	QCURL(CFURLRef const &inURL)
@@ -64,7 +64,7 @@ public:
 	
 	bool null() const
 	{
-		return url == 0;
+		return url == NULL;
 	}
 	
 	// Operators
@@ -89,18 +89,7 @@ public:
 	{
 		return !(*this == rhs);
 	}
-#if 0
-	// we don't need an overload to take a QCURL since QCURL will convert to CFURLRef
-	QCURL operator + (CFStringRef const &rhs) const
-	{
-		if (!null() && rhs != 0)
-		{
-			CFURLRef temp(CFURLCreateCopyAppendingPathExtension(kCFAllocatorDefault, url, rhs));
-			return QCURL(temp);
-		}
-		return QCURL();
-	}
-#endif
+	
 	// conversion operators
 	operator CFURLRef () const
 	{
@@ -112,30 +101,21 @@ public:
 		return CFURLGetFSRef(url, &ref) != 0; // convert from Boolean
 	}
 	
-	void throwIfNull() const
+	QCString FileSystemRepresentation() const
 	{
 		if (null())
 		{
-			throw std::exception();
+			return QCString(static_cast<CFStringRef>(NULL));
 		}
-	}
-
-	
-	QCString FileSystemRepresentation() const
-	{
-		throwIfNull();
-		UInt8 buffer[qcBufferSize];
-		if (CFURLGetFileSystemRepresentation(url, true, buffer, qcBufferSize) == true)
-		{
-			// copies only the part of the buffer that was used
-			return QCString(reinterpret_cast<char *> (buffer) );
-		}
-		return QCString();
+		return QCString( CFURLCopyFileSystemPath(url, kCFURLPOSIXPathStyle) );
 	}
 	
 	QCString LastPathComponent() const
 	{
-		throwIfNull();
+		if (null())
+		{
+			return QCString(static_cast<CFStringRef>(NULL));
+		}
 		return QCString(CFURLCopyLastPathComponent(url));
 	}
 	
