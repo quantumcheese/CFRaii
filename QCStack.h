@@ -13,7 +13,6 @@
 #define _QC_STACK_GUARD_
 
 #include <CoreFoundation/CoreFoundation.h>
-#include <exception>
 #include <stdexcept>
 #include "CFRaiiCommon.h"
 
@@ -121,7 +120,7 @@ public:
 			makeUnique();
 			// lock
 			--stackCount;
-			// retain item to offset its removal
+			// retain item to offset its incipient removal
 			CFTypeRef poppedItem = CFRetain( CFArrayGetValueAtIndex(stack, stackCount) );
 			CFArrayRemoveValueAtIndex(stack, stackCount);
 			// unlock

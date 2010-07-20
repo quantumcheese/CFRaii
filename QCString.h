@@ -60,12 +60,12 @@ private:
 	
 public:
 	QCString( )
-	: string( 0 )
-	, mString( 0 )
+	: string( NULL )
+	, mString( NULL )
 	{ }
 	
 	QCString(CFMutableStringRef const &inString)
-	: string( 0 )
+	: string( NULL )
 	, mString( inString )
 	{ }
 	
@@ -76,19 +76,19 @@ public:
 	
 	QCString(HFSUniStr255 const &inString)
 	: string( CFStringFromHFSUniStr255(inString) )
-	, mString( 0 )
+	, mString( NULL )
 //	: mString( CFMutableStringFromHFSUniStr255(inString) )
 	{ }
 	
 	// creating a CFString from a C-string
 	QCString(char const * const inString)
 	: string( CFStringFromCString(inString) )
-	, mString( 0 )
+	, mString( NULL )
 	{ }
 	
 	QCString(std::string const &inString)
 	: string( CFStringFromCString(inString.c_str()) )
-	, mString( 0 )
+	, mString( NULL )
 	{ }
 	
 	
@@ -101,7 +101,6 @@ public:
 	// destructor
 	~QCString()
 	{
-//		QCRelease(String());
 		QCRelease(string);
 		QCRelease(mString);
 	}
@@ -121,6 +120,16 @@ public:
 	void makeUnique()
 	{
 		// don't care if 'string' is shared, just 'mString'
+		
+		if (!isNull(mString) && CFGetRetainCount(mString) > 1)
+		{
+			// relinquish our ownership
+			CFMutableStringRef newString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, mString);
+			CFRelease(mString);
+			mString = newString;
+		}
+		return;
+		
 		if (isNull(mString))
 		{
 			// new string will be owned by only us

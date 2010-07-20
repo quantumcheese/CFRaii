@@ -99,6 +99,15 @@ public:
 	// should be atomic
 	void makeUnique()
 	{
+		if (!isNull(mData) && CFGetRetainCount(mData) > 1)
+		{
+			// someone else owns it now
+			CFMutableDataRef newData = CFDataCreateMutableCopy(kCFAllocatorDefault, 0, mData);
+			CFRelease(mData);
+			mData = newData;
+		}
+		return;
+		
 		if (! null() && CFGetRetainCount(Data()) > 1)
 		{
 			CFMutableDataRef newData = CFDataCreateMutableCopy(kCFAllocatorDefault, 0, Data());
@@ -168,6 +177,7 @@ public:
 	
 	void AppendBytes(UInt8 const * const buffer, CFIndex const &bufferSize)
 	{
+		makeMutable();
 		makeUnique();
 		CFDataAppendBytes(mData, buffer, bufferSize);
 	}

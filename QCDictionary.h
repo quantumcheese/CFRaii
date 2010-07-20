@@ -247,6 +247,7 @@ public:
 	CFMutableTypeProxy operator [] (CFTypeRef const key)
 	{
 		makeMutable();
+		makeUnique();
 		return CFMutableTypeProxy(mDict, key);
 	}
 	
@@ -267,18 +268,21 @@ public:
 #if 0
 	void operator () (CFTypeRef const key, CFTypeRef const value)
 	{
-		makeUnique(); // also makes mutable
+		makeMutable();
+		makeUnique();
 		CFDictionarySetValue(mDict, key, value);
 	}
 #endif
 	void addValue(CFTypeRef const key, CFTypeRef const value)
 	{
 		makeUnique();
+		makeMutable();
 		CFDictionaryAddValue(mDict, key, value);
 	}
 	void setValue(CFTypeRef const key, CFTypeRef const value)
 	{
 		makeUnique();
+		makeMutable();
 		CFDictionarySetValue(mDict, key, value);
 	}
 	

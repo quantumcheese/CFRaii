@@ -385,6 +385,15 @@ public:
 	
 	void makeUnique()
 	{
+		// don't care if 'array' is shared, just 'mArray'
+		if (!isNull(mArray) && CFGetRetainCount(mArray) > 1)
+		{
+			CFMutableArrayRef newArray = CFArrayCreateMutableCopy(kCFAllocatorDefault, 0, mArray);
+			CFRelease(mArray);
+			mArray = newArray;
+		}
+		return;
+		
 		if (! null() && CFGetRetainCount(Array()) > 1)
 		{
 			CFMutableArrayRef newArray = CFArrayCreateMutableCopy(kCFAllocatorDefault, 0, Array());
@@ -445,6 +454,7 @@ public:
 		// if rhs.array == NULL do nothing
 		if (rhs.array != NULL)
 		{
+			makeMutable();
 			makeUnique();
 			if (null())
 			{
@@ -465,6 +475,7 @@ public:
 	{
 		if (rhs != NULL)
 		{
+			makeMutable();
 			makeUnique();
 			if (null()) // neither array nor mArray
 			{
@@ -487,6 +498,7 @@ public:
 	CFMutableTypeProxy operator [] (CFIndex const idx) // not const because it has the potential of assignment
 	{
 		makeMutable();
+		makeUnique();
 		return CFMutableTypeProxy(mArray, idx);
 	}
 	
@@ -500,6 +512,7 @@ public:
 		// don't add non-value
 		if (value != NULL)
 		{
+			makeMutable();
 			makeUnique();
 			if (null())
 			{
@@ -514,6 +527,7 @@ public:
 	{
 		if (otherArray != NULL)
 		{
+			makeMutable();
 			makeUnique();
 			CFArrayAppendArray(mArray, otherArray, CFRangeMake(0, CFArrayGetCount(otherArray)));
 		}
@@ -533,6 +547,7 @@ public:
 	{
 		if (idx < count()) // strict less-than because arrays are 0-indexed
 		{
+			makeMutable();
 			makeUnique();
 			CFArrayRemoveValueAtIndex(mArray, idx);
 		}
@@ -562,12 +577,14 @@ public:
 	iterator begin()
 	{
 		makeMutable();
+		makeUnique();
 		return iterator(mArray, 0);
 	}
 	
 	iterator end()
 	{
 		makeMutable();
+		makeUnique();
 		return iterator(mArray, count());
 	}
 	
