@@ -19,30 +19,38 @@
 
 class QCData
 {
+	// class invariant: at most one of data and mData may be non-NULL at a time
 private:
-	CFMutableDataRef data;
+	CFMutableDataRef	mData;
+	CFDataRef			data;
 	
-	CFMutableDataRef CFMutableDataFromCFData(CFDataRef const &inData) const
+	CFMutableDataRef CFMutableDataFromCFData(CFDataRef const inData) const
 	{
+		return (inData == NULL) ? NULL : CFDataCreateMutableCopy(kCFAllocatorDefault, 0, inData);
+#if 0
 		CFMutableDataRef temp(0);
 		if (inData != 0)
 		{
 			temp = CFDataCreateMutableCopy(kCFAllocatorDefault, 0, inData);
 		}
 		return temp;
+#endif
 	}
 	
 public:
 	QCData()
-	: data( CFDataCreateMutable(kCFAllocatorDefault, 0) )
+	: data( NULL )
+	, mData( CFDataCreateMutable(kCFAllocatorDefault, 0) )
 	{ }
 	
 	QCData(CFMutableDataRef const &inData )
-	: data( inData )
+	: data( NULL )
+	, mData( inData )
 	{ }
 	
 	QCData(CFDataRef const &inData)
-	: data( CFMutableDataFromCFData(inData) )
+	: data( inData )
+	, mData( NULL )
 	{
 		QCRelease(inData);
 	}
@@ -50,60 +58,101 @@ public:
 	// copy constructor
 	QCData(QCData const &inData)
 	: data( QCRetain(inData.data) )
+	, mData( QCRetain(inData.mData) )
 	{ }
 	
 	// destructor
 	~QCData()
 	{
 		QCRelease(data);
+		QCRelease(mData);
 	}
 	
+	CFDataRef Data () const
+	{
+		return isNotNull(mData) ? mData : data;
+	}
+	
+	CFDataRef CFData () const
+	{
+		return isNotNull(data) ? data : mData;
+	}
+	
+	// should be atomic
+	void makeMutable()
+	{
+		if (mData == NULL)
+		{
+			if (data != NULL)
+			{
+				mData = CFMutableDataFromCFData(data);
+				QCRelease(data);
+				data = NULL;
+			}
+			else {
+				mData = CFDataCreateMutable(kCFAllocatorDefault, 0);
+			}
+
+		}
+	}
+	
+	// should be atomic
 	void makeUnique()
 	{
-		if (! null() && CFGetRetainCount(data) > 1)
+		if (! null() && CFGetRetainCount(Data()) > 1)
 		{
-			CFMutableDataRef newData = CFDataCreateMutableCopy(kCFAllocatorDefault, 0, data);
-			QCRelease(data);
-			data = newData;
+			CFMutableDataRef newData = CFDataCreateMutableCopy(kCFAllocatorDefault, 0, Data());
+			QCRelease(Data());
+			data = NULL;
+			mData = newData;
 		}
 	}
 	
 	bool null() const
 	{
-		return data == 0;
+		return isNull(Data());
 	}
 	
 	CFIndex length () const
 	{
-		return CFDataGetLength(data);
+		return CFDataGetLength(Data());
 	}
 	
 	QCData copy() const
 	{
-		return null() ? QCData() : QCData(CFDataCreateMutableCopy(kCFAllocatorDefault, 0, data));
+		return QCData(*this);//null() ? QCData() : QCData(CFDataCreateMutableCopy(kCFAllocatorDefault, 0, data));
 	}
 	
 	void GetBytes(UInt8 *buffer) const
 	{
 		if (!null())
 		{
-			CFDataGetBytes(data, CFRangeMake(0, length()), buffer);
+			CFDataGetBytes(Data(), CFRangeMake(0, length()), buffer);
 		}
 	}
 	
 	UInt8 const * GetBytePtr() const
 	{
-		return null() ? 0 : CFDataGetBytePtr(data);
+		return null() ? 0 : CFDataGetBytePtr(Data());
 	}
 	
 	// operators
 	
-	// assignment operators
-	// TODO: implement ==, !=
+	// copy assignment
+	QCData & operator = (QCData const &rhs)
+	{
+		// copy and swap
+		QCData temp(rhs);
+		std::swap(data, temp.data);
+		std::swap(mData, temp.mData);
+		return *this;
+	}
+	
+	// comparison operators
 	bool operator == (QCData const &rhs) const
 	{
-		return (data == rhs.data)
-				|| (CFEqual(data, rhs.data) == true);
+		return (Data() == rhs.Data())
+				|| (CFEqual(Data(), rhs.Data()) == true);
 	}
 	
 	bool operator != (QCData const &rhs) const
@@ -111,21 +160,16 @@ public:
 		return !(*this == rhs);
 	}
 	
-	// conversion operators
-	operator CFMutableDataRef ()
-	{
-		return data;
-	}
-	
+	// conversion operator
 	operator CFDataRef () const
 	{
-		return data;
+		return Data();
 	}
 	
 	void AppendBytes(UInt8 const * const buffer, CFIndex const &bufferSize)
 	{
 		makeUnique();
-		CFDataAppendBytes(data, buffer, bufferSize);
+		CFDataAppendBytes(mData, buffer, bufferSize);
 	}
 	
 	void show() const;
