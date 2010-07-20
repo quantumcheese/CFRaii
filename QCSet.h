@@ -17,29 +17,23 @@
 class QCSet
 {
 private:
-	CFMutableSetRef set;
-	
-	CFMutableSetRef CFMutableSetFromCFSet(CFSetRef const &inSet) const
-	{
-		CFMutableSetRef temp(0);
-		if (inSet != 0)
-		{
-			temp = CFSetCreateMutableCopy(kCFAllocatorDefault, 0, inSet);
-		}
-		return temp;
-	}
+	CFMutableSetRef	mSet;
+	CFSetRef		set;
 	
 public:
 	QCSet( )
-	: set( CFSetCreateMutable(kCFAllocatorDefault, 0, &kCFTypeSetCallBacks) )
+	: set( NULL )
+	, mSet( CFSetCreateMutable(kCFAllocatorDefault, 0, &kCFTypeSetCallBacks) )
 	{ }
 	
-	QCSet(CFMutableSetRef const &inSet)
+	QCSet(CFMutableSetRef const inSet)
+	: set( NULL )
+	, mSet( inSet )
+	{ }
+	
+	QCSet(CFSetRef const inSet)
 	: set( inSet )
-	{ }
-	
-	QCSet(CFSetRef const &inSet)
-	: set( CFMutableSetFromCFSet(inSet) )
+	, mSet( NULL )
 	{
 		QCRelease(inSet);
 	}
@@ -47,32 +41,63 @@ public:
 	// copy constructor
 	QCSet(QCSet const &inSet)
 	: set( QCRetain(inSet.set) )
+	, mSet( QCRetain(inSet.mSet) )
 	{ }
 	
 	// destructor
 	~QCSet( )
 	{
 		QCRelease(set);
+		QCRelease(mSet);
+	}
+	
+	CFSetRef Set() const
+	{
+		return isNotNull(mSet) ? mSet : set;
+	}
+	
+	CFSetRef CFSet() const
+	{
+		return isNotNull(set) ? set : mSet;
+	}
+	
+	void makeMutable()
+	{
+		if (mSet != NULL)
+		{
+			if (set != NULL)
+			{
+				mSet = CFSetCreateMutableCopy(kCFAllocatorDefault, 0, set);
+				CFRelease(set);
+				set = NULL;
+			}
+			else
+			{
+				mSet = CFSetCreateMutable(kCFAllocatorDefault, 0, &kCFTypeSetCallBacks);
+			}
+
+		}
 	}
 	
 	void makeUnique()
 	{
-		if (! null() && CFGetRetainCount(set) > 1)
+		if (! null() && CFGetRetainCount(Set()) > 1)
 		{
-			CFMutableSetRef newSet = CFSetCreateMutableCopy(kCFAllocatorDefault, 0, set);
-			QCRelease(set);
-			set = newSet;
+			CFMutableSetRef newSet = CFSetCreateMutableCopy(kCFAllocatorDefault, 0, Set());
+			QCRelease(Set());
+			set = NULL;
+			mSet = newSet;
 		}
 	}
 	
 	bool null() const
 	{
-		return set == 0;
+		return Set() == NULL;
 	}
 	
 	CFIndex count() const
 	{
-		return null() ? 0 : CFSetGetCount(set);
+		return null() ? 0 : CFSetGetCount(Set());
 	}
 	
 	bool empty() const
@@ -81,30 +106,25 @@ public:
 	}
 
 	// conversion operators
-	operator CFMutableSetRef ()
-	{
-		return set;
-	}
-	
 	operator CFSetRef () const
 	{
-		return set;
+		return Set();
 	}
 	
 	QCSet copy() const
 	{
-		return null() ? QCSet() : QCSet(CFSetCreateMutableCopy(kCFAllocatorDefault, 0, set));
+		return QCSet(*this);//null() ? QCSet() : QCSet(CFSetCreateMutableCopy(kCFAllocatorDefault, 0, set));
 	}
 	
 	void add(CFTypeRef const &value)
 	{
 		makeUnique();
-		CFSetAddValue(set, value);
+		CFSetAddValue(mSet, value);
 	}
 	
 	bool contains(CFTypeRef const &value) const
 	{
-		return CFSetContainsValue(set, value) == true;
+		return CFSetContainsValue(Set(), value) == true;
 	}
 	
 	void show() const;
