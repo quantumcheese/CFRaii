@@ -7,6 +7,10 @@
  * See license.txt for licensing terms and conditions.
  */
 
+/* C++ wrappers for generic type objects that need no special functionality.
+ * Provides exception-safety for CF objects.
+ */
+
 #ifndef _CF_PROXY_GUARD_
 #define _CF_PROXY_GUARD_
 
@@ -30,6 +34,7 @@ public:
 	CFProxy(CFProxy const &proxy)
 	: obj(proxy.obj), proxyCount(proxy.proxyCount)
 	{
+		// could retain here and release in dtor regardless of proxyCount
 		++(*proxyCount);
 	}
 	
@@ -80,6 +85,9 @@ public:
 		{
 			delete proxyCount;
 		}
+		
+		// TODO: switch to copy-and-swap ?
+		
 		// replace my count with rhs'
 		proxyCount = rhs.proxyCount;
 		
@@ -113,27 +121,27 @@ public:
 	
 };
 
-class CFObjectProxy
+class CFTypeProxy
 {
 private:
 	// data member
 	CFTypeRef obj;
 	
 	// no copy assignment
-	CFObjectProxy & operator = (CFObjectProxy const &);
+	CFTypeProxy & operator = (CFTypeProxy const &);
 public:
 	// ctor
-	CFObjectProxy(CFTypeRef const cfobj)
+	CFTypeProxy(CFTypeRef const cfobj)
 	: obj(QCRetain(cfobj))
 	{ }
 	
 	// copy ctor
-	CFObjectProxy(CFObjectProxy const &proxy)
+	CFTypeProxy(CFTypeProxy const &proxy)
 	: obj(QCRetain(proxy.obj))
 	{ }
 	
 	// dtor
-	~CFObjectProxy()
+	CFTypeProxy()
 	{
 		QCRelease(obj);
 	}
