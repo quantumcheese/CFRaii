@@ -43,20 +43,24 @@ private:
 	
 public:
 	QCArray( )
-	: array( NULL ), mArray( CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks) )
+	: array( NULL )
+	, mArray( CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks) )
 	{ }
 	
 	QCArray(CFMutableArrayRef const &inArray)
-	: array( NULL ), mArray( inArray )
+	: array( NULL )
+	, mArray( inArray )
 	{ }
 	
 	QCArray(CFArrayRef const &inArray)
-	: array( inArray ), mArray( NULL )
+	: array( inArray )
+	, mArray( NULL )
 	{ }
 	
 	// copy constructor
 	QCArray(QCArray const &inArray)
-	: array( QCRetain(inArray.array) ), mArray( QCRetain(inArray.mArray) )
+	: array( QCRetain(inArray.array) )
+	, mArray( QCRetain(inArray.mArray) )
 	{ }
 	
 	// destructor
@@ -123,7 +127,7 @@ public:
 		{
 			return CFArrayGetValueAtIndex(array, index);
 		}
-	};
+	}; // class CFTypeProxy
 	
 #pragma mark class const_iterator
 	class const_iterator
@@ -205,8 +209,7 @@ public:
 		{
 			return CFTypeProxy(array, currentIndex);
 		}
-		
-	};
+	}; // class const_iterator
 	
 #pragma mark class CFMutableTypeProxy
 	class CFMutableTypeProxy
@@ -254,7 +257,7 @@ public:
 			CFArraySetValueAtIndex(array, index, rhs);
 			return *this;
 		}
-	};
+	}; // class CFMutableTypeProxy
 	
 #pragma mark class iterator
 	class iterator
@@ -377,9 +380,19 @@ public:
 	{
 		if (mArray == NULL)
 		{
-			mArray = CFMutableArrayFromCFArray(array);
-			QCRelease(array);
-			array = NULL;
+			if (array != NULL)
+			{
+				mArray = CFMutableArrayFromCFArray(array);
+				QCRelease(array);
+				array = NULL;
+			}
+			else
+			{
+				mArray = CFArrayCreateMutable(kCFAllocatorDefault
+											  , 0
+											  , &kCFTypeArrayCallBacks);
+			}
+
 		}
 	}
 	
@@ -412,7 +425,7 @@ public:
 	
 	QCArray copy() const
 	{
-		return null() ? QCArray() : QCArray(CFArrayCreateMutableCopy(kCFAllocatorDefault, 0, array));
+		return QCArray(*this);// null() ? QCArray() : QCArray(CFArrayCreateMutableCopy(kCFAllocatorDefault, 0, array));
 	}
 	
 	// Operators
@@ -422,6 +435,7 @@ public:
 	{
 		QCArray temp(rhs);
 		std::swap(array, temp.array);
+		std::swap(mArray, temp.mArray);
 		return *this;
 
 	}
@@ -429,8 +443,8 @@ public:
 	// comparison operators
 	bool operator == (QCArray const &rhs) const
 	{
-		return (array == rhs.array)
-				|| (CFEqual(array, rhs.array) == true); // convert from Boolean
+		return (Array() == rhs.Array())
+				|| (CFEqual(Array(), rhs.Array()) == true); // convert from Boolean
 	}
 	
 	bool operator != (QCArray const &rhs) const
@@ -487,6 +501,11 @@ public:
 	{
 		makeMutable();
 		return CFMutableTypeProxy(mArray, idx);
+	}
+	
+	CFTypeProxy operator [] (CFIndex const idx) const
+	{
+		return CFTypeProxy(Array(), idx);
 	}
 		
 	void push_back(CFTypeRef const value)
