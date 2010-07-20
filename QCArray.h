@@ -12,6 +12,8 @@
 
 #include <CoreFoundation/CoreFoundation.h>
 #include <algorithm>
+#include <stdexcept>
+
 #include "CFRaiiCommon.h"
 
 #include "QCString.h"
@@ -19,6 +21,7 @@
 
 class QCArray
 {
+	// class invariant: at most one of array and mArray may be non-NULL at a time
 private:
 	CFMutableArrayRef	mArray;
 	CFArrayRef			array;
@@ -26,25 +29,29 @@ private:
 	// provides error checking
 	CFMutableArrayRef CFMutableArrayFromCFArray(CFArrayRef const &inArray) const
 	{
+		return (inArray == NULL) ? NULL
+								 : CFArrayCreateMutableCopy(kCFAllocatorDefault, 0, inArray);
+#if 0
 		CFMutableArrayRef temp(NULL);
 		if (inArray != NULL)
 		{
 			temp = CFArrayCreateMutableCopy(kCFAllocatorDefault, 0, inArray);
 		}
 		return temp;
+#endif
 	}
 	
 public:
 	QCArray( )
-	: array( 0x0 ), mArray( CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks) )
+	: array( NULL ), mArray( CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks) )
 	{ }
 	
 	QCArray(CFMutableArrayRef const &inArray)
-	: array( 0x0 ), mArray( inArray )
+	: array( NULL ), mArray( inArray )
 	{ }
 	
 	QCArray(CFArrayRef const &inArray)
-	: array( inArray ), mArray( 0x0 )
+	: array( inArray ), mArray( NULL )
 	{ }
 	
 	// copy constructor
@@ -69,12 +76,13 @@ public:
 		return isNotNull(array) ? array : mArray;
 	}
 	
-	// helper classes
+#pragma mark -
+#pragma mark Helper Classes
 	
+#pragma mark class CFTypeProxy
 	class CFTypeProxy
 	{
 	private:
-		// class invariant: only one of array and mArray may be non-NULL at a time
 		CFArrayRef		array;
 		CFIndex			index;
 		
@@ -101,6 +109,7 @@ public:
 		// comparison operators
 		bool operator == (CFTypeProxy const &rhs) const
 		{
+			// could use CFEqual(array, rhs.array)
 			return array == rhs.array && index == rhs.index;
 		}
 		
@@ -116,6 +125,7 @@ public:
 		}
 	};
 	
+#pragma mark class const_iterator
 	class const_iterator
 	{
 	private:
@@ -151,7 +161,7 @@ public:
 			return *this;
 		}
 		
-		// prefix operators (must retrn by reference)
+		// prefix operators (must return by reference)
 		const_iterator & operator ++ ()
 		{
 			++ currentIndex;
@@ -198,6 +208,7 @@ public:
 		
 	};
 	
+#pragma mark class CFMutableTypeProxy
 	class CFMutableTypeProxy
 	{
 	private:
@@ -245,6 +256,7 @@ public:
 		}
 	};
 	
+#pragma mark class iterator
 	class iterator
 	{
 	private:
@@ -363,11 +375,11 @@ public:
 	
 	void makeMutable()
 	{
-		if (mArray == 0x0)
+		if (mArray == NULL)
 		{
 			mArray = CFMutableArrayFromCFArray(array);
 			QCRelease(array);
-			array = 0x0;
+			array = NULL;
 		}
 	}
 	
@@ -377,14 +389,14 @@ public:
 		{
 			CFMutableArrayRef newArray = CFArrayCreateMutableCopy(kCFAllocatorDefault, 0, Array());
 			QCRelease(Array());
-			array = 0x0;
+			array = NULL;
 			mArray = newArray;
 		}
 	}
 	
 	bool null() const
 	{
-		return Array() == 0;
+		return isNull( Array() );
 	}
 	
 	CFIndex count() const
@@ -429,13 +441,14 @@ public:
 	// compound assignment -- concatenation
 	QCArray & operator += (QCArray const &rhs)
 	{
-		// if rhs.array == 0, do nothing
-		if (rhs.array != 0)
+		// if rhs.array == NULL do nothing
+		if (rhs.array != NULL)
 		{
 			makeUnique();
 			if (null())
 			{
 				// TODO: determine if rhs.Array() is mutable
+				// doc: "CFMutableArray objects have the same type identifier as CFArray objects."
 				array = QCRetain( rhs.Array() );
 			}
 			else
@@ -449,7 +462,7 @@ public:
 	// CFArrayRef also includes CFMutableArrayRef
 	QCArray & operator += (CFArrayRef const &rhs)
 	{
-		if (rhs != 0x0)
+		if (rhs != NULL)
 		{
 			makeUnique();
 			if (null()) // neither array nor mArray
@@ -479,7 +492,7 @@ public:
 	void push_back(CFTypeRef const value)
 	{
 		// don't add non-value
-		if (value != 0x0)
+		if (value != NULL)
 		{
 			makeUnique();
 			if (null())
@@ -509,14 +522,19 @@ public:
 		}
 	}
 	
+	// throws out_of_range exception for invalid index
 	void removeValueAtIndex(CFIndex const idx)
 	{
-		makeUnique();
 		if (idx < count()) // strict less-than because arrays are 0-indexed
 		{
+			makeUnique();
 			CFArrayRemoveValueAtIndex(mArray, idx);
 		}
-		// else-case error reporting?
+		else
+		{
+			// else-case error reporting
+			throw std::out_of_range(std::string("Removing value for invalid index."));
+		}
 	}
 	
 	void show() const;

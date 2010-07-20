@@ -27,9 +27,9 @@ bool QCArray::writeToFile(QCString const &filePath, CFPropertyListFormat const f
 	if (result)
 	{
 		// don't care about the error string
-		result = CFPropertyListWriteToStream(array, writeStream, format, 0) != 0;
+		result = CFPropertyListWriteToStream(array, writeStream, format, NULL) != 0;
 		
-		CFWriteStreamClose(writeStream);
+		CFWriteStreamClose(writeStream); // we're not ignoring anything -- it returns void
 	}
 	
 	QCRelease(writeStream);
