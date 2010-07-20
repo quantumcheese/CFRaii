@@ -92,6 +92,29 @@ public:
 		return boolean;
 	}
 	
+	// Logic operators
+	
+	QCBoolean operator && (QCBoolean const &rhs)
+	{
+		return QCBoolean(
+						 BoolFromCFBoolean() && rhs.BoolFromCFBoolean()
+						 );
+	}
+	
+	QCBoolean operator || (QCBoolean const &rhs)
+	{
+		return QCBoolean(
+						 BoolFromCFBoolean() || rhs.BoolFromCFBoolean()
+						 );
+	}
+	
+	QCBoolean operator ! ()
+	{
+		return QCBoolean(
+						 ! BoolFromCFBoolean()
+						 );
+	}
+	
 	void show() const;
 };
 

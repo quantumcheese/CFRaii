@@ -90,6 +90,17 @@ public:
 		return *this;
 	}
 	
+	bool operator == (QCPair const &rhs) const
+	{
+		return (first == rhs.first)
+			&& (second == rhs.second);
+	}
+	
+	bool operator != (QCPair const &rhs) const
+	{
+		return !(*this == rhs);
+	}
+	
 };
 
 #endif
