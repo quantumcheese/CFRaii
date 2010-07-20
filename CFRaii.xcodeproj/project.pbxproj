@@ -1,0 +1,393 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		96020EEC112B2F90002CD158 /* CFProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 96020EEB112B2F90002CD158 /* CFProxy.h */; };
+		9633BDD21022414B00656F42 /* QCDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 9633BDD01022414B00656F42 /* QCDictionary.h */; };
+		9633BDD31022414B00656F42 /* QCDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9633BDD11022414B00656F42 /* QCDictionary.cpp */; };
+		9633BE11102249B300656F42 /* QCArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 9633BE0F102249B300656F42 /* QCArray.h */; };
+		9633BE12102249B300656F42 /* QCArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9633BE10102249B300656F42 /* QCArray.cpp */; };
+		9633BE3610224B6200656F42 /* QCURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 9633BE3410224B6200656F42 /* QCURL.h */; };
+		9633BE3710224B6200656F42 /* QCURL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9633BE3510224B6200656F42 /* QCURL.cpp */; };
+		9633BF7310226C8600656F42 /* QCString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9633BF7110226C8600656F42 /* QCString.cpp */; };
+		9633BF7410226C8600656F42 /* QCString.h in Headers */ = {isa = PBXBuildFile; fileRef = 9633BF7210226C8600656F42 /* QCString.h */; };
+		9633BF8E10226D2F00656F42 /* QCNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = 9633BF8C10226D2F00656F42 /* QCNumber.h */; };
+		9633BF8F10226D2F00656F42 /* QCNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9633BF8D10226D2F00656F42 /* QCNumber.cpp */; };
+		9633C2BA1023602F00656F42 /* CFRaii.h in Headers */ = {isa = PBXBuildFile; fileRef = 9633C2B91023602F00656F42 /* CFRaii.h */; };
+		96CE88151026733900F86EA4 /* QCSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 96CE88131026733900F86EA4 /* QCSet.h */; };
+		96CE88161026733900F86EA4 /* QCSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96CE88141026733900F86EA4 /* QCSet.cpp */; };
+		96E1A1A31095E63E00EDFF4E /* QCBoolean.h in Headers */ = {isa = PBXBuildFile; fileRef = 96E1A1A11095E63E00EDFF4E /* QCBoolean.h */; };
+		96E1A1A41095E63E00EDFF4E /* QCBoolean.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96E1A1A21095E63E00EDFF4E /* QCBoolean.cpp */; };
+		96E2C10010E867C300ECA91F /* QCStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 96E2C0FE10E867C300ECA91F /* QCStack.h */; };
+		96E2C10110E867C300ECA91F /* QCStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96E2C0FF10E867C300ECA91F /* QCStack.cpp */; };
+		96E6F93B1029B03500965EC5 /* QCData.h in Headers */ = {isa = PBXBuildFile; fileRef = 96E6F9391029B03500965EC5 /* QCData.h */; };
+		96E6F93C1029B03500965EC5 /* QCData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96E6F93A1029B03500965EC5 /* QCData.cpp */; };
+		96EDDC7F102B4DA000A0C958 /* CFRaiiCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 96EDDC7E102B4DA000A0C958 /* CFRaiiCommon.h */; };
+		96FAFA3D10FE2523003A5E34 /* QCMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 96FAFA3B10FE2523003A5E34 /* QCMap.h */; };
+		96FAFA3E10FE2523003A5E34 /* QCMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96FAFA3C10FE2523003A5E34 /* QCMap.cpp */; };
+		96FAFA4510FE25C2003A5E34 /* QCPair.h in Headers */ = {isa = PBXBuildFile; fileRef = 96FAFA4310FE25C2003A5E34 /* QCPair.h */; };
+		96FAFA4610FE25C2003A5E34 /* QCPair.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96FAFA4410FE25C2003A5E34 /* QCPair.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		96020EEB112B2F90002CD158 /* CFProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFProxy.h; sourceTree = "<group>"; };
+		9633BDD01022414B00656F42 /* QCDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCDictionary.h; sourceTree = "<group>"; };
+		9633BDD11022414B00656F42 /* QCDictionary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCDictionary.cpp; sourceTree = "<group>"; };
+		9633BE0F102249B300656F42 /* QCArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCArray.h; sourceTree = "<group>"; };
+		9633BE10102249B300656F42 /* QCArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCArray.cpp; sourceTree = "<group>"; };
+		9633BE3410224B6200656F42 /* QCURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCURL.h; sourceTree = "<group>"; };
+		9633BE3510224B6200656F42 /* QCURL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCURL.cpp; sourceTree = "<group>"; };
+		9633BF7110226C8600656F42 /* QCString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCString.cpp; sourceTree = "<group>"; };
+		9633BF7210226C8600656F42 /* QCString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCString.h; sourceTree = "<group>"; };
+		9633BF8C10226D2F00656F42 /* QCNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCNumber.h; sourceTree = "<group>"; };
+		9633BF8D10226D2F00656F42 /* QCNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCNumber.cpp; sourceTree = "<group>"; };
+		9633C2B91023602F00656F42 /* CFRaii.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFRaii.h; sourceTree = "<group>"; };
+		96CE88131026733900F86EA4 /* QCSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCSet.h; sourceTree = "<group>"; };
+		96CE88141026733900F86EA4 /* QCSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCSet.cpp; sourceTree = "<group>"; };
+		96E1A1A11095E63E00EDFF4E /* QCBoolean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCBoolean.h; sourceTree = "<group>"; };
+		96E1A1A21095E63E00EDFF4E /* QCBoolean.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCBoolean.cpp; sourceTree = "<group>"; };
+		96E2C0FB10E867A300ECA91F /* license.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = license.txt; sourceTree = "<group>"; };
+		96E2C0FE10E867C300ECA91F /* QCStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCStack.h; sourceTree = "<group>"; };
+		96E2C0FF10E867C300ECA91F /* QCStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCStack.cpp; sourceTree = "<group>"; };
+		96E6F9391029B03500965EC5 /* QCData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCData.h; sourceTree = "<group>"; };
+		96E6F93A1029B03500965EC5 /* QCData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCData.cpp; sourceTree = "<group>"; };
+		96EDDC7E102B4DA000A0C958 /* CFRaiiCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFRaiiCommon.h; sourceTree = "<group>"; };
+		96FAFA3B10FE2523003A5E34 /* QCMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCMap.h; sourceTree = "<group>"; };
+		96FAFA3C10FE2523003A5E34 /* QCMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCMap.cpp; sourceTree = "<group>"; };
+		96FAFA4310FE25C2003A5E34 /* QCPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCPair.h; sourceTree = "<group>"; };
+		96FAFA4410FE25C2003A5E34 /* QCPair.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCPair.cpp; sourceTree = "<group>"; };
+		96FDC1891125A6F100D5A804 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		D2AAC046055464E500DB518D /* libCFRaii.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCFRaii.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D289987405E68DCB004EDB86 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* CoreFoundationWrappers */ = {
+			isa = PBXGroup;
+			children = (
+				08FB7795FE84155DC02AAC07 /* Source */,
+				C6A0FF2B0290797F04C91782 /* Documentation */,
+				1AB674ADFE9D54B511CA2CBB /* Products */,
+			);
+			name = CoreFoundationWrappers;
+			sourceTree = "<group>";
+		};
+		08FB7795FE84155DC02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				96020EEB112B2F90002CD158 /* CFProxy.h */,
+				9633C2B91023602F00656F42 /* CFRaii.h */,
+				96EDDC7E102B4DA000A0C958 /* CFRaiiCommon.h */,
+				96FFBA861022117100753982 /* Array */,
+				96E1A1A01095E62200EDFF4E /* Boolean */,
+				96FFBA871022118E00753982 /* Data */,
+				96FFBA851022116700753982 /* Dictionary */,
+				96FAFA3910FE2509003A5E34 /* Map (unimplemented) */,
+				9633BF8B10226D2400656F42 /* Number */,
+				96FAFA3A10FE250E003A5E34 /* Pair (not useful) */,
+				96CE88121026732C00F86EA4 /* Set */,
+				96E2C0FD10E867B600ECA91F /* Stack */,
+				96FFBA841022116300753982 /* String */,
+				9633BE3310224B4D00656F42 /* URL */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		1AB674ADFE9D54B511CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2AAC046055464E500DB518D /* libCFRaii.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9633BE3310224B4D00656F42 /* URL */ = {
+			isa = PBXGroup;
+			children = (
+				9633BE3510224B6200656F42 /* QCURL.cpp */,
+				9633BE3410224B6200656F42 /* QCURL.h */,
+			);
+			name = URL;
+			sourceTree = "<group>";
+		};
+		9633BF8B10226D2400656F42 /* Number */ = {
+			isa = PBXGroup;
+			children = (
+				9633BF8D10226D2F00656F42 /* QCNumber.cpp */,
+				9633BF8C10226D2F00656F42 /* QCNumber.h */,
+			);
+			name = Number;
+			sourceTree = "<group>";
+		};
+		96CE88121026732C00F86EA4 /* Set */ = {
+			isa = PBXGroup;
+			children = (
+				96CE88141026733900F86EA4 /* QCSet.cpp */,
+				96CE88131026733900F86EA4 /* QCSet.h */,
+			);
+			name = Set;
+			sourceTree = "<group>";
+		};
+		96E1A1A01095E62200EDFF4E /* Boolean */ = {
+			isa = PBXGroup;
+			children = (
+				96E1A1A21095E63E00EDFF4E /* QCBoolean.cpp */,
+				96E1A1A11095E63E00EDFF4E /* QCBoolean.h */,
+			);
+			name = Boolean;
+			sourceTree = "<group>";
+		};
+		96E2C0FD10E867B600ECA91F /* Stack */ = {
+			isa = PBXGroup;
+			children = (
+				96E2C0FF10E867C300ECA91F /* QCStack.cpp */,
+				96E2C0FE10E867C300ECA91F /* QCStack.h */,
+			);
+			name = Stack;
+			sourceTree = "<group>";
+		};
+		96FAFA3910FE2509003A5E34 /* Map (unimplemented) */ = {
+			isa = PBXGroup;
+			children = (
+				96FAFA3B10FE2523003A5E34 /* QCMap.h */,
+				96FAFA3C10FE2523003A5E34 /* QCMap.cpp */,
+			);
+			name = "Map (unimplemented)";
+			sourceTree = "<group>";
+		};
+		96FAFA3A10FE250E003A5E34 /* Pair (not useful) */ = {
+			isa = PBXGroup;
+			children = (
+				96FAFA4410FE25C2003A5E34 /* QCPair.cpp */,
+				96FAFA4310FE25C2003A5E34 /* QCPair.h */,
+			);
+			name = "Pair (not useful)";
+			sourceTree = "<group>";
+		};
+		96FFBA841022116300753982 /* String */ = {
+			isa = PBXGroup;
+			children = (
+				9633BF7110226C8600656F42 /* QCString.cpp */,
+				9633BF7210226C8600656F42 /* QCString.h */,
+			);
+			name = String;
+			sourceTree = "<group>";
+		};
+		96FFBA851022116700753982 /* Dictionary */ = {
+			isa = PBXGroup;
+			children = (
+				9633BDD11022414B00656F42 /* QCDictionary.cpp */,
+				9633BDD01022414B00656F42 /* QCDictionary.h */,
+			);
+			name = Dictionary;
+			sourceTree = "<group>";
+		};
+		96FFBA861022117100753982 /* Array */ = {
+			isa = PBXGroup;
+			children = (
+				9633BE10102249B300656F42 /* QCArray.cpp */,
+				9633BE0F102249B300656F42 /* QCArray.h */,
+			);
+			name = Array;
+			sourceTree = "<group>";
+		};
+		96FFBA871022118E00753982 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				96E6F93A1029B03500965EC5 /* QCData.cpp */,
+				96E6F9391029B03500965EC5 /* QCData.h */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		C6A0FF2B0290797F04C91782 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				96FDC1891125A6F100D5A804 /* README */,
+				96E2C0FB10E867A300ECA91F /* license.txt */,
+			);
+			name = Documentation;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D2AAC043055464E500DB518D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9633BDD21022414B00656F42 /* QCDictionary.h in Headers */,
+				9633BE11102249B300656F42 /* QCArray.h in Headers */,
+				9633BE3610224B6200656F42 /* QCURL.h in Headers */,
+				9633BF7410226C8600656F42 /* QCString.h in Headers */,
+				9633BF8E10226D2F00656F42 /* QCNumber.h in Headers */,
+				9633C2BA1023602F00656F42 /* CFRaii.h in Headers */,
+				96CE88151026733900F86EA4 /* QCSet.h in Headers */,
+				96E6F93B1029B03500965EC5 /* QCData.h in Headers */,
+				96EDDC7F102B4DA000A0C958 /* CFRaiiCommon.h in Headers */,
+				96E1A1A31095E63E00EDFF4E /* QCBoolean.h in Headers */,
+				96E2C10010E867C300ECA91F /* QCStack.h in Headers */,
+				96FAFA3D10FE2523003A5E34 /* QCMap.h in Headers */,
+				96FAFA4510FE25C2003A5E34 /* QCPair.h in Headers */,
+				96020EEC112B2F90002CD158 /* CFProxy.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D2AAC045055464E500DB518D /* CFRaii */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB91EB08733DB70010E9CD /* Build configuration list for PBXNativeTarget "CFRaii" */;
+			buildPhases = (
+				D2AAC043055464E500DB518D /* Headers */,
+				D2AAC044055464E500DB518D /* Sources */,
+				D289987405E68DCB004EDB86 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CFRaii;
+			productName = CoreFoundationWrappers;
+			productReference = D2AAC046055464E500DB518D /* libCFRaii.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB91EF08733DB70010E9CD /* Build configuration list for PBXProject "CFRaii" */;
+			compatibilityVersion = "Xcode 3.2";
+			hasScannedForEncodings = 1;
+			mainGroup = 08FB7794FE84155DC02AAC07 /* CoreFoundationWrappers */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D2AAC045055464E500DB518D /* CFRaii */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D2AAC044055464E500DB518D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9633BDD31022414B00656F42 /* QCDictionary.cpp in Sources */,
+				9633BE12102249B300656F42 /* QCArray.cpp in Sources */,
+				9633BE3710224B6200656F42 /* QCURL.cpp in Sources */,
+				9633BF7310226C8600656F42 /* QCString.cpp in Sources */,
+				9633BF8F10226D2F00656F42 /* QCNumber.cpp in Sources */,
+				96CE88161026733900F86EA4 /* QCSet.cpp in Sources */,
+				96E6F93C1029B03500965EC5 /* QCData.cpp in Sources */,
+				96E1A1A41095E63E00EDFF4E /* QCBoolean.cpp in Sources */,
+				96E2C10110E867C300ECA91F /* QCStack.cpp in Sources */,
+				96FAFA3E10FE2523003A5E34 /* QCMap.cpp in Sources */,
+				96FAFA4610FE25C2003A5E34 /* QCPair.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB91EC08733DB70010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_VERSION = 4.2;
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = CFRaii;
+			};
+			name = Debug;
+		};
+		1DEB91ED08733DB70010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_VERSION = 4.2;
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = CFRaii;
+			};
+			name = Release;
+		};
+		1DEB91F008733DB70010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		1DEB91F108733DB70010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB91EB08733DB70010E9CD /* Build configuration list for PBXNativeTarget "CFRaii" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91EC08733DB70010E9CD /* Debug */,
+				1DEB91ED08733DB70010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB91EF08733DB70010E9CD /* Build configuration list for PBXProject "CFRaii" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91F008733DB70010E9CD /* Debug */,
+				1DEB91F108733DB70010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}

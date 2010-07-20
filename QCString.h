@@ -216,13 +216,14 @@ public:
 	// concatenate operator
 	QCString & operator += (QCString const &rhs)
 	{
+//		makeMutable();
 		makeUnique();
 //		return (*this += rhs.string); // would this work?
 		
 		if (isNull(mString))
 		{
 			// this case is possible only if string and mString were both NULL before calling makeUnique
-			mString = CFMutableStringFromCFString(rhs.String());
+			mString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, rhs.String());
 		}
 		else
 		{
@@ -235,8 +236,8 @@ public:
 	{
 		if (rhs != 0)
 		{
+//			makeMutable();
 			makeUnique();
-			
 			if (isNull(mString))
 			{
 				mString = QCRetain(rhs);
@@ -253,6 +254,7 @@ public:
 	{
 		if (rhs != 0)
 		{
+//			makeMutable();
 			makeUnique();
 			
 			if (isNull(mString))
@@ -335,7 +337,8 @@ public:
 	
 	QCString substring(CFRange range) const
 	{
-		return substring(range.location, range.location + range.length);
+		return QCString( CFStringCreateWithSubstring(kCFAllocatorDefault, String(), range) );
+//		return substring(range.location, range.location + range.length);
 		/* more readable form: 
 		CFIndex startPos = range.location;
 		CFIndex endPos = range.location + range.length;
