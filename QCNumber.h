@@ -22,7 +22,7 @@ private:
 public:
 	
 	QCNumber()
-	: number( 0 )
+	: number( NULL )
 	{ }
 	
 	QCNumber(CFNumberRef const &inNum)
@@ -62,11 +62,12 @@ public:
 	
 	bool null() const
 	{
-		return number == 0;
+		return isNull(number);
 	}
 	
 	CFNumberType type() const
 	{
+		// 0 is an invalid CFNumberType
 		return null() ? 0 : CFNumberGetType(number);
 	}
 	

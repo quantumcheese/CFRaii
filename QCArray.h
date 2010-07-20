@@ -26,21 +26,6 @@ private:
 	CFMutableArrayRef	mArray;
 	CFArrayRef			array;
 	
-	// provides error checking
-	CFMutableArrayRef CFMutableArrayFromCFArray(CFArrayRef const &inArray) const
-	{
-		return (inArray == NULL) ? NULL
-								 : CFArrayCreateMutableCopy(kCFAllocatorDefault, 0, inArray);
-#if 0
-		CFMutableArrayRef temp(NULL);
-		if (inArray != NULL)
-		{
-			temp = CFArrayCreateMutableCopy(kCFAllocatorDefault, 0, inArray);
-		}
-		return temp;
-#endif
-	}
-	
 public:
 	QCArray( )
 	: array( NULL )
@@ -382,8 +367,10 @@ public:
 		{
 			if (array != NULL)
 			{
-				mArray = CFMutableArrayFromCFArray(array);
-				QCRelease(array);
+				mArray = CFArrayCreateMutableCopy(kCFAllocatorDefault
+												  , 0
+												  , array);
+				CFRelease(array);
 				array = NULL;
 			}
 			else

@@ -86,7 +86,7 @@ public:
 			if (data != NULL)
 			{
 				mData = CFMutableDataFromCFData(data);
-				QCRelease(data);
+				CFRelease(data);
 				data = NULL;
 			}
 			else {
