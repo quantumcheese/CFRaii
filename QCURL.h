@@ -98,7 +98,7 @@ public:
 	
 	bool GetFSRef (FSRef &ref) const
 	{
-		return CFURLGetFSRef(url, &ref) != 0; // convert from Boolean
+		return CFURLGetFSRef(url, &ref) != false; // convert from Boolean
 	}
 	
 	QCString FileSystemRepresentation() const

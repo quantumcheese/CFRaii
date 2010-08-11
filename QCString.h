@@ -15,6 +15,7 @@
 #include "CFRaiiCommon.h"
 #include <CoreServices/CoreServices.h>
 
+#include <iostream>
 #include <string>
 
 // this class is intended as an RAII wrapper for CFStringRefs
@@ -27,8 +28,8 @@ private:
 	
 	CFMutableStringRef CFMutableStringFromCFString(CFStringRef const &inString) const
 	{
-		CFMutableStringRef temp(0);
-		if (inString != 0)
+		CFMutableStringRef temp(NULL);
+		if (inString != NULL)
 		{
 			temp = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, inString);
 		}
@@ -37,8 +38,8 @@ private:
 	
 	CFStringRef CFStringFromCString(char const * const inString) const
 	{
-		CFStringRef temp(0);
-		if (inString != 0)
+		CFStringRef temp(NULL);
+		if (inString != NULL)
 		{
 			temp = CFStringCreateWithCString(kCFAllocatorDefault, inString, kCFStringEncodingUTF8);
 		}
@@ -47,7 +48,7 @@ private:
 	
 	CFStringRef CFStringFromHFSUniStr255(HFSUniStr255 const &inString) const
 	{
-		CFStringRef temp(0);
+		CFStringRef temp(NULL);
 		
 		// make sure the string has positive length
 		if (0 < inString.length)
@@ -273,7 +274,7 @@ public:
 	{
 		makeUnique();
 		
-		return (rhs == 0) ? *this : *this += QCString(rhs);
+		return (rhs == NULL) ? *this : *this += QCString(rhs);
 	}
 	
 	bool hasPrefix(CFStringRef const &prefix) const
@@ -289,7 +290,7 @@ public:
 	OSStatus FSRefFromPath(FSRef &ref, bool &isDirectory) const
 	{
 		char * const cPath = CString();
-		if (cPath == 0) return false;
+		if (cPath == NULL) return false;
 		
 		Boolean isDir;
 		
@@ -396,6 +397,7 @@ public:
 	void show() const;
 	
 	bool writeToFile(QCString const &filePath) const;
+	
 };
 
 
@@ -425,6 +427,18 @@ inline QCString operator + (QCString const &lhs, char const *rhs)
 	QCString temp(lhs);
 	temp += rhs;
 	return temp;
+}
+
+template <typename OStream>
+OStream & operator << (OStream & os, QCString const &str)
+{
+	char const *c_str = str.CString_new();
+	if (c_str != NULL)
+	{
+		os << c_str;
+		delete c_str;
+	}
+	return os;
 }
 
 typedef QCString const QCFixedString;

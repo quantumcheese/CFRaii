@@ -19,7 +19,7 @@ char *QCString::CString() const
 // returns a C-string that requires free()ing
 char *QCString::CString_malloc() const
 {
-	if (null()) return 0;
+	if (null()) return NULL;
 	
 	CFIndex length = CFStringGetMaximumSizeOfFileSystemRepresentation(string);
 	char *buffer = static_cast<char *> (malloc(length * sizeof(char)));
@@ -30,13 +30,13 @@ char *QCString::CString_malloc() const
 	}
 	// fall-through failure case
 	free(buffer);
-	return 0;
+	return NULL;
 }
 
 // returns a C-string that requires delete-ing
 char *QCString::CString_new() const
 {
-	if (null()) return 0;
+	if (null()) return NULL;
 	
 	CFIndex length = CFStringGetMaximumSizeOfFileSystemRepresentation(string);
 	char *buffer = new char[length];
@@ -47,14 +47,14 @@ char *QCString::CString_new() const
 	}
 	// fall-through failure case
 	delete buffer;
-	return 0;
+	return NULL;
 }
 
 std::string QCString::StdString() const
 {
 	// not very efficient
 	char * const cString = CString_new();
-	std::string stdStr(cString);
+	std::string const stdStr(cString);
 	delete cString;
 	
 	return stdStr;
