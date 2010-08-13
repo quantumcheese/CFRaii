@@ -155,20 +155,20 @@ public:
 	
 	CFIndex length() const
 	{
-		CFStringRef str = String();
+		CFStringRef str = CFString();
 		return isNull(str) ? 0 : CFStringGetLength(str);
 	}
 	
 	// returns a deep copy
 	QCString copy() const
 	{
-		CFStringRef str = String();
-		return QCString(str);
+		CFStringRef str = CFString();
+		return QCString(CFStringCreateMutableCopy(CFGetAllocator(str), 0, str));
 	}
 	
 	UniChar at(CFIndex const idx) const
 	{
-		return CFStringGetCharacterAtIndex(String(), idx);
+		return CFStringGetCharacterAtIndex(CFString(), idx);
 	}
 	
 	// Operators
@@ -185,8 +185,8 @@ public:
 	// comparison operators
 	bool operator == (QCString const &rhs) const
 	{
-		return (String() == rhs.String()) // optimization
-				|| (CFStringCompare(String(), rhs.String(), 0) == kCFCompareEqualTo);
+		return (CFString() == rhs.CFString()) // optimization
+				|| (CFStringCompare(CFString(), rhs.CFString(), 0) == kCFCompareEqualTo);
 	}
 	
 	bool operator != (QCString const &rhs) const
@@ -196,14 +196,14 @@ public:
 	
 	bool operator < (QCString const &rhs) const
 	{
-		return (String() != rhs.String())
-				&& (CFStringCompare(String(), rhs.String(), 0) == kCFCompareLessThan);
+		return (CFString() != rhs.CFString()) // quick optimization -- check pointer inequality before comparing strings
+				&& (CFStringCompare(CFString(), rhs.CFString(), 0) == kCFCompareLessThan);
 	}
 	
 	bool operator > (QCString const &rhs) const
 	{
-		return (String() != rhs.String())
-				&& (CFStringCompare(String(), rhs.String(), 0) == kCFCompareGreaterThan);
+		return (CFString() != rhs.CFString())
+				&& (CFStringCompare(CFString(), rhs.CFString(), 0) == kCFCompareGreaterThan);
 	}
 	
 	// conversion operators
@@ -211,7 +211,7 @@ public:
 	operator CFStringRef () const
 	{
 		// can use a MutableString when you want a non-mutable, but not the reverse
-		return String();
+		return CFString();
 	}
 
 	// concatenate operator
@@ -224,7 +224,7 @@ public:
 		if (isNull(mString))
 		{
 			// this case is possible only if string and mString were both NULL before calling makeUnique
-			mString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, rhs.String());
+			mString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, rhs.CFString());
 		}
 		else
 		{
@@ -279,12 +279,12 @@ public:
 	
 	bool hasPrefix(CFStringRef const &prefix) const
 	{
-		return CFStringHasPrefix(String(), prefix) == true;
+		return CFStringHasPrefix(CFString(), prefix) == true;
 	}
 	
 	bool hasSuffix(CFStringRef const &suffix) const
 	{
-		return CFStringHasSuffix(String(), suffix) == true;
+		return CFStringHasSuffix(CFString(), suffix) == true;
 	}
 	
 	OSStatus FSRefFromPath(FSRef &ref, bool &isDirectory) const
@@ -304,6 +304,7 @@ public:
 	
 	OSStatus FSRefFromPath(FSRef &ref) const
 	{
+		// TODO: optimize with CFStringGetCStringPtr
 		char * const cPath = CString();
 		if (cPath == NULL) return false;
 		
@@ -317,7 +318,7 @@ public:
 	{
 		CFIndex const lengthCache = length();
 		// cases of undefined behavior
-		if (isNull(String())
+		if (isNull(CFString())
 			// ensure valid range
 			|| endPos <= startPos
 			|| startPos < 0
@@ -331,14 +332,14 @@ public:
 		}
 		
 		CFRange range = CFRangeMake(startPos, endPos - startPos + 1); // + 1 to compensate for 0-indexing
-		CFStringRef temp = CFStringCreateWithSubstring(kCFAllocatorDefault, String(), range);
+		CFStringRef temp = CFStringCreateWithSubstring(kCFAllocatorDefault, CFString(), range);
 		
 		return QCString(temp); // takes ownership & releases when done
 	}
 	
 	QCString substring(CFRange range) const
 	{
-		return QCString( CFStringCreateWithSubstring(kCFAllocatorDefault, String(), range) );
+		return QCString( CFStringCreateWithSubstring(kCFAllocatorDefault, CFString(), range) );
 //		return substring(range.location, range.location + range.length);
 		/* more readable form: 
 		CFIndex startPos = range.location;
@@ -357,7 +358,7 @@ public:
 		{
 			return kCFNotFound;
 		}
-		CFIndex location = (CFStringFind(String(), searchString, 0)).location + range.location;
+		CFIndex location = (CFStringFind(CFString(), searchString, 0)).location + range.location;
 		return location;
 	}
 	
@@ -429,16 +430,26 @@ inline QCString operator + (QCString const &lhs, char const *rhs)
 	return temp;
 }
 
-template <typename OStream>
+template <class OStream>
 OStream & operator << (OStream & os, QCString const &str)
 {
-	char const *c_str = str.CString_new();
-	if (c_str != NULL)
+	char const *c_str = CFStringGetCStringPtr(str.CFString(), kCFStringEncodingUTF8);
+	if (c_str == NULL)
 	{
-		os << c_str;
-		delete c_str;
+		c_str = str.CString_new();
+		if (c_str != NULL)
+		{
+			os << c_str;
+			delete c_str;
+		}
+		
+		return os;
 	}
-	return os;
+	else
+	{
+		// we got a pointer to String()'s internal c-string; no cleanup here.
+		return os << c_str;
+	}
 }
 
 typedef QCString const QCFixedString;
