@@ -146,6 +146,11 @@ public:
 		QCRelease(obj);
 	}
 	
+	CFTypeRef get() const
+	{
+		return obj;
+	}
+	
 	operator CFTypeRef () const
 	{
 		return obj;
