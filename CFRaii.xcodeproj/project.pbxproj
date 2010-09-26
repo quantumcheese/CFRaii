@@ -19,6 +19,8 @@
 		9633BF8E10226D2F00656F42 /* QCNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = 9633BF8C10226D2F00656F42 /* QCNumber.h */; };
 		9633BF8F10226D2F00656F42 /* QCNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9633BF8D10226D2F00656F42 /* QCNumber.cpp */; };
 		9633C2BA1023602F00656F42 /* CFRaii.h in Headers */ = {isa = PBXBuildFile; fileRef = 9633C2B91023602F00656F42 /* CFRaii.h */; };
+		96853842123E58D3008C61A0 /* AuthorizationReference.h in Headers */ = {isa = PBXBuildFile; fileRef = 96853840123E58D3008C61A0 /* AuthorizationReference.h */; };
+		96853843123E58D3008C61A0 /* AuthorizationReference.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96853841123E58D3008C61A0 /* AuthorizationReference.cpp */; };
 		96CE88151026733900F86EA4 /* QCSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 96CE88131026733900F86EA4 /* QCSet.h */; };
 		96CE88161026733900F86EA4 /* QCSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96CE88141026733900F86EA4 /* QCSet.cpp */; };
 		96E1A1A31095E63E00EDFF4E /* QCBoolean.h in Headers */ = {isa = PBXBuildFile; fileRef = 96E1A1A11095E63E00EDFF4E /* QCBoolean.h */; };
@@ -47,6 +49,8 @@
 		9633BF8C10226D2F00656F42 /* QCNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCNumber.h; sourceTree = "<group>"; };
 		9633BF8D10226D2F00656F42 /* QCNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCNumber.cpp; sourceTree = "<group>"; };
 		9633C2B91023602F00656F42 /* CFRaii.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFRaii.h; sourceTree = "<group>"; };
+		96853840123E58D3008C61A0 /* AuthorizationReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorizationReference.h; sourceTree = "<group>"; };
+		96853841123E58D3008C61A0 /* AuthorizationReference.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AuthorizationReference.cpp; sourceTree = "<group>"; };
 		96CE88131026733900F86EA4 /* QCSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCSet.h; sourceTree = "<group>"; };
 		96CE88141026733900F86EA4 /* QCSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCSet.cpp; sourceTree = "<group>"; };
 		96E1A1A11095E63E00EDFF4E /* QCBoolean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCBoolean.h; sourceTree = "<group>"; };
@@ -80,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				08FB7795FE84155DC02AAC07 /* Source */,
+				9685383F123E58B9008C61A0 /* Other Wrappers */,
 				C6A0FF2B0290797F04C91782 /* Documentation */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
 			);
@@ -131,6 +136,15 @@
 				9633BF8C10226D2F00656F42 /* QCNumber.h */,
 			);
 			name = Number;
+			sourceTree = "<group>";
+		};
+		9685383F123E58B9008C61A0 /* Other Wrappers */ = {
+			isa = PBXGroup;
+			children = (
+				96853840123E58D3008C61A0 /* AuthorizationReference.h */,
+				96853841123E58D3008C61A0 /* AuthorizationReference.cpp */,
+			);
+			name = "Other Wrappers";
 			sourceTree = "<group>";
 		};
 		96CE88121026732C00F86EA4 /* Set */ = {
@@ -244,6 +258,7 @@
 				96FAFA3D10FE2523003A5E34 /* QCMap.h in Headers */,
 				96FAFA4510FE25C2003A5E34 /* QCPair.h in Headers */,
 				96020EEC112B2F90002CD158 /* CFProxy.h in Headers */,
+				96853842123E58D3008C61A0 /* AuthorizationReference.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +315,7 @@
 				96E2C10110E867C300ECA91F /* QCStack.cpp in Sources */,
 				96FAFA3E10FE2523003A5E34 /* QCMap.cpp in Sources */,
 				96FAFA4610FE25C2003A5E34 /* QCPair.cpp in Sources */,
+				96853843123E58D3008C61A0 /* AuthorizationReference.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
