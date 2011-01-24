@@ -65,29 +65,29 @@ public:
 	, mString( NULL )
 	{ }
 	
-	QCString(CFMutableStringRef const &inString)
+	explicit QCString(CFMutableStringRef const &inString)
 	: string( NULL )
 	, mString( inString )
 	{ }
 	
-	QCString(CFStringRef const &inString)
+	explicit QCString(CFStringRef const &inString)
 	: string( inString )
 	, mString( NULL ) // maybe we'll never need it
 	{ }
 	
-	QCString(HFSUniStr255 const &inString)
+	explicit QCString(HFSUniStr255 const &inString)
 	: string( CFStringFromHFSUniStr255(inString) )
 	, mString( NULL )
 //	: mString( CFMutableStringFromHFSUniStr255(inString) )
 	{ }
 	
 	// creating a CFString from a C-string
-	QCString(char const * const inString)
+	explicit QCString(char const * const inString)
 	: string( CFStringFromCString(inString) )
 	, mString( NULL )
 	{ }
 	
-	QCString(std::string const &inString)
+	explicit QCString(std::string const &inString)
 	: string( CFStringFromCString(inString.c_str()) )
 	, mString( NULL )
 	{ }

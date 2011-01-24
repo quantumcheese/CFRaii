@@ -40,13 +40,13 @@ public:
 	: url( NULL )
 	{ }
 	
-	QCURL(CFURLRef const &inURL)
+	explicit QCURL(CFURLRef const &inURL)
 	: url( inURL )
 	{
 		// do not release the URL!
 	}
 	
-	QCURL(CFStringRef const &path, Boolean isDir)
+	explicit QCURL(CFStringRef const &path, Boolean isDir)
 	: url( CFURLFromPath(path, isDir) )
 	{
 		// do not release the path string!

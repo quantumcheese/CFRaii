@@ -177,8 +177,8 @@
 		96FAFA3910FE2509003A5E34 /* Map (unimplemented) */ = {
 			isa = PBXGroup;
 			children = (
-				96FAFA3B10FE2523003A5E34 /* QCMap.h */,
 				96FAFA3C10FE2523003A5E34 /* QCMap.cpp */,
+				96FAFA3B10FE2523003A5E34 /* QCMap.h */,
 			);
 			name = "Map (unimplemented)";
 			sourceTree = "<group>";
@@ -289,7 +289,14 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB91EF08733DB70010E9CD /* Build configuration list for PBXProject "CFRaii" */;
 			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 08FB7794FE84155DC02AAC07 /* CoreFoundationWrappers */;
 			projectDirPath = "";
 			projectRoot = "";

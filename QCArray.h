@@ -32,12 +32,12 @@ public:
 	, mArray( CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks) )
 	{ }
 	
-	QCArray(CFMutableArrayRef const &inArray)
+	explicit QCArray(CFMutableArrayRef const &inArray)
 	: array( NULL )
 	, mArray( inArray )
 	{ }
 	
-	QCArray(CFArrayRef const &inArray)
+	explicit QCArray(CFArrayRef const &inArray)
 	: array( inArray )
 	, mArray( NULL )
 	{ }

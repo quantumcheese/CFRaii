@@ -25,27 +25,27 @@ public:
 	: number( NULL )
 	{ }
 	
-	QCNumber(CFNumberRef const &inNum)
+	explicit QCNumber(CFNumberRef const &inNum)
 	: number( inNum )
 	{ }
 	
-	QCNumber(CFIndex const &inNum)
+	explicit QCNumber(CFIndex const &inNum)
 	: number( CFNumberCreate(kCFAllocatorDefault, kCFNumberCFIndexType, &inNum) )
 	{ }
 	
-	QCNumber(int const &inNum)
+	explicit QCNumber(int const &inNum)
 	: number( CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &inNum) )
 	{ }
 	
-	QCNumber(float const &inNum)
+	explicit QCNumber(float const &inNum)
 	: number( CFNumberCreate(kCFAllocatorDefault, kCFNumberFloatType, &inNum) )
 	{ }
 	
-	QCNumber(double const &inNum)
+	explicit QCNumber(double const &inNum)
 	: number( CFNumberCreate(kCFAllocatorDefault, kCFNumberDoubleType, &inNum) )
 	{ }
 	
-	QCNumber(long long const &inNum)
+	explicit QCNumber(long long const &inNum)
 	: number( CFNumberCreate(kCFAllocatorDefault, kCFNumberLongLongType, &inNum) )
 	{ }
 	

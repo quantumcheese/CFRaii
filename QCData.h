@@ -43,12 +43,12 @@ public:
 	, mData( CFDataCreateMutable(kCFAllocatorDefault, 0) )
 	{ }
 	
-	QCData(CFMutableDataRef const &inData )
+	explicit QCData(CFMutableDataRef const &inData )
 	: data( NULL )
 	, mData( inData )
 	{ }
 	
-	QCData(CFDataRef const &inData)
+	explicit QCData(CFDataRef const &inData)
 	: data( inData )
 	, mData( NULL )
 	{

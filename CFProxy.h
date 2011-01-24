@@ -26,7 +26,7 @@ private:
 	
 public:
 	// RAII ctor -- take ownership!
-	CFProxy(T const ptr)
+	explicit CFProxy(T const ptr)
 	: obj(ptr), proxyCount(new CFIndex(1))
 	{ }
 	
@@ -131,7 +131,7 @@ private:
 	CFTypeProxy & operator = (CFTypeProxy const &);
 public:
 	// ctor
-	CFTypeProxy(CFTypeRef const cfobj)
+	explicit CFTypeProxy(CFTypeRef const cfobj)
 	: obj(QCRetain(cfobj))
 	{ }
 	

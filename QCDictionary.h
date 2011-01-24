@@ -41,12 +41,12 @@ public:
 	, mDict( CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks) )
 	{ }
 	
-	QCDictionary(CFMutableDictionaryRef const &inDict)
+	explicit QCDictionary(CFMutableDictionaryRef const &inDict)
 	: dict( NULL)
 	, mDict( inDict )
 	{ }
 	
-	QCDictionary(CFDictionaryRef const &inDict)
+	explicit QCDictionary(CFDictionaryRef const &inDict)
 	: dict( inDict )
 	, mDict( NULL )
 	{ }

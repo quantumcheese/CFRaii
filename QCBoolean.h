@@ -40,21 +40,21 @@ private:
 	}
 	
 public:
-	QCBoolean(bool const inBool)
+	explicit QCBoolean(bool const inBool)
 	: boolean( CFBooleanFromBool(inBool) )
 	{ }
 	
-	QCBoolean(Boolean const inBool)
+	explicit QCBoolean(Boolean const inBool)
 	: boolean( CFBooleanFromBoolean(inBool) )
 	{ }
 	
-	QCBoolean(CFBooleanRef const & inBool)
+	explicit QCBoolean(CFBooleanRef const inBool)
 	: boolean( inBool )
 	{ }
 	
 	// copy constructor
 	QCBoolean(QCBoolean const &inBool)
-	: boolean( inBool.boolean ) // because they are constant
+	: boolean( inBool.boolean ) // because they are constant, there is no point to retaining / releasing
 	{ }
 	
 	// destructor

@@ -26,12 +26,12 @@ public:
 	, mSet( CFSetCreateMutable(kCFAllocatorDefault, 0, &kCFTypeSetCallBacks) )
 	{ }
 	
-	QCSet(CFMutableSetRef const inSet)
+	explicit QCSet(CFMutableSetRef const inSet)
 	: set( NULL )
 	, mSet( inSet )
 	{ }
 	
-	QCSet(CFSetRef const inSet)
+	explicit QCSet(CFSetRef const inSet)
 	: set( inSet )
 	, mSet( NULL )
 	{
