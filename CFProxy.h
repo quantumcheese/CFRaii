@@ -49,7 +49,12 @@ public:
 		}
 	}
 	
-	bool isNull() const
+	inline bool isNull() const
+	{
+		return obj == NULL;
+	}
+	
+	inline bool null() const
 	{
 		return obj == NULL;
 	}
@@ -66,12 +71,6 @@ public:
 	void retain()
 	{
 		++(*proxyCount);
-	}
-	
-	
-	bool null() const
-	{
-		return obj == NULL;
 	}
 	
 	// copy assignment
@@ -113,10 +112,15 @@ public:
 		return obj;
 	}
 	
-	// conversion operator
+	// conversion operators
 	operator T () const
 	{
 		return obj;
+	}
+	
+	operator bool () const
+	{
+		return obj != NULL;
 	}
 	
 };
