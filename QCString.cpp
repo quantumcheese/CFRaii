@@ -21,7 +21,7 @@ char *QCString::CString_malloc() const
 {
 	if (null()) return NULL;
 	
-	CFIndex length = CFStringGetMaximumSizeOfFileSystemRepresentation(string);
+	CFIndex length = CFStringGetMaximumSizeOfFileSystemRepresentation(String());
 	char *buffer = static_cast<char *> (malloc(length * sizeof(char)));
 	
 	if (CFStringGetFileSystemRepresentation(String(), buffer, length) == true)
@@ -33,12 +33,12 @@ char *QCString::CString_malloc() const
 	return NULL;
 }
 
-// returns a C-string that requires delete-ing
+// returns a C-string that requires delete[]-ing
 char *QCString::CString_new() const
 {
 	if (null()) return NULL;
 	
-	CFIndex length = CFStringGetMaximumSizeOfFileSystemRepresentation(string);
+	CFIndex length = CFStringGetMaximumSizeOfFileSystemRepresentation(String());
 	char *buffer = new char[length];
 	
 	if (CFStringGetFileSystemRepresentation(String(), buffer, length) == true)
@@ -46,7 +46,7 @@ char *QCString::CString_new() const
 		return buffer;
 	}
 	// fall-through failure case
-	delete buffer;
+	delete [] buffer;
 	return NULL;
 }
 

@@ -121,30 +121,20 @@ public:
 	void makeUnique()
 	{
 		// don't care if 'string' is shared, just 'mString'
+		// nevertheless, make the string mutable
 		
-		if (!isNull(mString) && CFGetRetainCount(mString) > 1)
+		if (!isNull(mString))
 		{
 			// relinquish our ownership
 			CFMutableStringRef newString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, mString);
 			CFRelease(mString);
 			mString = newString;
 		}
-		return;
-		
-		if (isNull(mString))
+		else if (!isNull(string))
 		{
-			// new string will be owned by only us
-			mString = CFMutableStringFromCFString(string);
-			// remove string to preserve class invariant
-			QCRelease(string);
-			string = 0;
-		}
-		else if (CFGetRetainCount(mString) > 1)
-		{
-			// make fresh copy of mString for ourselves to modify
-			CFMutableStringRef newString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, mString);
-			QCRelease(mString);
-			mString = newString;
+			mString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, string);
+			CFRelease(string);
+			string = NULL;
 		}
 	}
 	
@@ -235,7 +225,7 @@ public:
 	
 	QCString & operator += (CFMutableStringRef const &rhs)
 	{
-		if (rhs != 0)
+		if (rhs != NULL)
 		{
 //			makeMutable();
 			makeUnique();
@@ -253,7 +243,7 @@ public:
 	
 	QCString & operator += (CFStringRef const &rhs)
 	{
-		if (rhs != 0)
+		if (rhs != NULL)
 		{
 //			makeMutable();
 			makeUnique();
