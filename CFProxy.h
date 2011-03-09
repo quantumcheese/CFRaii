@@ -14,7 +14,103 @@
 #ifndef _CF_PROXY_GUARD_
 #define _CF_PROXY_GUARD_
 
+#include <stdexcept>
+
 #include "CFRaiiCommon.h"
+#include "QCCFTypeTraits.h"
+
+
+template <class T>
+class QCCFProxy
+{
+private:
+	
+	CFIndex increment()
+	{
+		CFIndex inc(0);
+		if (proxyCount == NULL)
+		{
+			if (empty()) { /* no-op */ }
+			else { throw std::logic_error("incrementing a null counter but has object"); }
+		}
+		else
+		{
+			inc = ++ (*proxyCount);
+		}
+		return inc;
+	}
+	
+	CFIndex decrement()
+	{
+		CFIndex dec(0);
+		if (proxyCount == NULL)
+		{
+			if (empty()) { /* no-op */ }
+			else { throw std::logic_error("decrementing a null counter but has object"); }
+		}
+		else
+		{
+			dec = -- (*proxyCount);
+		}
+		
+		if (dec == 0)
+		{
+			delete proxyCount;
+			proxyCount = NULL;
+			QCRelease(obj);
+			obj = NULL;
+		}
+		return dec;
+	}
+	
+public:
+	
+	// RAII ctor
+	explicit QCCFProxy(T const & ptr)
+	: obj(ptr), proxyCount(new CFIndex(1))
+	{ }
+	
+	// generic copy ctor
+//	template<class P, bool = CFType_traits<P>::is_CFType >
+	QCCFProxy(QCCFProxy const &proxy)
+	: obj(proxy.obj), proxyCount(proxy.proxyCount)
+	{
+		increment();
+	}
+	
+	// dtor
+	virtual ~QCCFProxy()
+	{
+		if (decrement() == 0)
+		{
+			QCRelease(obj);
+		}
+	}
+	
+			 operator bool () { return obj != NULL; }
+	/* explicit */ operator T () { return obj; }
+	
+	// smart pointer behavior
+	bool empty() { return obj != NULL; }
+	T get() { return obj; }
+	void swap( QCCFProxy & other ) { std::swap(obj, other.obj); std::swap(proxyCount, other.proxyCount); };
+	
+	
+	// assignment
+	QCCFProxy &
+	operator = (QCCFProxy const &other)
+	{
+		decrement();
+		obj = other.obj;
+		proxyCount = other.proxyCount;
+		increment();
+	}
+	
+private:
+	T obj;
+	CFIndex *proxyCount;
+	
+};
 
 template<class T>
 class CFProxy
@@ -87,7 +183,7 @@ public:
 		
 		// TODO: switch to copy-and-swap ?
 		
-		// replace my count with rhs'
+		// replace my count with rhs'.  We already called retain(), so don't increment the proxyCount (again).
 		proxyCount = rhs.proxyCount;
 		
 		// and finally, replace my obj with rhs'

@@ -19,6 +19,7 @@
 		9633BF8E10226D2F00656F42 /* QCNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = 9633BF8C10226D2F00656F42 /* QCNumber.h */; };
 		9633BF8F10226D2F00656F42 /* QCNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9633BF8D10226D2F00656F42 /* QCNumber.cpp */; };
 		9633C2BA1023602F00656F42 /* CFRaii.h in Headers */ = {isa = PBXBuildFile; fileRef = 9633C2B91023602F00656F42 /* CFRaii.h */; };
+		967E7BA81327D9DE002FDD63 /* QCCFTypeTraits.h in Headers */ = {isa = PBXBuildFile; fileRef = 967E7BA71327D9DE002FDD63 /* QCCFTypeTraits.h */; };
 		96853842123E58D3008C61A0 /* AuthorizationReference.h in Headers */ = {isa = PBXBuildFile; fileRef = 96853840123E58D3008C61A0 /* AuthorizationReference.h */; };
 		96853843123E58D3008C61A0 /* AuthorizationReference.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96853841123E58D3008C61A0 /* AuthorizationReference.cpp */; };
 		96CE88151026733900F86EA4 /* QCSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 96CE88131026733900F86EA4 /* QCSet.h */; };
@@ -32,8 +33,6 @@
 		96EDDC7F102B4DA000A0C958 /* CFRaiiCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 96EDDC7E102B4DA000A0C958 /* CFRaiiCommon.h */; };
 		96FAFA3D10FE2523003A5E34 /* QCMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 96FAFA3B10FE2523003A5E34 /* QCMap.h */; };
 		96FAFA3E10FE2523003A5E34 /* QCMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96FAFA3C10FE2523003A5E34 /* QCMap.cpp */; };
-		96FAFA4510FE25C2003A5E34 /* QCPair.h in Headers */ = {isa = PBXBuildFile; fileRef = 96FAFA4310FE25C2003A5E34 /* QCPair.h */; };
-		96FAFA4610FE25C2003A5E34 /* QCPair.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96FAFA4410FE25C2003A5E34 /* QCPair.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +48,7 @@
 		9633BF8C10226D2F00656F42 /* QCNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCNumber.h; sourceTree = "<group>"; };
 		9633BF8D10226D2F00656F42 /* QCNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCNumber.cpp; sourceTree = "<group>"; };
 		9633C2B91023602F00656F42 /* CFRaii.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFRaii.h; sourceTree = "<group>"; };
+		967E7BA71327D9DE002FDD63 /* QCCFTypeTraits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCCFTypeTraits.h; sourceTree = "<group>"; };
 		96853840123E58D3008C61A0 /* AuthorizationReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorizationReference.h; sourceTree = "<group>"; };
 		96853841123E58D3008C61A0 /* AuthorizationReference.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AuthorizationReference.cpp; sourceTree = "<group>"; };
 		96CE88131026733900F86EA4 /* QCSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCSet.h; sourceTree = "<group>"; };
@@ -63,8 +63,6 @@
 		96EDDC7E102B4DA000A0C958 /* CFRaiiCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFRaiiCommon.h; sourceTree = "<group>"; };
 		96FAFA3B10FE2523003A5E34 /* QCMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCMap.h; sourceTree = "<group>"; };
 		96FAFA3C10FE2523003A5E34 /* QCMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCMap.cpp; sourceTree = "<group>"; };
-		96FAFA4310FE25C2003A5E34 /* QCPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCPair.h; sourceTree = "<group>"; };
-		96FAFA4410FE25C2003A5E34 /* QCPair.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCPair.cpp; sourceTree = "<group>"; };
 		96FDC1891125A6F100D5A804 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		D2AAC046055464E500DB518D /* libCFRaii.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCFRaii.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -94,6 +92,7 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				967E7BA71327D9DE002FDD63 /* QCCFTypeTraits.h */,
 				96020EEB112B2F90002CD158 /* CFProxy.h */,
 				9633C2B91023602F00656F42 /* CFRaii.h */,
 				96EDDC7E102B4DA000A0C958 /* CFRaiiCommon.h */,
@@ -103,7 +102,6 @@
 				96FFBA851022116700753982 /* Dictionary */,
 				96FAFA3910FE2509003A5E34 /* Map (unimplemented) */,
 				9633BF8B10226D2400656F42 /* Number */,
-				96FAFA3A10FE250E003A5E34 /* Pair (not useful) */,
 				96CE88121026732C00F86EA4 /* Set */,
 				96E2C0FD10E867B600ECA91F /* Stack */,
 				96FFBA841022116300753982 /* String */,
@@ -183,15 +181,6 @@
 			name = "Map (unimplemented)";
 			sourceTree = "<group>";
 		};
-		96FAFA3A10FE250E003A5E34 /* Pair (not useful) */ = {
-			isa = PBXGroup;
-			children = (
-				96FAFA4410FE25C2003A5E34 /* QCPair.cpp */,
-				96FAFA4310FE25C2003A5E34 /* QCPair.h */,
-			);
-			name = "Pair (not useful)";
-			sourceTree = "<group>";
-		};
 		96FFBA841022116300753982 /* String */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,9 +245,9 @@
 				96E1A1A31095E63E00EDFF4E /* QCBoolean.h in Headers */,
 				96E2C10010E867C300ECA91F /* QCStack.h in Headers */,
 				96FAFA3D10FE2523003A5E34 /* QCMap.h in Headers */,
-				96FAFA4510FE25C2003A5E34 /* QCPair.h in Headers */,
 				96020EEC112B2F90002CD158 /* CFProxy.h in Headers */,
 				96853842123E58D3008C61A0 /* AuthorizationReference.h in Headers */,
+				967E7BA81327D9DE002FDD63 /* QCCFTypeTraits.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,7 +310,6 @@
 				96E1A1A41095E63E00EDFF4E /* QCBoolean.cpp in Sources */,
 				96E2C10110E867C300ECA91F /* QCStack.cpp in Sources */,
 				96FAFA3E10FE2523003A5E34 /* QCMap.cpp in Sources */,
-				96FAFA4610FE25C2003A5E34 /* QCPair.cpp in Sources */,
 				96853843123E58D3008C61A0 /* AuthorizationReference.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

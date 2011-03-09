@@ -25,6 +25,8 @@
 #include "QCString.h"
 #include "QCURL.h"
 
-#include "AuthorizationReference.h"
+#include "QCCFTypeTraits.h"
+
+//#include "AuthorizationReference.h"
 
 #endif
