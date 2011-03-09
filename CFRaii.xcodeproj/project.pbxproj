@@ -19,6 +19,8 @@
 		9633BF8E10226D2F00656F42 /* QCNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = 9633BF8C10226D2F00656F42 /* QCNumber.h */; };
 		9633BF8F10226D2F00656F42 /* QCNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9633BF8D10226D2F00656F42 /* QCNumber.cpp */; };
 		9633C2BA1023602F00656F42 /* CFRaii.h in Headers */ = {isa = PBXBuildFile; fileRef = 9633C2B91023602F00656F42 /* CFRaii.h */; };
+		964386B51327FDE100BC48D9 /* QCPair.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 964386B31327FDE100BC48D9 /* QCPair.cpp */; };
+		964386B61327FDE100BC48D9 /* QCPair.h in Headers */ = {isa = PBXBuildFile; fileRef = 964386B41327FDE100BC48D9 /* QCPair.h */; };
 		967E7BA81327D9DE002FDD63 /* QCCFTypeTraits.h in Headers */ = {isa = PBXBuildFile; fileRef = 967E7BA71327D9DE002FDD63 /* QCCFTypeTraits.h */; };
 		96853842123E58D3008C61A0 /* AuthorizationReference.h in Headers */ = {isa = PBXBuildFile; fileRef = 96853840123E58D3008C61A0 /* AuthorizationReference.h */; };
 		96853843123E58D3008C61A0 /* AuthorizationReference.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96853841123E58D3008C61A0 /* AuthorizationReference.cpp */; };
@@ -48,6 +50,8 @@
 		9633BF8C10226D2F00656F42 /* QCNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCNumber.h; sourceTree = "<group>"; };
 		9633BF8D10226D2F00656F42 /* QCNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCNumber.cpp; sourceTree = "<group>"; };
 		9633C2B91023602F00656F42 /* CFRaii.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFRaii.h; sourceTree = "<group>"; };
+		964386B31327FDE100BC48D9 /* QCPair.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCPair.cpp; sourceTree = "<group>"; };
+		964386B41327FDE100BC48D9 /* QCPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCPair.h; sourceTree = "<group>"; };
 		967E7BA71327D9DE002FDD63 /* QCCFTypeTraits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCCFTypeTraits.h; sourceTree = "<group>"; };
 		96853840123E58D3008C61A0 /* AuthorizationReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorizationReference.h; sourceTree = "<group>"; };
 		96853841123E58D3008C61A0 /* AuthorizationReference.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AuthorizationReference.cpp; sourceTree = "<group>"; };
@@ -102,6 +106,7 @@
 				96FFBA851022116700753982 /* Dictionary */,
 				96FAFA3910FE2509003A5E34 /* Map (unimplemented) */,
 				9633BF8B10226D2400656F42 /* Number */,
+				964386B21327FDD100BC48D9 /* Pair */,
 				96CE88121026732C00F86EA4 /* Set */,
 				96E2C0FD10E867B600ECA91F /* Stack */,
 				96FFBA841022116300753982 /* String */,
@@ -134,6 +139,15 @@
 				9633BF8C10226D2F00656F42 /* QCNumber.h */,
 			);
 			name = Number;
+			sourceTree = "<group>";
+		};
+		964386B21327FDD100BC48D9 /* Pair */ = {
+			isa = PBXGroup;
+			children = (
+				964386B31327FDE100BC48D9 /* QCPair.cpp */,
+				964386B41327FDE100BC48D9 /* QCPair.h */,
+			);
+			name = Pair;
 			sourceTree = "<group>";
 		};
 		9685383F123E58B9008C61A0 /* Other Wrappers */ = {
@@ -248,6 +262,7 @@
 				96020EEC112B2F90002CD158 /* CFProxy.h in Headers */,
 				96853842123E58D3008C61A0 /* AuthorizationReference.h in Headers */,
 				967E7BA81327D9DE002FDD63 /* QCCFTypeTraits.h in Headers */,
+				964386B61327FDE100BC48D9 /* QCPair.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +326,7 @@
 				96E2C10110E867C300ECA91F /* QCStack.cpp in Sources */,
 				96FAFA3E10FE2523003A5E34 /* QCMap.cpp in Sources */,
 				96853843123E58D3008C61A0 /* AuthorizationReference.cpp in Sources */,
+				964386B51327FDE100BC48D9 /* QCPair.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
