@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		96020EEC112B2F90002CD158 /* CFProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 96020EEB112B2F90002CD158 /* CFProxy.h */; };
 		9633BDD21022414B00656F42 /* QCDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 9633BDD01022414B00656F42 /* QCDictionary.h */; };
 		9633BDD31022414B00656F42 /* QCDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9633BDD11022414B00656F42 /* QCDictionary.cpp */; };
 		9633BE11102249B300656F42 /* QCArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 9633BE0F102249B300656F42 /* QCArray.h */; };
@@ -21,9 +20,10 @@
 		9633C2BA1023602F00656F42 /* CFRaii.h in Headers */ = {isa = PBXBuildFile; fileRef = 9633C2B91023602F00656F42 /* CFRaii.h */; };
 		964386B51327FDE100BC48D9 /* QCPair.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 964386B31327FDE100BC48D9 /* QCPair.cpp */; };
 		964386B61327FDE100BC48D9 /* QCPair.h in Headers */ = {isa = PBXBuildFile; fileRef = 964386B41327FDE100BC48D9 /* QCPair.h */; };
-		967E7BA81327D9DE002FDD63 /* QCCFTypeTraits.h in Headers */ = {isa = PBXBuildFile; fileRef = 967E7BA71327D9DE002FDD63 /* QCCFTypeTraits.h */; };
 		96853842123E58D3008C61A0 /* AuthorizationReference.h in Headers */ = {isa = PBXBuildFile; fileRef = 96853840123E58D3008C61A0 /* AuthorizationReference.h */; };
 		96853843123E58D3008C61A0 /* AuthorizationReference.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96853841123E58D3008C61A0 /* AuthorizationReference.cpp */; };
+		96B4B78D132942F200C424D3 /* QCSharedPtr.h in Headers */ = {isa = PBXBuildFile; fileRef = 96B4B78C132942F200C424D3 /* QCSharedPtr.h */; };
+		96B4B849132961FB00C424D3 /* QCTypeTraits.h in Headers */ = {isa = PBXBuildFile; fileRef = 96B4B848132961FB00C424D3 /* QCTypeTraits.h */; };
 		96CE88151026733900F86EA4 /* QCSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 96CE88131026733900F86EA4 /* QCSet.h */; };
 		96CE88161026733900F86EA4 /* QCSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96CE88141026733900F86EA4 /* QCSet.cpp */; };
 		96E1A1A31095E63E00EDFF4E /* QCBoolean.h in Headers */ = {isa = PBXBuildFile; fileRef = 96E1A1A11095E63E00EDFF4E /* QCBoolean.h */; };
@@ -38,7 +38,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		96020EEB112B2F90002CD158 /* CFProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFProxy.h; sourceTree = "<group>"; };
 		9633BDD01022414B00656F42 /* QCDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCDictionary.h; sourceTree = "<group>"; };
 		9633BDD11022414B00656F42 /* QCDictionary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCDictionary.cpp; sourceTree = "<group>"; };
 		9633BE0F102249B300656F42 /* QCArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCArray.h; sourceTree = "<group>"; };
@@ -52,9 +51,10 @@
 		9633C2B91023602F00656F42 /* CFRaii.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFRaii.h; sourceTree = "<group>"; };
 		964386B31327FDE100BC48D9 /* QCPair.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCPair.cpp; sourceTree = "<group>"; };
 		964386B41327FDE100BC48D9 /* QCPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCPair.h; sourceTree = "<group>"; };
-		967E7BA71327D9DE002FDD63 /* QCCFTypeTraits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCCFTypeTraits.h; sourceTree = "<group>"; };
 		96853840123E58D3008C61A0 /* AuthorizationReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorizationReference.h; sourceTree = "<group>"; };
 		96853841123E58D3008C61A0 /* AuthorizationReference.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AuthorizationReference.cpp; sourceTree = "<group>"; };
+		96B4B78C132942F200C424D3 /* QCSharedPtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCSharedPtr.h; sourceTree = "<group>"; };
+		96B4B848132961FB00C424D3 /* QCTypeTraits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCTypeTraits.h; sourceTree = "<group>"; };
 		96CE88131026733900F86EA4 /* QCSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCSet.h; sourceTree = "<group>"; };
 		96CE88141026733900F86EA4 /* QCSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCSet.cpp; sourceTree = "<group>"; };
 		96E1A1A11095E63E00EDFF4E /* QCBoolean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCBoolean.h; sourceTree = "<group>"; };
@@ -85,6 +85,7 @@
 		08FB7794FE84155DC02AAC07 /* CoreFoundationWrappers */ = {
 			isa = PBXGroup;
 			children = (
+				9633C2B91023602F00656F42 /* CFRaii.h */,
 				08FB7795FE84155DC02AAC07 /* Source */,
 				9685383F123E58B9008C61A0 /* Other Wrappers */,
 				C6A0FF2B0290797F04C91782 /* Documentation */,
@@ -96,10 +97,9 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				967E7BA71327D9DE002FDD63 /* QCCFTypeTraits.h */,
-				96020EEB112B2F90002CD158 /* CFProxy.h */,
-				9633C2B91023602F00656F42 /* CFRaii.h */,
 				96EDDC7E102B4DA000A0C958 /* CFRaiiCommon.h */,
+				96B4B78C132942F200C424D3 /* QCSharedPtr.h */,
+				96B4B848132961FB00C424D3 /* QCTypeTraits.h */,
 				96FFBA861022117100753982 /* Array */,
 				96E1A1A01095E62200EDFF4E /* Boolean */,
 				96FFBA871022118E00753982 /* Data */,
@@ -259,10 +259,10 @@
 				96E1A1A31095E63E00EDFF4E /* QCBoolean.h in Headers */,
 				96E2C10010E867C300ECA91F /* QCStack.h in Headers */,
 				96FAFA3D10FE2523003A5E34 /* QCMap.h in Headers */,
-				96020EEC112B2F90002CD158 /* CFProxy.h in Headers */,
 				96853842123E58D3008C61A0 /* AuthorizationReference.h in Headers */,
-				967E7BA81327D9DE002FDD63 /* QCCFTypeTraits.h in Headers */,
 				964386B61327FDE100BC48D9 /* QCPair.h in Headers */,
+				96B4B78D132942F200C424D3 /* QCSharedPtr.h in Headers */,
+				96B4B849132961FB00C424D3 /* QCTypeTraits.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

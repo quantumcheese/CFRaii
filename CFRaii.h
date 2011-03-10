@@ -11,7 +11,9 @@
 #define _CFRAII_HEADER_GUARD_
 
 #include "CFRaiiCommon.h"
-#include "CFProxy.h"
+
+#include "QCTypeTraits.h"
+#include "QCSharedPtr.h"
 
 #include "QCArray.h"
 #include "QCBoolean.h"
@@ -24,8 +26,6 @@
 #include "QCStack.h"
 #include "QCString.h"
 #include "QCURL.h"
-
-#include "QCCFTypeTraits.h"
 
 //#include "AuthorizationReference.h"
 

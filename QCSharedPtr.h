@@ -15,10 +15,22 @@
 #define _CF_PROXY_GUARD_
 
 #include <stdexcept>
+#include <tr1/memory>
 
 #include "CFRaiiCommon.h"
-#include "QCCFTypeTraits.h"
+#include "QCTypeTraits.h"
 
+namespace /* anonymous namespace */
+{
+	struct QCCFDeleter /* release */
+	{
+		template <class T>
+		void operator () (T const &t)
+		{
+			QCRelease(t);
+		}
+	};
+} /* anonymous namespace */
 
 template <class T>
 class QCCFProxy
@@ -219,42 +231,6 @@ public:
 		return obj != NULL;
 	}
 	
-};
-
-class CFTypeProxy
-{
-private:
-	// data member
-	CFTypeRef obj;
-	
-	// no copy assignment
-	CFTypeProxy & operator = (CFTypeProxy const &);
-public:
-	// ctor
-	explicit CFTypeProxy(CFTypeRef const cfobj)
-	: obj(QCRetain(cfobj))
-	{ }
-	
-	// copy ctor
-	CFTypeProxy(CFTypeProxy const &proxy)
-	: obj(QCRetain(proxy.obj))
-	{ }
-	
-	// dtor
-	CFTypeProxy()
-	{
-		QCRelease(obj);
-	}
-	
-	CFTypeRef get() const
-	{
-		return obj;
-	}
-	
-	operator CFTypeRef () const
-	{
-		return obj;
-	}
 };
 
 #endif
