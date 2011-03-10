@@ -151,7 +151,7 @@ public:
 		return !(*this == rhs);
 	}
 	
-#pragma mark class CFTypeProxy
+// MARK: class CFTypeProxy
 	class CFTypeProxy
 	{
 	private:
@@ -198,7 +198,7 @@ public:
 		}
 	}; // class CFTypeProxy
 	
-#pragma mark class CFMutableTypeProxy
+// MARK: class CFMutableTypeProxy
 	class CFMutableTypeProxy
 	{
 	private:

@@ -65,10 +65,10 @@ public:
 		return isNotNull(array) ? array : mArray;
 	}
 	
-#pragma mark -
-#pragma mark Helper Classes
+// MARK: -
+// MARK: Helper Classes
 	
-#pragma mark class CFTypeProxy
+// MARK: class CFTypeProxy
 	class CFTypeProxy
 	{
 	private:
@@ -114,7 +114,7 @@ public:
 		}
 	}; // class CFTypeProxy
 	
-#pragma mark class const_iterator
+// MARK: class const_iterator
 	class const_iterator
 	{
 	private:
@@ -196,7 +196,7 @@ public:
 		}
 	}; // class const_iterator
 	
-#pragma mark class CFMutableTypeProxy
+// MARK: class CFMutableTypeProxy
 	class CFMutableTypeProxy
 	{
 	private:
@@ -244,7 +244,7 @@ public:
 		}
 	}; // class CFMutableTypeProxy
 	
-#pragma mark class iterator
+// MARK: class iterator
 	class iterator
 	{
 	private:
