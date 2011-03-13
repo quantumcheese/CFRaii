@@ -24,24 +24,57 @@ BEGIN_QC_NAMESPACE
 
 namespace /* anonymous namespace */
 {
-	struct QCCFDeleter /* release */
+	template < class T, bool = CFType_traits<T *>::is_CFType >
+	struct QCDeleter
 	{
-		template <class T>
-		void operator () (T const &t)
+		// shared_ptr requires operator () to exist for the false case of is_CFType.
+		void operator () (T * const t)
 		{
-			QCRelease(t);
+			;
 		}
 	};
+	
+	template <>
+	struct QCDeleter < class T, true >
+	{
+		void operator () (T * const t)
+		{
+			if (t != NULL) { CFRelease(t); }
+		}
+	};
+	
 } /* anonymous namespace */
 
-template < class T, bool = QC::is_CFType<T> >
-class QCSharedPtr : public std::tr1::shared_ptr<T>;
+template < class T, bool = CFType_traits<T>::is_CFType >
+class QCSharedPtr;
 
 template <>
-class QCSharedPtr<T, true> : public std::tr1::shared_ptr<T>
+// need to specialize on T* because shared_ptr<T> takes a T* in its c'tor
+class QCSharedPtr< class T *, true >  : public std::tr1::shared_ptr< T >
 {
+	typedef std::tr1::shared_ptr<T>	shared_ptr;
+	typedef QCDeleter<T>			Deleter;
+	
+public:
+	
+	QCSharedPtr()
+	// we want our custom deleter, so we have to give shared_ptr 2 explicit arguments
+	// default construct with NULL
+	: shared_ptr( static_cast<T *>(NULL), Deleter() )
+	{ }
+	
+	explicit QCSharedPtr(T * const &obj)
+	: shared_ptr( obj, Deleter() )
+	{ }
+	
+	// default copy c'tor, d'tor
+	
+private:
 	
 };
+
+
+
 
 template <class T>
 class QCCFProxy
