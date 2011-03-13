@@ -13,6 +13,10 @@
 #include <CoreFoundation/CoreFoundation.h>
 #include <algorithm>
 
+#define BEGIN_QC_NAMESPACE	namespace QC {
+#define END_QC_NAMESPACE	} // namespace QC
+
+BEGIN_QC_NAMESPACE
 static inline bool isNull(CFTypeRef cf)
 {
 	return cf == NULL;
@@ -44,5 +48,7 @@ inline void QCRelease(CFTypeRef object)
 {
 	if (isNotNull(object)) CFRelease(object);
 }
+
+END_QC_NAMESPACE
 
 #endif

@@ -17,6 +17,8 @@
 #include "QCString.h"
 #include "QCURL.h"
 
+BEGIN_QC_NAMESPACE
+
 class QCDictionary
 {
 	CFMutableDictionaryRef	mDict;
@@ -306,5 +308,7 @@ public:
 };
 
 typedef QCDictionary const QCFixedDictionary;
+
+END_QC_NAMESPACE
 
 #endif

@@ -11,6 +11,8 @@
 
 #define kBufferSize (4096)
 
+BEGIN_QC_NAMESPACE
+
 void QCData::show() const
 {
 #ifndef NDEBUG
@@ -46,7 +48,7 @@ QCData QCData::dataFromFile(QCString const &filePath)
 // static method
 QCData QCData::dataFromFile(QCURL const &fileURL)
 {
-//	return QCData(CFURLCreateData(kCFAllocatorDefault, fileURL, kCFStringEncodingUTF8, false));
+	//	return QCData(CFURLCreateData(kCFAllocatorDefault, fileURL, kCFStringEncodingUTF8, false));
 	
 	CFReadStreamRef readStream = CFReadStreamCreateWithFile(kCFAllocatorDefault, fileURL);
 	if (CFReadStreamOpen(readStream) == 0) // treat Boolean
@@ -69,5 +71,7 @@ QCData QCData::dataFromFile(QCURL const &fileURL)
 	
 	return fileData;
 }
+
+END_QC_NAMESPACE
 
 #undef kBufferSize

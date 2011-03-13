@@ -14,6 +14,8 @@
 #include <algorithm>
 #include "CFRaiiCommon.h"
 
+BEGIN_QC_NAMESPACE
+
 template <class T, class U>
 class QCPair
 {
@@ -102,5 +104,7 @@ public:
 	}
 	
 };
+
+END_QC_NAMESPACE
 
 #endif

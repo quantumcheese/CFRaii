@@ -19,6 +19,8 @@
 #include "QCString.h"
 #include "QCURL.h"
 
+BEGIN_QC_NAMESPACE
+
 class QCArray
 {
 	// class invariant: at most one of array and mArray may be non-NULL at a time
@@ -65,10 +67,10 @@ public:
 		return isNotNull(array) ? array : mArray;
 	}
 	
-// MARK: -
-// MARK: Helper Classes
+	// MARK: -
+	// MARK: Helper Classes
 	
-// MARK: class CFTypeProxy
+	// MARK: class CFTypeProxy
 	class CFTypeProxy
 	{
 	private:
@@ -114,7 +116,7 @@ public:
 		}
 	}; // class CFTypeProxy
 	
-// MARK: class const_iterator
+	// MARK: class const_iterator
 	class const_iterator
 	{
 	private:
@@ -196,7 +198,7 @@ public:
 		}
 	}; // class const_iterator
 	
-// MARK: class CFMutableTypeProxy
+	// MARK: class CFMutableTypeProxy
 	class CFMutableTypeProxy
 	{
 	private:
@@ -244,7 +246,7 @@ public:
 		}
 	}; // class CFMutableTypeProxy
 	
-// MARK: class iterator
+	// MARK: class iterator
 	class iterator
 	{
 	private:
@@ -379,7 +381,7 @@ public:
 											  , 0
 											  , &kCFTypeArrayCallBacks);
 			}
-
+			
 		}
 	}
 	
@@ -425,7 +427,7 @@ public:
 	}
 	
 	// Operators
-
+	
 	// copy assignment
 	QCArray & operator = (QCArray const &rhs)
 	{
@@ -433,14 +435,14 @@ public:
 		std::swap(array, temp.array);
 		std::swap(mArray, temp.mArray);
 		return *this;
-
+		
 	}
 	
 	// comparison operators
 	bool operator == (QCArray const &rhs) const
 	{
 		return (Array() == rhs.Array())
-				|| (CFEqual(Array(), rhs.Array()) == true); // convert from Boolean
+		|| (CFEqual(Array(), rhs.Array()) == true); // convert from Boolean
 	}
 	
 	bool operator != (QCArray const &rhs) const
@@ -506,7 +508,7 @@ public:
 	{
 		return CFTypeProxy(Array(), idx);
 	}
-		
+	
 	void push_back(CFTypeRef const value)
 	{
 		// don't add non-value
@@ -618,5 +620,7 @@ inline QCArray operator + (QCArray &lhs, CFArrayRef const &rhs)
 }
 
 typedef QCArray const QCFixedArray;
+
+END_QC_NAMESPACE
 
 #endif

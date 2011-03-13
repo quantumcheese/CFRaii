@@ -18,6 +18,8 @@
 #include <iostream>
 #include <string>
 
+BEGIN_QC_NAMESPACE
+
 // this class is intended as an RAII wrapper for CFStringRefs
 class QCString
 {
@@ -443,5 +445,7 @@ OStream & operator << (OStream & os, QCString const &str)
 }
 
 typedef QCString const QCFixedString;
+
+END_QC_NAMESPACE
 
 #endif

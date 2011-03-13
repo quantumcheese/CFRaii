@@ -14,6 +14,8 @@
 #include <algorithm>
 #include "CFRaiiCommon.h"
 
+BEGIN_QC_NAMESPACE
+
 class QCSet
 {
 private:
@@ -132,5 +134,7 @@ public:
 };
 
 typedef QCSet const QCFixedSet;
+
+END_QC_NAMESPACE
 
 #endif

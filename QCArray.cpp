@@ -11,6 +11,8 @@
 #include "QCURL.h"
 #include "QCString.h"
 
+BEGIN_QC_NAMESPACE
+
 void QCArray::show() const
 {
 #ifndef NDEBUG
@@ -73,3 +75,5 @@ QCArray QCArray::arrayFromFile(QCString const &filePath)
 	
 	return QCArray(static_cast<CFArrayRef> ( plist ));
 }
+
+END_QC_NAMESPACE

@@ -17,6 +17,8 @@
 #include "QCString.h"
 #include "QCURL.h"
 
+BEGIN_QC_NAMESPACE
+
 class QCData
 {
 	// class invariant: at most one of data and mData may be non-NULL at a time
@@ -92,7 +94,7 @@ public:
 			else {
 				mData = CFDataCreateMutable(kCFAllocatorDefault, 0);
 			}
-
+			
 		}
 	}
 	
@@ -161,7 +163,7 @@ public:
 	bool operator == (QCData const &rhs) const
 	{
 		return (Data() == rhs.Data())
-				|| (CFEqual(Data(), rhs.Data()) == true);
+		|| (CFEqual(Data(), rhs.Data()) == true);
 	}
 	
 	bool operator != (QCData const &rhs) const
@@ -191,5 +193,7 @@ public:
 };
 
 typedef QCData const QCFixedData;
+
+END_QC_NAMESPACE
 
 #endif

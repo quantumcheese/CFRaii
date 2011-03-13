@@ -14,6 +14,8 @@
 #include <algorithm>
 #include "CFRaiiCommon.h"
 
+BEGIN_QC_NAMESPACE
+
 class QCMap
 {
 	// how are we going to do this?
@@ -36,5 +38,7 @@ public:
 	
 	
 };
+
+END_QC_NAMESPACE
 
 #endif

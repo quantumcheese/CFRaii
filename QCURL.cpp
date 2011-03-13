@@ -9,9 +9,13 @@
 
 #include "QCURL.h"
 
+BEGIN_QC_NAMESPACE
+
 void QCURL::show() const
 {
 #ifndef NDEBUG
 	CFShow(url);
 #endif
 }
+
+END_QC_NAMESPACE

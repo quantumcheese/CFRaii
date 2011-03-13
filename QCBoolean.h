@@ -14,6 +14,8 @@
 #include <algorithm>
 #include "CFRaiiCommon.h"
 
+BEGIN_QC_NAMESPACE
+
 class QCBoolean
 {
 private:
@@ -119,5 +121,7 @@ public:
 };
 
 typedef QCBoolean QCBool;
+
+END_QC_NAMESPACE
 
 #endif

@@ -20,6 +20,8 @@
 #include "CFRaiiCommon.h"
 #include "QCTypeTraits.h"
 
+BEGIN_QC_NAMESPACE
+
 namespace /* anonymous namespace */
 {
 	struct QCCFDeleter /* release */
@@ -31,6 +33,15 @@ namespace /* anonymous namespace */
 		}
 	};
 } /* anonymous namespace */
+
+template < class T, bool = QC::is_CFType<T> >
+class QCSharedPtr : public std::tr1::shared_ptr<T>;
+
+template <>
+class QCSharedPtr<T, true> : public std::tr1::shared_ptr<T>
+{
+	
+};
 
 template <class T>
 class QCCFProxy
@@ -83,7 +94,7 @@ public:
 	{ }
 	
 	// generic copy ctor
-//	template<class P, bool = CFType_traits<P>::is_CFType >
+	//	template<class P, bool = CFType_traits<P>::is_CFType >
 	QCCFProxy(QCCFProxy const &proxy)
 	: obj(proxy.obj), proxyCount(proxy.proxyCount)
 	{
@@ -99,7 +110,7 @@ public:
 		}
 	}
 	
-			 operator bool () { return obj != NULL; }
+	operator bool () { return obj != NULL; }
 	/* explicit */ operator T () { return obj; }
 	
 	// smart pointer behavior
@@ -232,5 +243,7 @@ public:
 	}
 	
 };
+
+END_QC_NAMESPACE
 
 #endif

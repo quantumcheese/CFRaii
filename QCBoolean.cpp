@@ -10,9 +10,13 @@
 
 #include "QCBoolean.h"
 
+BEGIN_QC_NAMESPACE
+
 void QCBoolean::show() const
 {
 #ifndef NDEBUG
 	CFShow(boolean);
 #endif
 }
+
+END_QC_NAMESPACE

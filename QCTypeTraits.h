@@ -18,6 +18,8 @@
 // MARK: -
 // MARK: Is Core Foundation type trait
 
+BEGIN_QC_NAMESPACE
+
 namespace /* anonymous namespace */
 {
 	typedef std::tr1::false_type false_type;
@@ -275,5 +277,7 @@ struct CFType_traits <CF, true>
 	typedef CF value_type;
 	static value_type get(CF const &obj) { return obj; }
 };
+
+END_QC_NAMESPACE
 
 #endif

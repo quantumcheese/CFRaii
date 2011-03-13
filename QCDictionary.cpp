@@ -11,6 +11,8 @@
 #include "QCURL.h"
 #include "QCString.h"
 
+BEGIN_QC_NAMESPACE
+
 void QCDictionary::show() const
 {
 #ifndef NDEBUG
@@ -72,3 +74,5 @@ QCDictionary QCDictionary::dictionaryFromFile(QCString const &filePath, CFProper
 	
 	return QCDictionary(static_cast<CFDictionaryRef> ( plist ));
 }
+
+END_QC_NAMESPACE

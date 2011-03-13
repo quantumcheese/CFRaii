@@ -18,6 +18,8 @@
 
 #include "QCString.h"
 
+BEGIN_QC_NAMESPACE
+
 class QCURL
 {
 	CFURLRef url;
@@ -130,5 +132,7 @@ public:
 };
 
 #undef qcBufferSize
+
+END_QC_NAMESPACE
 
 #endif

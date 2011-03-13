@@ -9,9 +9,13 @@
 
 #include "QCNumber.h"
 
+BEGIN_QC_NAMESPACE
+
 void QCNumber::show() const
 {
 #ifndef NDEBUG
 	CFShow(number);
 #endif
 }
+
+END_QC_NAMESPACE

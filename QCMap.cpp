@@ -9,3 +9,6 @@
 
 #include "QCMap.h"
 
+BEGIN_QC_NAMESPACE
+
+END_QC_NAMESPACE

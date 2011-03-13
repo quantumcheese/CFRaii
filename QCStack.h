@@ -16,6 +16,8 @@
 #include <stdexcept>
 #include "CFRaiiCommon.h"
 
+BEGIN_QC_NAMESPACE
+
 class QCStack
 {
 private:
@@ -169,5 +171,7 @@ public:
 	CFStringRef concatenateStringsWithJoiningString(CFStringRef const joiningString) const;
 	void show() const;
 };
+
+END_QC_NAMESPACE
 
 #endif

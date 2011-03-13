@@ -9,6 +9,8 @@
 
 #include "QCStack.h"
 
+BEGIN_QC_NAMESPACE
+
 void QCStack::show() const
 {
 #ifndef NDEBUG
@@ -20,3 +22,5 @@ CFStringRef QCStack::concatenateStringsWithJoiningString(CFStringRef const joini
 {
 	return CFStringCreateByCombiningStrings(kCFAllocatorDefault, stack, joiningString);
 }
+
+END_QC_NAMESPACE

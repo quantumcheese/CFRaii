@@ -11,6 +11,8 @@
 
 #include "QCData.h"
 
+BEGIN_QC_NAMESPACE
+
 char *QCString::CString() const
 {
 	return CString_malloc();
@@ -78,3 +80,5 @@ bool QCString::writeToFile(QCString const &filePath) const
 	
 	return written;
 }
+
+END_QC_NAMESPACE

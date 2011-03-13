@@ -14,6 +14,8 @@
 #include <algorithm>
 #include "CFRaiiCommon.h"
 
+BEGIN_QC_NAMESPACE
+
 class QCNumber
 {
 private:
@@ -120,5 +122,7 @@ public:
 };
 
 typedef QCNumber const QCFixedNumber;
+
+END_QC_NAMESPACE
 
 #endif

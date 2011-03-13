@@ -9,9 +9,13 @@
 
 #include "QCSet.h"
 
+BEGIN_QC_NAMESPACE
+
 void QCSet::show() const
 {
 #ifndef NDEBUG
 	CFShow(set);
 #endif
 }
+
+END_QC_NAMESPACE
