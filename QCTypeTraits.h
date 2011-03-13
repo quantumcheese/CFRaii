@@ -13,7 +13,7 @@
 
 #include <tr1/type_traits>
 
-#include "CFRaiiCommon.h"
+#include "QCMacrosInternal.h"
 
 // MARK: -
 // MARK: Is Core Foundation type trait
@@ -258,7 +258,9 @@ namespace /* anonymous namespace */
 
 // MARK: public-facing is_CFType<> interface
 template <class T>
-/* we need to remove_cv in order to ensure matching the above template specialization */
+/* we need to remove_cv (from the pointer-to-opaque-CF-type)
+ * in order to ensure matching the above template specialization
+ */
 struct is_CFType : public _is_CFType < typename std::tr1::remove_cv<T>::type >
 { };
 
@@ -266,15 +268,19 @@ struct is_CFType : public _is_CFType < typename std::tr1::remove_cv<T>::type >
 // MARK: -
 // MARK: CFType_traits
 
-// only implement CFType_traits iff is_CFType is true
 template < class CF, bool = is_CFType<CF>::value >
-struct CFType_traits;
+struct CFType_traits
+{
+	static bool const is_CFType = false;
+};
 
+// partial specialization for is_CFType
 template <class CF>
 struct CFType_traits <CF, true>
 {
 	static bool const is_CFType = true;
 	typedef CF value_type;
+	static CFTypeID typeID(CF const &obj) { return CFGetTypeID(obj); }
 	static value_type get(CF const &obj) { return obj; }
 };
 
