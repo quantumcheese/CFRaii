@@ -2,7 +2,7 @@
  *  CFRaii.h
  *  CFRaii
  *
- * Copyright (c) 2009-2010 Richard A. Brown
+ * Copyright (c) 2009-2011 Richard A. Brown
  * 
  * See license.txt for licensing terms and conditions.
  */
