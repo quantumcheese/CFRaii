@@ -27,6 +27,4 @@
 #include "QCString.h"
 #include "QCURL.h"
 
-//#include "AuthorizationReference.h"
-
 #endif
