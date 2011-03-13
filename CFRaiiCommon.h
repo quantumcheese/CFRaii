@@ -13,8 +13,9 @@
 #include <CoreFoundation/CoreFoundation.h>
 #include <algorithm>
 
-#define BEGIN_QC_NAMESPACE	namespace QC {
-#define END_QC_NAMESPACE	} // namespace QC
+#import "QCMacrosInternal.h"
+
+#include "QCTypeTraits.h"
 
 BEGIN_QC_NAMESPACE
 static inline bool isNull(CFTypeRef cf)
@@ -28,7 +29,7 @@ static inline bool isNotNull(CFTypeRef cf)
 }
 
 /*
- * We templatize this function in order to avoid the need to cast its return values
+ * We templatize QCRetain in order to avoid the need to cast its return values.
  * The previous version was:
  * CFTypeRef QCRetain(CFTypeRef object)
  * {
@@ -37,13 +38,14 @@ static inline bool isNotNull(CFTypeRef cf)
  * However, its return values required static_cast<>ing to get back to the originating type.
  */
 
-template<class T>
-inline T QCRetain(T object)
+template < class T >
+inline T QCRetain(T const &object)
 {
 	if (isNotNull(object)) CFRetain(object);
 	return object;
 }
 
+// non-template version -- is there any reason to templatize QCRelease() ?
 inline void QCRelease(CFTypeRef object)
 {
 	if (isNotNull(object)) CFRelease(object);
