@@ -1,15 +1,15 @@
 /*
- *  QCCFTypeTraits.h
+ *  QCTypeTraits.h
  *  CFRaii
  *
- * Copyright (c) 2010 Richard A. Brown
+ * Copyright (c) 2011 Richard A. Brown
  * 
  * See license.txt for licensing terms and conditions.
  */
 
 
-#ifndef _QC_CF_TYPE_TRAITS_GUARD_
-#define _QC_CF_TYPE_TRAITS_GUARD_
+#ifndef _QC_TYPE_TRAITS_GUARD_
+#define _QC_TYPE_TRAITS_GUARD_
 
 #include <tr1/type_traits>
 
@@ -278,8 +278,8 @@ struct CFType_traits
 template <class CF>
 struct CFType_traits <CF, true>
 {
-	static bool const is_CFType = true;
 	typedef CF value_type;
+	static bool const is_CFType = true;
 	static CFTypeID typeID(CF const &obj) { return CFGetTypeID(obj); }
 	static value_type get(CF const &obj) { return obj; }
 };
