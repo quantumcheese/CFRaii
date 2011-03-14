@@ -21,6 +21,8 @@
 		963596E3132D5868006521B1 /* QCMacrosInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 963596E2132D5868006521B1 /* QCMacrosInternal.h */; };
 		964386B51327FDE100BC48D9 /* QCPair.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 964386B31327FDE100BC48D9 /* QCPair.cpp */; };
 		964386B61327FDE100BC48D9 /* QCPair.h in Headers */ = {isa = PBXBuildFile; fileRef = 964386B41327FDE100BC48D9 /* QCPair.h */; };
+		966E441F132DAB0900873C8B /* CFRaii_test_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 966E4412132DAA1F00873C8B /* CFRaii_test_main.cpp */; };
+		966E4420132DAB0F00873C8B /* libCFRaii.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AAC046055464E500DB518D /* libCFRaii.a */; };
 		96B4B78D132942F200C424D3 /* QCSharedPtr.h in Headers */ = {isa = PBXBuildFile; fileRef = 96B4B78C132942F200C424D3 /* QCSharedPtr.h */; };
 		96B4B849132961FB00C424D3 /* QCTypeTraits.h in Headers */ = {isa = PBXBuildFile; fileRef = 96B4B848132961FB00C424D3 /* QCTypeTraits.h */; };
 		96CE88151026733900F86EA4 /* QCSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 96CE88131026733900F86EA4 /* QCSet.h */; };
@@ -35,6 +37,16 @@
 		96FAFA3D10FE2523003A5E34 /* QCMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 96FAFA3B10FE2523003A5E34 /* QCMap.h */; };
 		96FAFA3E10FE2523003A5E34 /* QCMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96FAFA3C10FE2523003A5E34 /* QCMap.cpp */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		966E4421132DAB1300873C8B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC045055464E500DB518D /* CFRaii */;
+			remoteInfo = CFRaii;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		9633BDD01022414B00656F42 /* QCDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCDictionary.h; sourceTree = "<group>"; };
@@ -51,6 +63,8 @@
 		963596E2132D5868006521B1 /* QCMacrosInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCMacrosInternal.h; sourceTree = "<group>"; };
 		964386B31327FDE100BC48D9 /* QCPair.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCPair.cpp; sourceTree = "<group>"; };
 		964386B41327FDE100BC48D9 /* QCPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCPair.h; sourceTree = "<group>"; };
+		966E440A132DAA0600873C8B /* Unit Tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Unit Tests"; sourceTree = BUILT_PRODUCTS_DIR; };
+		966E4412132DAA1F00873C8B /* CFRaii_test_main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFRaii_test_main.cpp; path = tests/CFRaii_test_main.cpp; sourceTree = "<group>"; };
 		96B4B78C132942F200C424D3 /* QCSharedPtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCSharedPtr.h; sourceTree = "<group>"; };
 		96B4B848132961FB00C424D3 /* QCTypeTraits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCTypeTraits.h; sourceTree = "<group>"; };
 		96CE88131026733900F86EA4 /* QCSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCSet.h; sourceTree = "<group>"; };
@@ -70,6 +84,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		966E4408132DAA0600873C8B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				966E4420132DAB0F00873C8B /* libCFRaii.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D289987405E68DCB004EDB86 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -87,6 +109,7 @@
 				963596E2132D5868006521B1 /* QCMacrosInternal.h */,
 				08FB7795FE84155DC02AAC07 /* Source */,
 				C6A0FF2B0290797F04C91782 /* Documentation */,
+				966E4406132DA9F400873C8B /* Test */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
 			);
 			name = CoreFoundationWrappers;
@@ -117,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				D2AAC046055464E500DB518D /* libCFRaii.a */,
+				966E440A132DAA0600873C8B /* Unit Tests */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -146,6 +170,14 @@
 				964386B41327FDE100BC48D9 /* QCPair.h */,
 			);
 			name = Pair;
+			sourceTree = "<group>";
+		};
+		966E4406132DA9F400873C8B /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				966E4412132DAA1F00873C8B /* CFRaii_test_main.cpp */,
+			);
+			name = Test;
 			sourceTree = "<group>";
 		};
 		96CE88121026732C00F86EA4 /* Set */ = {
@@ -258,6 +290,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		966E4409132DAA0600873C8B /* Unit Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 966E4415132DAA1F00873C8B /* Build configuration list for PBXNativeTarget "Unit Tests" */;
+			buildPhases = (
+				966E4407132DAA0600873C8B /* Sources */,
+				966E4408132DAA0600873C8B /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				966E4422132DAB1300873C8B /* PBXTargetDependency */,
+			);
+			name = "Unit Tests";
+			productName = "Unit Tests";
+			productReference = 966E440A132DAA0600873C8B /* Unit Tests */;
+			productType = "com.apple.product-type.tool";
+		};
 		D2AAC045055464E500DB518D /* CFRaii */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB91EB08733DB70010E9CD /* Build configuration list for PBXNativeTarget "CFRaii" */;
@@ -295,11 +344,20 @@
 			projectRoot = "";
 			targets = (
 				D2AAC045055464E500DB518D /* CFRaii */,
+				966E4409132DAA0600873C8B /* Unit Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		966E4407132DAA0600873C8B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				966E441F132DAB0900873C8B /* CFRaii_test_main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D2AAC044055464E500DB518D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -320,6 +378,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		966E4422132DAB1300873C8B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D2AAC045055464E500DB518D /* CFRaii */;
+			targetProxy = 966E4421132DAB1300873C8B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		1DEB91EC08733DB70010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -332,7 +398,6 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = CFRaii;
 			};
@@ -347,7 +412,6 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = CFRaii;
 			};
@@ -381,6 +445,36 @@
 			};
 			name = Release;
 		};
+		966E440F132DAA0700873C8B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = "Unit Tests";
+			};
+			name = Debug;
+		};
+		966E4410132DAA0700873C8B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = "Unit Tests";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -398,6 +492,15 @@
 			buildConfigurations = (
 				1DEB91F008733DB70010E9CD /* Debug */,
 				1DEB91F108733DB70010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		966E4415132DAA1F00873C8B /* Build configuration list for PBXNativeTarget "Unit Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				966E440F132DAA0700873C8B /* Debug */,
+				966E4410132DAA0700873C8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

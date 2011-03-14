@@ -1,8 +1,8 @@
 /*
- *  CFProxy.h
+ *  QCSharedPtr.h
  *  CFRaii
  *
- * Copyright (c) 2010 Richard A. Brown
+ * Copyright (c) 2010-2011 Richard A. Brown
  * 
  * See license.txt for licensing terms and conditions.
  */
@@ -14,8 +14,11 @@
 #ifndef _CF_PROXY_GUARD_
 #define _CF_PROXY_GUARD_
 
+#include <CoreFoundation/CoreFoundation.h>
+
 #include <stdexcept>
 #include <tr1/memory>
+#include <tr1/type_traits>
 
 #include "CFRaiiCommon.h"
 #include "QCTypeTraits.h"
@@ -48,12 +51,11 @@ namespace /* anonymous namespace */
 template < class T, bool = CFType_traits<T>::is_CFType >
 class QCSharedPtr;
 
-template <>
-// need to specialize on T* because shared_ptr<T> takes a T* in its c'tor
-class QCSharedPtr< class T *, true >  : public std::tr1::shared_ptr< T >
+template < class T >
+class QCSharedPtr< T*, true >  : public std::tr1::shared_ptr< T >
 {
-	typedef std::tr1::shared_ptr<T>	shared_ptr;
-	typedef QCDeleter<T>			Deleter;
+	typedef std::tr1::shared_ptr< T >	shared_ptr;
+	typedef QCDeleter< T >				Deleter;
 	
 public:
 	
@@ -63,109 +65,17 @@ public:
 	: shared_ptr( static_cast<T *>(NULL), Deleter() )
 	{ }
 	
-	explicit QCSharedPtr(T * const &obj)
+	explicit QCSharedPtr(T * const obj)
 	: shared_ptr( obj, Deleter() )
 	{ }
 	
 	// default copy c'tor, d'tor
 	
-private:
-	
-};
+	// TODO: copy the list of public members of shared_ptr here
 
-
-
-
-template <class T>
-class QCCFProxy
-{
-private:
-	
-	CFIndex increment()
-	{
-		CFIndex inc(0);
-		if (proxyCount == NULL)
-		{
-			if (empty()) { /* no-op */ }
-			else { throw std::logic_error("incrementing a null counter but has object"); }
-		}
-		else
-		{
-			inc = ++ (*proxyCount);
-		}
-		return inc;
-	}
-	
-	CFIndex decrement()
-	{
-		CFIndex dec(0);
-		if (proxyCount == NULL)
-		{
-			if (empty()) { /* no-op */ }
-			else { throw std::logic_error("decrementing a null counter but has object"); }
-		}
-		else
-		{
-			dec = -- (*proxyCount);
-		}
-		
-		if (dec == 0)
-		{
-			delete proxyCount;
-			proxyCount = NULL;
-			QCRelease(obj);
-			obj = NULL;
-		}
-		return dec;
-	}
-	
-public:
-	
-	// RAII ctor
-	explicit QCCFProxy(T const & ptr)
-	: obj(ptr), proxyCount(new CFIndex(1))
-	{ }
-	
-	// generic copy ctor
-	//	template<class P, bool = CFType_traits<P>::is_CFType >
-	QCCFProxy(QCCFProxy const &proxy)
-	: obj(proxy.obj), proxyCount(proxy.proxyCount)
-	{
-		increment();
-	}
-	
-	// dtor
-	virtual ~QCCFProxy()
-	{
-		if (decrement() == 0)
-		{
-			QCRelease(obj);
-		}
-	}
-	
-	operator bool () { return obj != NULL; }
-	/* explicit */ operator T () { return obj; }
-	
-	// smart pointer behavior
-	bool empty() { return obj != NULL; }
-	T get() { return obj; }
-	void swap( QCCFProxy & other ) { std::swap(obj, other.obj); std::swap(proxyCount, other.proxyCount); };
-	
-	
-	// assignment
-	QCCFProxy &
-	operator = (QCCFProxy const &other)
-	{
-		decrement();
-		obj = other.obj;
-		proxyCount = other.proxyCount;
-		increment();
-	}
 	
 private:
-	T obj;
-	CFIndex *proxyCount;
-	
+//	shared_ptr	_ptr;
 };
 
 template<class T>
