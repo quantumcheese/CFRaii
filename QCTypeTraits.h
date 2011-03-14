@@ -275,13 +275,14 @@ struct CFType_traits
 };
 
 // partial specialization for is_CFType
-template <class CF>
-struct CFType_traits <CF, true>
+template < class CF >
+struct CFType_traits < CF, true >
 {
 	typedef CF value_type;
 	static bool const is_CFType = true;
-	static CFTypeID typeID(CF const &obj) { return CFGetTypeID(obj); }
 	static value_type get(CF const &obj) { return obj; }
+	static CFTypeID typeID(CF const &obj) { return CFGetTypeID(obj); }
+	static CFAllocatorRef allocator(CF const &obj) { return CFGetAllocator(obj); }
 };
 
 END_QC_NAMESPACE
