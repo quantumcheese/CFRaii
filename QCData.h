@@ -186,10 +186,10 @@ public:
 	
 	void show() const;
 	
-	bool writeToFile(QCString const &filePath) const;
+	bool writeToFile(CFStringRef const filePath) const;
 	
-	static QCData dataFromFile(QCURL const &fileURL);
-	static QCData dataFromFile(QCString const &filePath);
+	static QCData dataFromFile(CFURLRef const fileURL);
+	static QCData dataFromFile(CFStringRef const filePath);
 };
 
 typedef QCData const QCFixedData;

@@ -20,7 +20,7 @@ void QCData::show() const
 #endif
 }
 
-bool QCData::writeToFile(QCString const &filePath) const
+bool QCData::writeToFile(CFStringRef const filePath) const
 {
 	QCURL fileURL(filePath, 0); // is not directory
 	CFWriteStreamRef writeStream(CFWriteStreamCreateWithFile(kCFAllocatorDefault, fileURL));
@@ -39,17 +39,15 @@ bool QCData::writeToFile(QCString const &filePath) const
 }
 
 // static method
-QCData QCData::dataFromFile(QCString const &filePath)
+QCData QCData::dataFromFile(CFStringRef const filePath)
 {
 	QCURL fileURL(filePath, false);
 	return dataFromFile(fileURL);
 }
 
 // static method
-QCData QCData::dataFromFile(QCURL const &fileURL)
+QCData QCData::dataFromFile(CFURLRef const fileURL)
 {
-	//	return QCData(CFURLCreateData(kCFAllocatorDefault, fileURL, kCFStringEncodingUTF8, false));
-	
 	CFReadStreamRef readStream = CFReadStreamCreateWithFile(kCFAllocatorDefault, fileURL);
 	if (CFReadStreamOpen(readStream) == 0) // treat Boolean
 	{
