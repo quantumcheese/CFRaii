@@ -52,7 +52,7 @@ template < class T, bool = CFType_traits<T>::is_CFType >
 class QCSharedPtr;
 
 template < class T >
-class QCSharedPtr< T*, true >  : public std::tr1::shared_ptr< T >
+class QCSharedPtr < T*, true >  : public std::tr1::shared_ptr< T >
 {
 	typedef std::tr1::shared_ptr< T >	shared_ptr;
 	typedef QCDeleter< T >				Deleter;
@@ -61,18 +61,59 @@ public:
 	
 	QCSharedPtr()
 	// we want our custom deleter, so we have to give shared_ptr 2 explicit arguments
-	// default construct with NULL
-	: shared_ptr( static_cast<T *>(NULL), Deleter() )
+	// but constructing with NULL gives it a control block, i.e. it's not "empty"
+	: shared_ptr( ) // call up to the super class' constructor
 	{ }
 	
-	explicit QCSharedPtr(T * const obj)
+	explicit QCSharedPtr(T * obj)
 	: shared_ptr( obj, Deleter() )
+	{ }
+	
+	template < class Other, class D >
+	QCSharedPtr(Other * o, D dtor)
+	: shared_ptr( o, dtor )
 	{ }
 	
 	// default copy c'tor, d'tor
 	
 	// TODO: copy the list of public members of shared_ptr here
-
+	
+	void swap(QCSharedPtr &);
+    void reset();
+	
+	// default reset should use our Deleter
+    template < class Other >
+	void reset(Other * o)
+	{
+		reset(o, Deleter());
+	}
+	
+    template < class Other, class D >
+	void reset(Other *, D);
+	
+	T *get() const;
+    T& operator*() const;
+    T *operator->() const;
+    long use_count() const;
+    bool unique() const;
+    operator bool() const;
+	
+public:
+	// CoreFoundation functions that apply to all CFTypes
+	CFStringRef CopyDescription() const		{ return CFCopyDescription(get()); }
+	Boolean Equal(T * const rhs) const		{ return CFEqual(get(), rhs); } // could use a CFTypeRef instead of a T*
+	CFAllocatorRef GetAllocator() const		{ return CFGetAllocator(get()); }
+	CFIndex GetRetainCount() const			{ return CFGetRetainCount(get()); }
+	CFTypeID GetTypeID() const				{ return CFGetTypeID(get()); }
+	CFHashCode Hash() const					{ return CFHash(get()); }
+	void Show() const						{ CFShow(get()); }
+	
+	// Conceptually non-const memory-management methods.
+	// Return get() to preserve type information that would otherwise become CFTypeRef.
+	T MakeCollectible()						{ CFMakeCollectable(get()); return get(); }
+	T Retain()								{ CFRetain(get()); return get(); }
+	void Release()							{ CFRelease(get()); }
+	
 	
 private:
 //	shared_ptr	_ptr;

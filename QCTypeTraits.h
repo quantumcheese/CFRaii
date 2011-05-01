@@ -20,7 +20,8 @@
 
 BEGIN_QC_NAMESPACE
 
-namespace /* anonymous namespace */
+namespace Detail // we would have liked to make this an anonymous namespace,
+				 // but that's bad news in a header file.
 {
 	typedef std::tr1::false_type false_type;
 	typedef std::tr1::true_type true_type;
@@ -159,7 +160,7 @@ namespace /* anonymous namespace */
 	{ };
 	
 #if 0
-	// CFPluginRef is typedef'd to the same opaque type as CFBundleRef
+	// CFPluginRef is a typedef to the same opaque type as CFBundleRef
 	template <>
 	struct _is_CFType <CFPlugInRef> : public true_type
 	{ };
@@ -254,14 +255,14 @@ namespace /* anonymous namespace */
 	struct _is_CFType <CFXMLTreeRef> : public true_type
 	{ };
 #endif
-} /* anonymous namespace */
+} /* Detail namespace */
 
 // MARK: public-facing is_CFType<> interface
 template <class T>
 /* we need to remove_cv (from the pointer-to-opaque-CF-type)
  * in order to ensure matching the above template specialization
  */
-struct is_CFType : public _is_CFType < typename std::tr1::remove_cv<T>::type >
+struct is_CFType : public Detail::_is_CFType < typename std::tr1::remove_cv<T>::type >
 { };
 
 
@@ -283,6 +284,7 @@ struct CFType_traits < CF, true >
 	static value_type get(CF const &obj) { return obj; }
 	static CFTypeID typeID(CF const &obj) { return CFGetTypeID(obj); }
 	static CFAllocatorRef allocator(CF const &obj) { return CFGetAllocator(obj); }
+	static CFIndex RetainCount(CF const &obj) { return CFGetRetainCount(obj); } // should never be called
 };
 
 END_QC_NAMESPACE

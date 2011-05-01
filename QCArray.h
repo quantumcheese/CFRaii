@@ -15,13 +15,69 @@
 #include <stdexcept>
 
 #include "CFRaiiCommon.h"
+#include "QCSharedPtr.h"
 
 #include "QCString.h"
 #include "QCURL.h"
 
 BEGIN_QC_NAMESPACE
 
-class QCArray
+class QCArray2 : public QCSharedPtr < CFArrayRef >
+{
+public:
+	/* just like with normal CoreFoundation functions,
+	 * it is the user's responsibility to ensure that the array is valid
+	 * before calling any of these methods.
+	 */
+	CFIndex GetCount() const
+	{
+		return CFArrayGetCount(get());
+	}
+	
+	// copy the underlying array
+	CFArrayRef Copy() const
+	{
+		CFArrayRef array = get();
+		return (array != NULL)
+		? CFArrayCreateCopy(CFGetAllocator(array), array)
+		: NULL;
+	}
+	CFMutableArrayRef MutableCopy() const
+	{
+		CFArrayRef array = get();
+		return (array != NULL)
+		? CFArrayCreateMutableCopy(CFGetAllocator(array), 0, array) // do not enforce a size limit
+		: NULL;
+	}
+	
+	// no conversion operator to CFMutableArrayRef; it's a bad idea
+};
+
+class QCMutableArray : public QCSharedPtr < CFMutableArrayRef >
+{
+public:
+	CFIndex length() const
+	{
+		return CFArrayGetCount(get());
+	}
+	
+	CFArrayRef Copy() const
+	{
+		CFMutableArrayRef array = get();
+		return (array != NULL)
+		? CFArrayCreateCopy(CFGetAllocator(array), array)
+		: NULL;
+	}
+	CFMutableArrayRef MutableCopy() const
+	{
+		CFMutableArrayRef array = get();
+		return (array != NULL)
+		? CFArrayCreateMutableCopy(CFGetAllocator(array), 0, array) // do not enforce a size limit
+		: NULL;
+	}
+};
+
+class QCArray1
 {
 	// class invariant: at most one of array and mArray may be non-NULL at a time
 private:
@@ -29,29 +85,29 @@ private:
 	CFArrayRef			array;
 	
 public:
-	QCArray( )
+	QCArray1( )
 	: array( NULL )
 	, mArray( CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks) )
 	{ }
 	
-	explicit QCArray(CFMutableArrayRef const &inArray)
+	explicit QCArray1(CFMutableArrayRef const &inArray)
 	: array( NULL )
 	, mArray( inArray )
 	{ }
 	
-	explicit QCArray(CFArrayRef const &inArray)
+	explicit QCArray1(CFArrayRef const &inArray)
 	: array( inArray )
 	, mArray( NULL )
 	{ }
 	
 	// copy constructor
-	QCArray(QCArray const &inArray)
+	QCArray1(QCArray1 const &inArray)
 	: array( QCRetain(inArray.array) )
 	, mArray( QCRetain(inArray.mArray) )
 	{ }
 	
 	// destructor
-	~QCArray( )
+	~QCArray1( )
 	{
 		QCRelease(array);
 		QCRelease(mArray);
@@ -421,17 +477,17 @@ public:
 		return count() == 0;
 	}
 	
-	QCArray copy() const
+	QCArray1 copy() const
 	{
-		return QCArray(*this);// null() ? QCArray() : QCArray(CFArrayCreateMutableCopy(kCFAllocatorDefault, 0, array));
+		return QCArray1(*this);// null() ? QCArray1() : QCArray1(CFArrayCreateMutableCopy(kCFAllocatorDefault, 0, array));
 	}
 	
 	// Operators
 	
 	// copy assignment
-	QCArray & operator = (QCArray const &rhs)
+	QCArray1 & operator = (QCArray1 const &rhs)
 	{
-		QCArray temp(rhs);
+		QCArray1 temp(rhs);
 		std::swap(array, temp.array);
 		std::swap(mArray, temp.mArray);
 		return *this;
@@ -439,19 +495,19 @@ public:
 	}
 	
 	// comparison operators
-	bool operator == (QCArray const &rhs) const
+	bool operator == (QCArray1 const &rhs) const
 	{
 		return (Array() == rhs.Array())
 		|| (CFEqual(Array(), rhs.Array()) == true); // convert from Boolean
 	}
 	
-	bool operator != (QCArray const &rhs) const
+	bool operator != (QCArray1 const &rhs) const
 	{
 		return !(*this == rhs);
 	}
 	
 	// compound assignment -- concatenation
-	QCArray & operator += (QCArray const &rhs)
+	QCArray1 & operator += (QCArray1 const &rhs)
 	{
 		// if rhs.array == NULL do nothing
 		if (rhs.array != NULL)
@@ -473,7 +529,7 @@ public:
 	}
 	
 	// CFArrayRef also includes CFMutableArrayRef
-	QCArray & operator += (CFArrayRef const &rhs)
+	QCArray1 & operator += (CFArrayRef const &rhs)
 	{
 		if (rhs != NULL)
 		{
@@ -564,7 +620,7 @@ public:
 	
 	bool writeToFile(QCString const &filePath, CFPropertyListFormat const format) const;
 	
-	static QCArray arrayFromFile(QCString const &filePath);
+	static QCArray1 arrayFromFile(QCString const &filePath);
 	
 	const_iterator begin() const
 	{
@@ -601,23 +657,7 @@ public:
 	}
 };
 
-inline QCArray operator + (QCArray &lhs, QCArray const &rhs)
-{
-	QCArray temp(lhs);
-	return temp += rhs;
-}
-
-inline QCArray operator + (QCArray &lhs, CFMutableArrayRef const &rhs)
-{
-	QCArray temp(lhs);
-	return temp += rhs;
-}
-
-inline QCArray operator + (QCArray &lhs, CFArrayRef const &rhs)
-{
-	QCArray temp(lhs);
-	return temp += rhs;
-}
+typedef QCArray1 QCArray;
 
 typedef QCArray const QCFixedArray;
 
