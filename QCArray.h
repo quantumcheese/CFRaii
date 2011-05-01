@@ -22,10 +22,10 @@
 
 BEGIN_QC_NAMESPACE
 
-class QCArray2 : public QCSharedPtr < CFArrayRef >
+class QCArray_shared_ptr : public QCSharedPtr < CFArrayRef >
 {
 public:
-	/* just like with normal CoreFoundation functions,
+	/* Just like with normal CoreFoundation functions,
 	 * it is the user's responsibility to ensure that the array is valid
 	 * before calling any of these methods.
 	 */
@@ -34,7 +34,7 @@ public:
 		return CFArrayGetCount(get());
 	}
 	
-	// copy the underlying array
+	// copy the underlying array; follows the Create rule
 	CFArrayRef Copy() const
 	{
 		CFArrayRef array = get();
@@ -48,6 +48,11 @@ public:
 		return (array != NULL)
 		? CFArrayCreateMutableCopy(CFGetAllocator(array), 0, array) // do not enforce a size limit
 		: NULL;
+	}
+	
+	CFTypeRef operator [](CFIndex const index)
+	{
+		return CFArrayGetValueAtIndex(get(), index);
 	}
 	
 	// no conversion operator to CFMutableArrayRef; it's a bad idea
@@ -56,11 +61,18 @@ public:
 class QCMutableArray : public QCSharedPtr < CFMutableArrayRef >
 {
 public:
-	CFIndex length() const
+#if 0
+	explicit
+	QCMutableArray(CFMutableArrayRef array)
+	: QCSharedPtr < CFMutableArrayRef > ( array )
+	{ }
+#endif
+	CFIndex GetCount() const
 	{
 		return CFArrayGetCount(get());
 	}
 	
+	// copy the underlying array; follows the Create rule
 	CFArrayRef Copy() const
 	{
 		CFMutableArrayRef array = get();
@@ -74,6 +86,22 @@ public:
 		return (array != NULL)
 		? CFArrayCreateMutableCopy(CFGetAllocator(array), 0, array) // do not enforce a size limit
 		: NULL;
+	}
+	
+	void AppendValue(CFTypeRef const value)
+	{
+		CFArrayAppendValue(get(), value);
+	}
+	void AppendArray(CFArrayRef const array)
+	{
+		CFArrayAppendArray(get(), array, CFRangeMake(0, CFArrayGetCount(array)));
+	}
+	
+	// conversion operator
+	operator QCArray_shared_ptr ()
+	{
+		// not a problem to add const to the opaque __CFArray *
+		return static_cast<QCArray_shared_ptr> (*this);
 	}
 };
 
@@ -466,7 +494,7 @@ public:
 		return isNull( Array() );
 	}
 	
-	CFIndex count() const
+	CFIndex GetCount() const
 	{
 		return null() ? 0 : CFArrayGetCount(Array());
 	}
@@ -474,7 +502,7 @@ public:
 	bool empty() const
 	{
 		// either null or has 0 entries
-		return count() == 0;
+		return GetCount() == 0;
 	}
 	
 	QCArray1 copy() const
@@ -522,7 +550,7 @@ public:
 			}
 			else
 			{
-				CFArrayAppendArray(mArray, rhs, CFRangeMake(0, rhs.count()));		
+				CFArrayAppendArray(mArray, rhs, CFRangeMake(0, rhs.GetCount()));		
 			}
 		}
 		return *this;
@@ -565,7 +593,7 @@ public:
 		return CFTypeProxy(Array(), idx);
 	}
 	
-	void push_back(CFTypeRef const value)
+	void AppendValue(CFTypeRef const value)
 	{
 		// don't add non-value
 		if (value != NULL)
@@ -581,7 +609,7 @@ public:
 		}
 	}
 	
-	void appendArray(CFArrayRef otherArray)
+	void AppendArray(CFArrayRef otherArray)
 	{
 		if (otherArray != NULL)
 		{
@@ -590,20 +618,11 @@ public:
 			CFArrayAppendArray(mArray, otherArray, CFRangeMake(0, CFArrayGetCount(otherArray)));
 		}
 	}
-	
-	void append(CFTypeRef value)
-	{
-		if (value != NULL)
-		{
-			// makeUnique is called in push_back
-			push_back(value);
-		}
-	}
-	
+		
 	// throws out_of_range exception for invalid index
-	void removeValueAtIndex(CFIndex const idx)
+	void RemoveValueAtIndex(CFIndex const idx)
 	{
-		if (idx < count()) // strict less-than because arrays are 0-indexed
+		if (idx < GetCount()) // strict less-than because arrays are 0-indexed
 		{
 			makeMutable();
 			makeUnique();
@@ -629,7 +648,7 @@ public:
 	
 	const_iterator end() const
 	{
-		return const_iterator(Array(), count());
+		return const_iterator(Array(), GetCount());
 	}
 	
 	iterator begin()
@@ -643,7 +662,7 @@ public:
 	{
 		makeMutable();
 		makeUnique();
-		return iterator(mArray, count());
+		return iterator(mArray, GetCount());
 	}
 	
 	size_t size() const
@@ -657,10 +676,8 @@ public:
 	}
 };
 
-typedef QCArray1 QCArray;
-
-typedef QCArray const QCFixedArray;
-
+typedef QCArray_shared_ptr			QCArray;
+typedef QCMutableArray				QCMutableArray;
 END_QC_NAMESPACE
 
 #endif

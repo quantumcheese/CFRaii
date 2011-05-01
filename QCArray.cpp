@@ -13,14 +13,14 @@
 
 BEGIN_QC_NAMESPACE
 
-void QCArray::show() const
+void QCArray1::show() const
 {
 #ifndef NDEBUG
 	CFShow(Array());
 #endif
 }
 
-bool QCArray::writeToFile(QCString const &filePath, CFPropertyListFormat const format = kCFPropertyListXMLFormat_v1_0) const
+bool QCArray1::writeToFile(QCString const &filePath, CFPropertyListFormat const format = kCFPropertyListXMLFormat_v1_0) const
 {
 	QCURL fileURL(filePath, 0); // is not directory
 	CFWriteStreamRef writeStream(CFWriteStreamCreateWithFile(kCFAllocatorDefault, fileURL));
@@ -40,7 +40,7 @@ bool QCArray::writeToFile(QCString const &filePath, CFPropertyListFormat const f
 }
 
 // static method
-QCArray QCArray::arrayFromFile(QCString const &filePath)
+QCArray1 QCArray1::arrayFromFile(QCString const &filePath)
 {
 	QCURL fileURL(filePath, false);
 	CFPropertyListRef plist(0);
@@ -52,7 +52,7 @@ QCArray QCArray::arrayFromFile(QCString const &filePath)
 	{
 		// couldn't read file; return an empty array
 		CFRelease(readStream);
-		return QCArray();
+		return QCArray1();
 	}
 	
 	plist = CFPropertyListCreateFromStream(kCFAllocatorDefault
@@ -70,10 +70,10 @@ QCArray QCArray::arrayFromFile(QCString const &filePath)
 		|| CFGetTypeID(plist) != CFArrayGetTypeID())
 	{
 		QCRelease(plist);
-		return QCArray();
+		return QCArray1();
 	}
 	
-	return QCArray(static_cast<CFArrayRef> ( plist ));
+	return QCArray1(static_cast<CFArrayRef> ( plist ));
 }
 
 END_QC_NAMESPACE
