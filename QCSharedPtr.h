@@ -52,7 +52,7 @@ template < class T, bool = CFType_traits<T>::is_CFType >
 class QCSharedPtr;
 
 template < class T >
-class QCSharedPtr < T*, true >  : public std::tr1::shared_ptr< T >
+class QCSharedPtr < T*, true > //  : public std::tr1::shared_ptr< T >
 {
 	typedef std::tr1::shared_ptr< T >	shared_ptr;
 	typedef QCDeleter< T >				Deleter;
@@ -62,41 +62,70 @@ public:
 	QCSharedPtr()
 	// we want our custom deleter, so we have to give shared_ptr 2 explicit arguments
 	// but constructing with NULL gives it a control block, i.e. it's not "empty"
-	: shared_ptr( ) // call up to the super class' constructor
+	: _ptr( ) // default construction
 	{ }
 	
-	explicit QCSharedPtr(T * obj)
-	: shared_ptr( obj, Deleter() )
+	template < class Other >
+	explicit QCSharedPtr(Other * obj)
+	: _ptr( obj, Deleter() )
 	{ }
 	
 	template < class Other, class D >
 	QCSharedPtr(Other * o, D dtor)
-	: shared_ptr( o, dtor )
+	: _ptr( o, dtor )
 	{ }
 	
 	// default copy c'tor, d'tor
 	
 	// TODO: copy the list of public members of shared_ptr here
 	
-	void swap(QCSharedPtr &);
-    void reset();
+	void swap(QCSharedPtr &sp)
+	{
+		_ptr.swap(sp);
+	}
+    void reset()
+	{
+		_ptr.reset();
+	}
 	
 	// default reset should use our Deleter
     template < class Other >
 	void reset(Other * o)
 	{
-		reset(o, Deleter());
+		_ptr.reset(o, Deleter());
 	}
 	
     template < class Other, class D >
-	void reset(Other *, D);
+	void reset(Other *o, D d)
+	{
+		_ptr.reset(o, d);
+	}
 	
-	T *get() const;
-    T& operator*() const;
-    T *operator->() const;
-    long use_count() const;
-    bool unique() const;
-    operator bool() const;
+	T *get() const
+	{
+		return _ptr.get();
+	}
+    T& operator*() const
+	{
+		return *_ptr;
+	}
+    T *operator->() const
+	{
+		// forward the operator explicitly
+		return _ptr.operator->();
+	}
+    long use_count() const
+	{
+		return _ptr.use_count();
+	}
+    bool unique() const
+	{
+		return _ptr.unique();
+	}
+    operator bool() const
+	{
+		return _ptr;
+	}
 	
 public:
 	// CoreFoundation functions that apply to all CFTypes
@@ -116,7 +145,7 @@ public:
 	
 	
 private:
-//	shared_ptr	_ptr;
+	shared_ptr	_ptr;
 };
 
 template<class T>
