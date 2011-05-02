@@ -61,12 +61,11 @@ public:
 class QCMutableArray : public QCSharedPtr < CFMutableArrayRef >
 {
 public:
-#if 0
 	explicit
 	QCMutableArray(CFMutableArrayRef array)
 	: QCSharedPtr < CFMutableArrayRef > ( array )
 	{ }
-#endif
+	
 	CFIndex GetCount() const
 	{
 		return CFArrayGetCount(get());
