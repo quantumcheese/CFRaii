@@ -60,7 +60,7 @@ class QCSharedPtr < T*, true > //  : public std::tr1::shared_ptr< T >
 public:
 	
 	QCSharedPtr()
-	// we want our custom deleter, so we have to give shared_ptr 2 explicit arguments
+	// we want our custom deleter, so we would have to give _ptr 2 explicit arguments;
 	// but constructing with NULL gives it a control block, i.e. it's not "empty"
 	: _ptr( ) // default construction
 	{ }
