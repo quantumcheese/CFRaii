@@ -23,6 +23,7 @@ BEGIN_QC_NAMESPACE
 namespace Detail // we would have liked to make this an anonymous namespace,
 				 // but that's bad news in a header file.
 {
+
 	typedef std::tr1::false_type false_type;
 	typedef std::tr1::true_type true_type;
 	
@@ -31,229 +32,125 @@ namespace Detail // we would have liked to make this an anonymous namespace,
 	struct _is_CFType : public false_type
 	{ };
 	
-	template <>
-	struct _is_CFType <CFAllocatorRef> : public true_type
-	{ };
+#define Is_CF_Type(Type) template <> \
+struct _is_CFType <Type> : public true_type \
+{ }
 	
-	template <>
-	struct _is_CFType <CFArrayRef> : public true_type
-	{ };
+	Is_CF_Type(CFAllocatorRef);
 	
-	template <>
-	struct _is_CFType <CFAttributedStringRef> : public true_type
-	{ };
+	Is_CF_Type(CFArrayRef);
 	
-	template <>
-	struct _is_CFType <CFBagRef> : public true_type
-	{ };
+	Is_CF_Type(CFAttributedStringRef);
 	
-	template <>
-	struct _is_CFType <CFBinaryHeapRef> : public true_type
-	{ };
+	Is_CF_Type(CFBagRef);
 	
-	template <>
-	struct _is_CFType <CFBitVectorRef> : public true_type
-	{ };
+	Is_CF_Type(CFBinaryHeapRef);
 	
-	template <>
-	struct _is_CFType <CFBooleanRef> : public true_type
-	{ };
+	Is_CF_Type(CFBitVectorRef);
 	
-	template <>
-	struct _is_CFType <CFBundleRef> : public true_type
-	{ };
+	Is_CF_Type(CFBooleanRef);
 	
-	template <>
-	struct _is_CFType <CFCalendarRef> : public true_type
-	{ };
+	Is_CF_Type(CFBundleRef);
 	
-	template <>
-	struct _is_CFType <CFCharacterSetRef> : public true_type
-	{ };
+	Is_CF_Type(CFCalendarRef);
 	
-	template <>
-	struct _is_CFType <CFDataRef> : public true_type
-	{ };
+	Is_CF_Type(CFCharacterSetRef);
 	
-	template <>
-	struct _is_CFType <CFDateRef> : public true_type
-	{ };
+	Is_CF_Type(CFDataRef);
 	
-	template <>
-	struct _is_CFType <CFDateFormatterRef> : public true_type
-	{ };
+	Is_CF_Type(CFDateRef);
 	
-	template <>
-	struct _is_CFType <CFDictionaryRef> : public true_type
-	{ };
+	Is_CF_Type(CFDateFormatterRef);
 	
-	template <>
-	struct _is_CFType <CFErrorRef> : public true_type
-	{ };
+	Is_CF_Type(CFDictionaryRef);
 	
-	template <>
-	struct _is_CFType <CFFileDescriptorRef> : public true_type
-	{ };
+	Is_CF_Type(CFErrorRef);
 	
-	template <>
-	struct _is_CFType <CFLocaleRef> : public true_type
-	{ };
+	Is_CF_Type(CFFileDescriptorRef);
 	
-	template <>
-	struct _is_CFType <CFMachPortRef> : public true_type
-	{ };
+	Is_CF_Type(CFLocaleRef);
 	
-	template <>
-	struct _is_CFType <CFMessagePortRef> : public true_type
-	{ };
+	Is_CF_Type(CFMachPortRef);
 	
-	template <>
-	struct _is_CFType <CFMutableArrayRef> : public true_type
-	{ };
+	Is_CF_Type(CFMessagePortRef);
 	
-	template <>
-	struct _is_CFType <CFMutableAttributedStringRef> : public true_type
-	{ };
+	Is_CF_Type(CFMutableArrayRef);
 	
-	template <>
-	struct _is_CFType <CFMutableBagRef> : public true_type
-	{ };
+	Is_CF_Type(CFMutableAttributedStringRef);
 	
-	template <>
-	struct _is_CFType <CFMutableBitVectorRef> : public true_type
-	{ };
+	Is_CF_Type(CFMutableBagRef);
 	
-	template <>
-	struct _is_CFType <CFMutableCharacterSetRef> : public true_type
-	{ };
+	Is_CF_Type(CFMutableBitVectorRef);
 	
-	template <>
-	struct _is_CFType <CFMutableDataRef> : public true_type
-	{ };
+	Is_CF_Type(CFMutableCharacterSetRef);
 	
-	template <>
-	struct _is_CFType <CFMutableDictionaryRef> : public true_type
-	{ };
+	Is_CF_Type(CFMutableDataRef);
 	
-	template <>
-	struct _is_CFType <CFMutableSetRef> : public true_type
-	{ };
+	Is_CF_Type(CFMutableDictionaryRef);
 	
-	template <>
-	struct _is_CFType <CFMutableStringRef> : public true_type
-	{ };
+	Is_CF_Type(CFMutableSetRef);
 	
-	template <>
-	struct _is_CFType <CFNotificationCenterRef> : public true_type
-	{ };
+	Is_CF_Type(CFMutableStringRef);
 	
-	template <>
-	struct _is_CFType <CFNullRef> : public true_type
-	{ };
+	Is_CF_Type(CFNotificationCenterRef);
 	
-	template <>
-	struct _is_CFType <CFNumberRef> : public true_type
-	{ };
+	Is_CF_Type(CFNullRef);
 	
-	template <>
-	struct _is_CFType <CFNumberFormatterRef> : public true_type
-	{ };
+	Is_CF_Type(CFNumberRef);
+	
+	Is_CF_Type(CFNumberFormatterRef);
 	
 #if 0
 	// CFPluginRef is a typedef to the same opaque type as CFBundleRef
-	template <>
-	struct _is_CFType <CFPlugInRef> : public true_type
-	{ };
+	Is_CF_Type(CFPlugInRef);
 #endif
 	
-	template <>
-	struct _is_CFType <CFPlugInInstanceRef> : public true_type
-	{ };
+	Is_CF_Type(CFPlugInInstanceRef);
 	
 #if 0
 	// CFTypeRef and CFPropertyListRef are both typedefs for void const *
-	template <>
-	struct _is_CFType <CFPropertyListRef> : public true_type
-	{ };
+	Is_CF_Type(CFPropertyListRef);
 #endif
 	
-	template <>
-	struct _is_CFType <CFReadStreamRef> : public true_type
-	{ };
+	Is_CF_Type(CFReadStreamRef);
 	
-	template <>
-	struct _is_CFType <CFRunLoopRef> : public true_type
-	{ };
+	Is_CF_Type(CFRunLoopRef);
 	
-	template <>
-	struct _is_CFType <CFRunLoopObserverRef> : public true_type
-	{ };
+	Is_CF_Type(CFRunLoopObserverRef);
 	
-	template <>
-	struct _is_CFType <CFRunLoopSourceRef> : public true_type
-	{ };
+	Is_CF_Type(CFRunLoopSourceRef);
 	
-	template <>
-	struct _is_CFType <CFRunLoopTimerRef> : public true_type
-	{ };
+	Is_CF_Type(CFRunLoopTimerRef);
 	
-	template <>
-	struct _is_CFType <CFSetRef> : public true_type
-	{ };
+	Is_CF_Type(CFSetRef);
 	
-	template <>
-	struct _is_CFType <CFSocketRef> : public true_type
-	{ };
+	Is_CF_Type(CFSocketRef);
 	
-	template <>
-	struct _is_CFType <CFStringRef> : public true_type
-	{ };
+	Is_CF_Type(CFStringRef);
 	
-	template <>
-	struct _is_CFType <CFStringTokenizerRef> : public true_type
-	{ };
+	Is_CF_Type(CFStringTokenizerRef);
 	
-	template <>
-	struct _is_CFType <CFTimeZoneRef> : public true_type
-	{ };
+	Is_CF_Type(CFTimeZoneRef);
 	
-	template <>
-	struct _is_CFType <CFTreeRef> : public true_type
-	{ };
+	Is_CF_Type(CFTreeRef);
 	
-	template <>
-	struct _is_CFType <CFTypeRef> : public true_type
-	{ };
+	Is_CF_Type(CFTypeRef);
 	
-	template <>
-	struct _is_CFType <CFURLRef> : public true_type
-	{ };
+	Is_CF_Type(CFURLRef);
 	
-	template <>
-	struct _is_CFType <CFUserNotificationRef> : public true_type
-	{ };
+	Is_CF_Type(CFUserNotificationRef);
 	
-	template <>
-	struct _is_CFType <CFUUIDRef> : public true_type
-	{ };
+	Is_CF_Type(CFUUIDRef);
 	
-	template <>
-	struct _is_CFType <CFWriteStreamRef> : public true_type
-	{ };
+	Is_CF_Type(CFWriteStreamRef);
 	
-	template <>
-	struct _is_CFType <CFXMLNodeRef> : public true_type
-	{ };
+	Is_CF_Type(CFXMLNodeRef);
 	
-	template <>
-	struct _is_CFType <CFXMLParserRef> : public true_type
-	{ };
+	Is_CF_Type(CFXMLParserRef);
 	
 #if 0
 	// CFXMLTreeRef is a typedef for CFTreeRef
-	template <>
-	struct _is_CFType <CFXMLTreeRef> : public true_type
-	{ };
+	Is_CF_Type(CFXMLTreeRef);
 #endif
 } /* Detail namespace */
 
