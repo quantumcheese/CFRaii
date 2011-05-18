@@ -238,6 +238,11 @@ public:
 		return ! (*this == rhs);
 	}
 	
+	T get()
+	{
+		return obj;
+	}
+	
 	// dereference operator reveals the proxied object
 	T operator * () const
 	{
