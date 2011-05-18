@@ -58,11 +58,11 @@ public:
 	// no conversion operator to CFMutableArrayRef; it's a bad idea
 };
 
-class QCMutableArray : public QCSharedPtr < CFMutableArrayRef >
+class QCMutableArray_shared_ptr : public QCSharedPtr < CFMutableArrayRef >
 {
 public:
 	explicit
-	QCMutableArray(CFMutableArrayRef array)
+	QCMutableArray_shared_ptr(CFMutableArrayRef array)
 	: QCSharedPtr < CFMutableArrayRef > ( array )
 	{ }
 	
@@ -675,8 +675,9 @@ public:
 	}
 };
 
-typedef QCArray_shared_ptr			QCArray;
-typedef QCMutableArray				QCMutableArray;
+typedef QCArray1	QCArray;
+
+
 END_QC_NAMESPACE
 
 #endif
