@@ -29,7 +29,7 @@ static inline bool isNotNull(CFTypeRef cf)
 }
 
 /*
- * We templatize QCRetain in order to avoid the need to cast its return values.
+ * We templatized QCRetain in order to avoid the need to cast its return values.
  * The previous version was:
  * CFTypeRef QCRetain(CFTypeRef object)
  * {
@@ -39,16 +39,28 @@ static inline bool isNotNull(CFTypeRef cf)
  */
 
 template < class T >
-inline T QCRetain(T const &object)
+inline T Retain(T const &object)
 {
 	if (isNotNull(object)) CFRetain(object);
 	return object;
 }
 
-// non-template version -- is there any reason to templatize QCRelease() ?
-inline void QCRelease(CFTypeRef object)
+// QCRetain is being deprecated in favor of unprefixed Retain
+template < class T >
+inline T QCRetain(T const &object)
+{
+	return Retain(object);
+}
+
+// non-template version -- is there any reason to templatize Release ?
+inline void Release(CFTypeRef object)
 {
 	if (isNotNull(object)) CFRelease(object);
+}
+inline void QCRelease(CFTypeRef object)
+{
+	Release(object);
+	return;
 }
 
 END_QC_NAMESPACE

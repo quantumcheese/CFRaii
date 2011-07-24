@@ -19,6 +19,7 @@
 		9633BF8F10226D2F00656F42 /* QCNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9633BF8D10226D2F00656F42 /* QCNumber.cpp */; };
 		9633C2BA1023602F00656F42 /* CFRaii.h in Headers */ = {isa = PBXBuildFile; fileRef = 9633C2B91023602F00656F42 /* CFRaii.h */; };
 		963596E3132D5868006521B1 /* QCMacrosInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 963596E2132D5868006521B1 /* QCMacrosInternal.h */; };
+		963BE06213AEDF8400D2B338 /* QCUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 963BE06113AEDF8400D2B338 /* QCUtilities.h */; };
 		964386B51327FDE100BC48D9 /* QCPair.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 964386B31327FDE100BC48D9 /* QCPair.cpp */; };
 		964386B61327FDE100BC48D9 /* QCPair.h in Headers */ = {isa = PBXBuildFile; fileRef = 964386B41327FDE100BC48D9 /* QCPair.h */; };
 		966E441F132DAB0900873C8B /* CFRaii_test_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 966E4412132DAA1F00873C8B /* CFRaii_test_main.cpp */; };
@@ -61,6 +62,7 @@
 		9633BF8D10226D2F00656F42 /* QCNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCNumber.cpp; sourceTree = "<group>"; };
 		9633C2B91023602F00656F42 /* CFRaii.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFRaii.h; sourceTree = "<group>"; };
 		963596E2132D5868006521B1 /* QCMacrosInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCMacrosInternal.h; sourceTree = "<group>"; };
+		963BE06113AEDF8400D2B338 /* QCUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCUtilities.h; sourceTree = "<group>"; };
 		964386B31327FDE100BC48D9 /* QCPair.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCPair.cpp; sourceTree = "<group>"; };
 		964386B41327FDE100BC48D9 /* QCPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCPair.h; sourceTree = "<group>"; };
 		966E440A132DAA0600873C8B /* Unit Tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Unit Tests"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,6 +123,7 @@
 				96EDDC7E102B4DA000A0C958 /* CFRaiiCommon.h */,
 				96B4B78C132942F200C424D3 /* QCSharedPtr.h */,
 				96B4B848132961FB00C424D3 /* QCTypeTraits.h */,
+				963BE06113AEDF8400D2B338 /* QCUtilities.h */,
 				96FFBA861022117100753982 /* Array */,
 				96E1A1A01095E62200EDFF4E /* Boolean */,
 				96FFBA871022118E00753982 /* Data */,
@@ -284,15 +287,16 @@
 				96B4B78D132942F200C424D3 /* QCSharedPtr.h in Headers */,
 				96B4B849132961FB00C424D3 /* QCTypeTraits.h in Headers */,
 				963596E3132D5868006521B1 /* QCMacrosInternal.h in Headers */,
+				963BE06213AEDF8400D2B338 /* QCUtilities.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		966E4409132DAA0600873C8B /* Unit Tests */ = {
+		966E4409132DAA0600873C8B /* CFRaii Unit Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 966E4415132DAA1F00873C8B /* Build configuration list for PBXNativeTarget "Unit Tests" */;
+			buildConfigurationList = 966E4415132DAA1F00873C8B /* Build configuration list for PBXNativeTarget "CFRaii Unit Tests" */;
 			buildPhases = (
 				966E4407132DAA0600873C8B /* Sources */,
 				966E4408132DAA0600873C8B /* Frameworks */,
@@ -302,7 +306,7 @@
 			dependencies = (
 				966E4422132DAB1300873C8B /* PBXTargetDependency */,
 			);
-			name = "Unit Tests";
+			name = "CFRaii Unit Tests";
 			productName = "Unit Tests";
 			productReference = 966E440A132DAA0600873C8B /* Unit Tests */;
 			productType = "com.apple.product-type.tool";
@@ -344,7 +348,7 @@
 			projectRoot = "";
 			targets = (
 				D2AAC045055464E500DB518D /* CFRaii */,
-				966E4409132DAA0600873C8B /* Unit Tests */,
+				966E4409132DAA0600873C8B /* CFRaii Unit Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -496,7 +500,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		966E4415132DAA1F00873C8B /* Build configuration list for PBXNativeTarget "Unit Tests" */ = {
+		966E4415132DAA1F00873C8B /* Build configuration list for PBXNativeTarget "CFRaii Unit Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				966E440F132DAA0700873C8B /* Debug */,

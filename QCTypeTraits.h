@@ -14,6 +14,7 @@
 #include <tr1/type_traits>
 
 #include "QCMacrosInternal.h"
+#include "QCUtilities.h"
 
 // MARK: -
 // MARK: Is Core Foundation type trait

@@ -14,6 +14,7 @@
 
 #include "QCTypeTraits.h"
 #include "QCSharedPtr.h"
+#include "QCUtilities.h"
 
 #include "QCArray.h"
 #include "QCBoolean.h"
