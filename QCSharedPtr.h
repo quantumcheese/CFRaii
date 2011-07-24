@@ -25,24 +25,22 @@
 
 BEGIN_QC_NAMESPACE
 
-namespace /* anonymous namespace */
+namespace D
 {
-	template < class T, bool = CFType_traits<T *>::is_CFType >
 	struct QCDeleter
 	{
-		// shared_ptr requires operator () to exist for the false case of is_CFType.
+		template < class T >
 		void operator () (T * const t)
 		{
-			;
-		}
-	};
-	
-	template <>
-	struct QCDeleter < class T, true >
-	{
-		void operator () (T * const t)
-		{
-			if (t != NULL) { CFRelease(t); }
+			if (CFType_traits<T *>::is_CFType && t != NULL)
+			{
+				CFRelease(t);
+			}
+			else
+			{
+				// no-op
+				;
+			}
 		}
 	};
 	
@@ -55,7 +53,7 @@ template < class T >
 class QCSharedPtr < T*, true > //  : public std::tr1::shared_ptr< T >
 {
 	typedef std::tr1::shared_ptr< T >	shared_ptr;
-	typedef QCDeleter< T >				Deleter;
+	typedef D::QCDeleter				Deleter;
 	
 public:
 	
