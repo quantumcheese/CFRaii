@@ -56,12 +56,12 @@ public:
 	
 	// copy constructor
 	QCURL(QCURL const &inURL)
-	: url( QCRetain(inURL.url) )
+	: url( Retain(inURL.url) )
 	{ }
 	
 	~QCURL()
 	{
-		QCRelease(url);
+		Release(url);
 	}
 	
 	bool null() const
@@ -74,8 +74,8 @@ public:
 	// copy assignment
 	QCURL & operator = (QCURL const &rhs)
 	{
-		QCRelease(url);
-		url = QCRetain(rhs.url);
+		Release(url);
+		url = Retain(rhs.url);
 		return *this;
 	}
 	

@@ -174,7 +174,7 @@ public:
 		// last one out turn off the lights and close & lock the door
 		if (--(*proxyCount) == 0)
 		{
-			QCRelease(obj);
+			Release(obj);
 			delete proxyCount;
 		}
 	}
@@ -193,7 +193,7 @@ public:
 	{
 		if ( --(*proxyCount) == 0)
 		{
-			QCRelease(obj);
+			Release(obj);
 			obj = NULL;
 		}
 	}

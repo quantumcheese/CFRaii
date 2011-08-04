@@ -129,15 +129,15 @@ public:
 	
 	// copy constructor
 	QCArray1(QCArray1 const &inArray)
-	: array( QCRetain(inArray.array) )
-	, mArray( QCRetain(inArray.mArray) )
+	: array( Retain(inArray.array) )
+	, mArray( Retain(inArray.mArray) )
 	{ }
 	
 	// destructor
 	~QCArray1( )
 	{
-		QCRelease(array);
-		QCRelease(mArray);
+		Release(array);
+		Release(mArray);
 	}
 	
 	CFArrayRef Array() const
@@ -166,18 +166,18 @@ public:
 	public:
 		// ctor
 		CFTypeProxy(CFArrayRef const arrayRef, CFIndex const idx)
-		: array(QCRetain(arrayRef)), index(idx)
+		: array(Retain(arrayRef)), index(idx)
 		{ }
 		
 		// copy ctor
 		CFTypeProxy(CFTypeProxy const &proxy)
-		: array(QCRetain(proxy.array)), index(proxy.index)
+		: array(Retain(proxy.array)), index(proxy.index)
 		{ }
 		
 		// dtor
 		~CFTypeProxy()
 		{
-			QCRelease(array);
+			Release(array);
 		}
 		
 		// comparison operators
@@ -210,26 +210,26 @@ public:
 	public:
 		// ctor
 		const_iterator(CFArrayRef const arrayRef, CFIndex const idx)
-		: array(QCRetain(array)), currentIndex(idx)
+		: array(Retain(array)), currentIndex(idx)
 		{ }
 		
 		// copy ctor
 		const_iterator(const_iterator const &iter)
-		: array(QCRetain(iter.array)), currentIndex(iter.currentIndex)
+		: array(Retain(iter.array)), currentIndex(iter.currentIndex)
 		{ }
 		
 		// dtor
 		~const_iterator()
 		{
-			QCRelease(array);
+			Release(array);
 		}
 		
 		// copy-assignment
 		const_iterator & operator = (const_iterator const &rhs)
 		{
-			QCRelease(array);
+			Release(array);
 			
-			array = QCRetain(rhs.array);
+			array = Retain(rhs.array);
 			currentIndex = rhs.currentIndex;
 			
 			return *this;
@@ -295,18 +295,18 @@ public:
 	public:
 		// ctor
 		CFMutableTypeProxy(CFMutableArrayRef const arrayRef, CFIndex const idx)
-		: array(QCRetain(arrayRef)), index(idx)
+		: array(Retain(arrayRef)), index(idx)
 		{ }
 		
 		// copy ctor
 		CFMutableTypeProxy(CFMutableTypeProxy const &proxy)
-		: array(QCRetain(proxy.array)), index(proxy.index)
+		: array(Retain(proxy.array)), index(proxy.index)
 		{ }
 		
 		// dtor
 		~CFMutableTypeProxy()
 		{
-			QCRelease(array);
+			Release(array);
 		}
 		
 		// conversion operators
@@ -340,26 +340,26 @@ public:
 	public:
 		// ctor
 		iterator(CFMutableArrayRef const arrayRef, CFIndex const idx)
-		: array(QCRetain(arrayRef)), currentIndex(idx)
+		: array(Retain(arrayRef)), currentIndex(idx)
 		{ }
 		
 		// copy ctor
 		iterator(iterator const &iter)
-		: array(QCRetain(iter.array)), currentIndex(iter.currentIndex)
+		: array(Retain(iter.array)), currentIndex(iter.currentIndex)
 		{ }
 		
 		// dtor
 		~iterator()
 		{
-			QCRelease(array);
+			Release(array);
 		}
 		
 		// copy-assignment
 		iterator & operator = (iterator const &rhs)
 		{
-			QCRelease(array);
+			Release(array);
 			
-			array = QCRetain(rhs.array);
+			array = Retain(rhs.array);
 			currentIndex = rhs.currentIndex;
 			
 			return *this;
@@ -482,7 +482,7 @@ public:
 		if (! null() && CFGetRetainCount(Array()) > 1)
 		{
 			CFMutableArrayRef newArray = CFArrayCreateMutableCopy(kCFAllocatorDefault, 0, Array());
-			QCRelease(Array());
+			Release(Array());
 			array = NULL;
 			mArray = newArray;
 		}
@@ -545,7 +545,7 @@ public:
 			{
 				// TODO: determine if rhs.Array() is mutable
 				// doc: "CFMutableArray objects have the same type identifier as CFArray objects."
-				array = QCRetain( rhs.Array() );
+				array = Retain( rhs.Array() );
 			}
 			else
 			{

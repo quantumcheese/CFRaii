@@ -33,7 +33,7 @@ bool QCData::writeToFile(CFStringRef const filePath) const
 	}
 	
 	CFWriteStreamClose(writeStream);
-	QCRelease(writeStream);
+	Release(writeStream);
 	
 	return result;
 }
@@ -65,7 +65,7 @@ QCData QCData::dataFromFile(CFURLRef const fileURL)
 	}
 	
 	CFReadStreamClose(readStream);
-	QCRelease(readStream);
+	Release(readStream);
 	
 	return fileData;
 }

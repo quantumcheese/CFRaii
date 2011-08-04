@@ -26,35 +26,35 @@ public:
 public:
 	// ctor
 	QCPair(T const a, U const b)
-	: first( QCRetain(a) )
-	, second( QCRetain(b) )
+	: first( Retain(a) )
+	, second( Retain(b) )
 	{ }
 	
 	// copy ctor
 	QCPair(QCPair const &inPair)
-	: first( QCRetain(inPair.first) )
-	, second( QCRetain(inPair.second) )
+	: first( Retain(inPair.first) )
+	, second( Retain(inPair.second) )
 	{ }
 	
 	// dtor
 	~QCPair()
 	{
-		QCRelease(first);
-		QCRelease(second);
+		Release(first);
+		Release(second);
 	}
 	
 	QCPair const &retain() const
 	{
-		QCRetain(first);
-		QCRetain(second);
+		Retain(first);
+		Retain(second);
 		
 		return *this;
 	}
 	
 	void release() const
 	{
-		QCRelease(first);
-		QCRelease(second);
+		Release(first);
+		Release(second);
 	}
 	
 	CFHashCode hash() const
@@ -83,11 +83,11 @@ public:
 	// operators
 	QCPair &operator = (QCPair const &inPair)
 	{
-		QCRelease(first);
-		QCRelease(second);
+		Release(first);
+		Release(second);
 		
-		first = QCRetain(inPair.first);
-		second = QCRetain(inPair.second);
+		first = Retain(inPair.first);
+		second = Retain(inPair.second);
 		
 		return *this;
 	}

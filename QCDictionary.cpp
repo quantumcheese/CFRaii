@@ -34,7 +34,7 @@ bool QCDictionary::writeToFile(QCString const &filePath, CFPropertyListFormat co
 		CFWriteStreamClose(writeStream);
 	}
 	
-	QCRelease(writeStream);
+	Release(writeStream);
 	
 	return result;
 }
@@ -61,14 +61,14 @@ QCDictionary QCDictionary::dictionaryFromFile(QCString const &filePath, CFProper
 										   , &plistFormat
 										   , &errStr);
 	CFReadStreamClose(readStream);
-	QCRelease(readStream);
+	Release(readStream);
 	
 	if (errStr != 0
 		// if the root of the plist is not a dictionary,
 		// then we want nothing to do with it.
 		|| CFGetTypeID(plist) != CFDictionaryGetTypeID())
 	{
-		QCRelease(plist);
+		Release(plist);
 		return QCDictionary();
 	}
 	

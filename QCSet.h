@@ -37,20 +37,20 @@ public:
 	: set( inSet )
 	, mSet( NULL )
 	{
-		QCRelease(inSet);
+		Release(inSet);
 	}
 	
 	// copy constructor
 	QCSet(QCSet const &inSet)
-	: set( QCRetain(inSet.set) )
-	, mSet( QCRetain(inSet.mSet) )
+	: set( Retain(inSet.set) )
+	, mSet( Retain(inSet.mSet) )
 	{ }
 	
 	// destructor
 	~QCSet( )
 	{
-		QCRelease(set);
-		QCRelease(mSet);
+		Release(set);
+		Release(mSet);
 	}
 	
 	CFSetRef Set() const
@@ -86,7 +86,7 @@ public:
 		if (! null() && CFGetRetainCount(Set()) > 1)
 		{
 			CFMutableSetRef newSet = CFSetCreateMutableCopy(kCFAllocatorDefault, 0, Set());
-			QCRelease(Set());
+			Release(Set());
 			set = NULL;
 			mSet = newSet;
 		}

@@ -34,7 +34,7 @@ bool QCArray1::writeToFile(QCString const &filePath, CFPropertyListFormat const 
 		CFWriteStreamClose(writeStream); // we're not ignoring anything -- it returns void
 	}
 	
-	QCRelease(writeStream);
+	Release(writeStream);
 	
 	return result;
 }
@@ -69,7 +69,7 @@ QCArray1 QCArray1::arrayFromFile(QCString const &filePath)
 		// then we want nothing to do with it.
 		|| CFGetTypeID(plist) != CFArrayGetTypeID())
 	{
-		QCRelease(plist);
+		Release(plist);
 		return QCArray1();
 	}
 	

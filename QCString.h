@@ -97,15 +97,15 @@ public:
 	
 	// copy constructor
 	QCString(QCString const &inString)
-	: string( QCRetain(inString.string) )
-	, mString( QCRetain(inString.mString) )
+	: string( Retain(inString.string) )
+	, mString( Retain(inString.mString) )
 	{ }
 	
 	// destructor
 	~QCString()
 	{
-		QCRelease(string);
-		QCRelease(mString);
+		Release(string);
+		Release(mString);
 	}
 	
 	CFStringRef String() const
@@ -233,7 +233,7 @@ public:
 			makeUnique();
 			if (isNull(mString))
 			{
-				mString = QCRetain(rhs);
+				mString = Retain(rhs);
 			}
 			else
 			{

@@ -53,13 +53,13 @@ public:
 	
 	// copy constructor
 	QCNumber(QCNumber const &inNum)
-	: number( QCRetain(inNum.number) )
+	: number( Retain(inNum.number) )
 	{ }
 	
 	// destructor
 	~QCNumber()
 	{
-		QCRelease(number);
+		Release(number);
 	}
 	
 	bool null() const

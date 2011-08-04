@@ -64,7 +64,7 @@ public:
 		if (*refCount == 0)
 		{
 			// last one out please close and lock the door
-			QCRelease(stack);
+			Release(stack);
 			delete refCount;
 			// unlock and delete the mutex
 		}

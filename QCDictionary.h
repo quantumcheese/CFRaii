@@ -55,15 +55,15 @@ public:
 	
 	// copy constructor
 	QCDictionary(QCDictionary const &inDict)
-	: dict( QCRetain(inDict.dict) )
-	, mDict( QCRetain(inDict.mDict) )
+	: dict( Retain(inDict.dict) )
+	, mDict( Retain(inDict.mDict) )
 	{ }
 	
 	// destructor
 	~QCDictionary( )
 	{
-		QCRelease(dict);
-		QCRelease(mDict);
+		Release(dict);
+		Release(mDict);
 	}
 	
 	CFDictionaryRef Dictionary () const
@@ -83,7 +83,7 @@ public:
 			if (dict != NULL)
 			{
 				mDict = CFMutableDictionaryFromCFDictionary(dict);
-				QCRelease(dict);
+				Release(dict);
 				dict = NULL;
 			}
 			else
@@ -102,7 +102,7 @@ public:
 		if (! null() && CFGetRetainCount(Dictionary()) > 1)
 		{
 			CFMutableDictionaryRef newDict = CFDictionaryCreateMutableCopy(kCFAllocatorDefault, 0, Dictionary());
-			QCRelease(Dictionary());
+			Release(Dictionary());
 			dict = NULL;
 			mDict = newDict;
 		}
@@ -166,19 +166,19 @@ public:
 	public:
 		// ctor
 		CFTypeProxy(CFDictionaryRef const dictRef, CFTypeRef const keyRef)
-		: dict( QCRetain(dictRef) ), key( QCRetain(keyRef) )
+		: dict( Retain(dictRef) ), key( Retain(keyRef) )
 		{ }
 		
 		// copy ctor
 		CFTypeProxy(CFTypeProxy const &proxy)
-		: dict( QCRetain(proxy.dict) ), key( QCRetain(proxy.key) )
+		: dict( Retain(proxy.dict) ), key( Retain(proxy.key) )
 		{ }
 		
 		// dtor
 		~CFTypeProxy()
 		{
-			QCRelease(dict);
-			QCRelease(key);
+			Release(dict);
+			Release(key);
 		}
 		
 		// comparison operators
@@ -213,19 +213,19 @@ public:
 	public:
 		// ctor
 		CFMutableTypeProxy(CFMutableDictionaryRef const dictRef, CFTypeRef const keyRef)
-		: dict( QCRetain(dictRef) ), key( QCRetain(keyRef) )
+		: dict( Retain(dictRef) ), key( Retain(keyRef) )
 		{ }
 		
 		// copy ctor
 		CFMutableTypeProxy(CFMutableTypeProxy const &proxy)
-		: dict( QCRetain(proxy.dict) ), key( QCRetain(proxy.key) )
+		: dict( Retain(proxy.dict) ), key( Retain(proxy.key) )
 		{ }
 		
 		// dtor
 		~CFMutableTypeProxy()
 		{
-			QCRelease(dict);
-			QCRelease(key);
+			Release(dict);
+			Release(key);
 		}
 		
 		// conversion operator

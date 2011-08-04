@@ -47,6 +47,8 @@ inline T Retain(T const &object)
 
 // QCRetain is being deprecated in favor of unprefixed Retain
 template < class T >
+inline T QCRetain(T const &object) DEPRECATED_ATTRIBUTE;
+template < class T >
 inline T QCRetain(T const &object)
 {
 	return Retain(object);
@@ -57,6 +59,9 @@ inline void Release(CFTypeRef object)
 {
 	if (isNotNull(object)) CFRelease(object);
 }
+
+void QCRelease(CFTypeRef object) DEPRECATED_ATTRIBUTE;
+
 inline void QCRelease(CFTypeRef object)
 {
 	Release(object);

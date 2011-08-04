@@ -54,20 +54,20 @@ public:
 	: data( inData )
 	, mData( NULL )
 	{
-		QCRelease(inData);
+		Release(inData);
 	}
 	
 	// copy constructor
 	QCData(QCData const &inData)
-	: data( QCRetain(inData.data) )
-	, mData( QCRetain(inData.mData) )
+	: data( Retain(inData.data) )
+	, mData( Retain(inData.mData) )
 	{ }
 	
 	// destructor
 	~QCData()
 	{
-		QCRelease(data);
-		QCRelease(mData);
+		Release(data);
+		Release(mData);
 	}
 	
 	CFDataRef Data () const
@@ -113,7 +113,7 @@ public:
 		if (! null() && CFGetRetainCount(Data()) > 1)
 		{
 			CFMutableDataRef newData = CFDataCreateMutableCopy(kCFAllocatorDefault, 0, Data());
-			QCRelease(Data());
+			Release(Data());
 			data = NULL;
 			mData = newData;
 		}
