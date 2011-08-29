@@ -20,8 +20,6 @@
 		9633C2BA1023602F00656F42 /* CFRaii.h in Headers */ = {isa = PBXBuildFile; fileRef = 9633C2B91023602F00656F42 /* CFRaii.h */; };
 		963596E3132D5868006521B1 /* QCMacrosInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 963596E2132D5868006521B1 /* QCMacrosInternal.h */; };
 		963BE06213AEDF8400D2B338 /* QCUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 963BE06113AEDF8400D2B338 /* QCUtilities.h */; };
-		964386B51327FDE100BC48D9 /* QCPair.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 964386B31327FDE100BC48D9 /* QCPair.cpp */; };
-		964386B61327FDE100BC48D9 /* QCPair.h in Headers */ = {isa = PBXBuildFile; fileRef = 964386B41327FDE100BC48D9 /* QCPair.h */; };
 		966E441F132DAB0900873C8B /* CFRaii_test_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 966E4412132DAA1F00873C8B /* CFRaii_test_main.cpp */; };
 		966E4420132DAB0F00873C8B /* libCFRaii.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AAC046055464E500DB518D /* libCFRaii.a */; };
 		96B4B78D132942F200C424D3 /* QCSharedPtr.h in Headers */ = {isa = PBXBuildFile; fileRef = 96B4B78C132942F200C424D3 /* QCSharedPtr.h */; };
@@ -35,8 +33,6 @@
 		96E6F93B1029B03500965EC5 /* QCData.h in Headers */ = {isa = PBXBuildFile; fileRef = 96E6F9391029B03500965EC5 /* QCData.h */; };
 		96E6F93C1029B03500965EC5 /* QCData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96E6F93A1029B03500965EC5 /* QCData.cpp */; };
 		96EDDC7F102B4DA000A0C958 /* CFRaiiCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 96EDDC7E102B4DA000A0C958 /* CFRaiiCommon.h */; };
-		96FAFA3D10FE2523003A5E34 /* QCMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 96FAFA3B10FE2523003A5E34 /* QCMap.h */; };
-		96FAFA3E10FE2523003A5E34 /* QCMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96FAFA3C10FE2523003A5E34 /* QCMap.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,8 +59,6 @@
 		9633C2B91023602F00656F42 /* CFRaii.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFRaii.h; sourceTree = "<group>"; };
 		963596E2132D5868006521B1 /* QCMacrosInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCMacrosInternal.h; sourceTree = "<group>"; };
 		963BE06113AEDF8400D2B338 /* QCUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCUtilities.h; sourceTree = "<group>"; };
-		964386B31327FDE100BC48D9 /* QCPair.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCPair.cpp; sourceTree = "<group>"; };
-		964386B41327FDE100BC48D9 /* QCPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCPair.h; sourceTree = "<group>"; };
 		966E440A132DAA0600873C8B /* Unit Tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Unit Tests"; sourceTree = BUILT_PRODUCTS_DIR; };
 		966E4412132DAA1F00873C8B /* CFRaii_test_main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFRaii_test_main.cpp; path = tests/CFRaii_test_main.cpp; sourceTree = "<group>"; };
 		96B4B78C132942F200C424D3 /* QCSharedPtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCSharedPtr.h; sourceTree = "<group>"; };
@@ -79,8 +73,6 @@
 		96E6F9391029B03500965EC5 /* QCData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCData.h; sourceTree = "<group>"; };
 		96E6F93A1029B03500965EC5 /* QCData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCData.cpp; sourceTree = "<group>"; };
 		96EDDC7E102B4DA000A0C958 /* CFRaiiCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFRaiiCommon.h; sourceTree = "<group>"; };
-		96FAFA3B10FE2523003A5E34 /* QCMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCMap.h; sourceTree = "<group>"; };
-		96FAFA3C10FE2523003A5E34 /* QCMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QCMap.cpp; sourceTree = "<group>"; };
 		96FDC1891125A6F100D5A804 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		D2AAC046055464E500DB518D /* libCFRaii.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCFRaii.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -128,9 +120,7 @@
 				96E1A1A01095E62200EDFF4E /* Boolean */,
 				96FFBA871022118E00753982 /* Data */,
 				96FFBA851022116700753982 /* Dictionary */,
-				96FAFA3910FE2509003A5E34 /* Map (unimplemented) */,
 				9633BF8B10226D2400656F42 /* Number */,
-				964386B21327FDD100BC48D9 /* Pair */,
 				96CE88121026732C00F86EA4 /* Set */,
 				96E2C0FD10E867B600ECA91F /* Stack */,
 				96FFBA841022116300753982 /* String */,
@@ -166,15 +156,6 @@
 			name = Number;
 			sourceTree = "<group>";
 		};
-		964386B21327FDD100BC48D9 /* Pair */ = {
-			isa = PBXGroup;
-			children = (
-				964386B31327FDE100BC48D9 /* QCPair.cpp */,
-				964386B41327FDE100BC48D9 /* QCPair.h */,
-			);
-			name = Pair;
-			sourceTree = "<group>";
-		};
 		966E4406132DA9F400873C8B /* Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,15 +189,6 @@
 				96E2C0FE10E867C300ECA91F /* QCStack.h */,
 			);
 			name = Stack;
-			sourceTree = "<group>";
-		};
-		96FAFA3910FE2509003A5E34 /* Map (unimplemented) */ = {
-			isa = PBXGroup;
-			children = (
-				96FAFA3C10FE2523003A5E34 /* QCMap.cpp */,
-				96FAFA3B10FE2523003A5E34 /* QCMap.h */,
-			);
-			name = "Map (unimplemented)";
 			sourceTree = "<group>";
 		};
 		96FFBA841022116300753982 /* String */ = {
@@ -282,8 +254,6 @@
 				96EDDC7F102B4DA000A0C958 /* CFRaiiCommon.h in Headers */,
 				96E1A1A31095E63E00EDFF4E /* QCBoolean.h in Headers */,
 				96E2C10010E867C300ECA91F /* QCStack.h in Headers */,
-				96FAFA3D10FE2523003A5E34 /* QCMap.h in Headers */,
-				964386B61327FDE100BC48D9 /* QCPair.h in Headers */,
 				96B4B78D132942F200C424D3 /* QCSharedPtr.h in Headers */,
 				96B4B849132961FB00C424D3 /* QCTypeTraits.h in Headers */,
 				963596E3132D5868006521B1 /* QCMacrosInternal.h in Headers */,
@@ -378,8 +348,6 @@
 				96E6F93C1029B03500965EC5 /* QCData.cpp in Sources */,
 				96E1A1A41095E63E00EDFF4E /* QCBoolean.cpp in Sources */,
 				96E2C10110E867C300ECA91F /* QCStack.cpp in Sources */,
-				96FAFA3E10FE2523003A5E34 /* QCMap.cpp in Sources */,
-				964386B51327FDE100BC48D9 /* QCPair.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
