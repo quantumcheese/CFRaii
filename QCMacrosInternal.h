@@ -26,4 +26,18 @@
 	#define END_QC_NAMESPACE
 #endif
 
+
+#if defined (__llvm__)
+	#define DEPRECATED_DECLARATION(x)	__attribute__((deprecated(x)))
+	#define WARNING_DECLARATION(x)		__attribute__((warning(x))
+#elif defined(__GNUC__) && ((__GNUC__ >= 4) || ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 1)))
+	#define DEPRECATED_DECLARATION(x)	__attribute__((deprecated))
+	#define WARNING_DECLARATION(x)		// ???
+#else
+	#warn Unknown compiler
+	#define DEPRECATED_DECLARATION(x)	// as nothing
+	#define WARNING_DECLARATION(x)		// ???
+#endif
+
+
 #endif
