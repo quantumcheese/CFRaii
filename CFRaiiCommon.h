@@ -20,7 +20,7 @@
 BEGIN_QC_NAMESPACE
 static inline bool isNull(CFTypeRef cf)
 {
-	return cf == NULL;
+	return NULL == cf;
 }
 
 static inline bool isNotNull(CFTypeRef cf)

@@ -34,124 +34,124 @@ namespace Detail // we would have liked to make this an anonymous namespace,
 	{ };
 	
 #define Is_CF_Type(Type) template <> \
-struct _is_CFType <Type##Ref> : public true_type \
+struct _is_CFType <CF##Type##Ref> : public true_type \
 { }
 	
-	Is_CF_Type(CFAllocator);
+	Is_CF_Type(Allocator);
 	
-	Is_CF_Type(CFArray);
+	Is_CF_Type(Array);
 	
-	Is_CF_Type(CFAttributedString);
+	Is_CF_Type(AttributedString);
 	
-	Is_CF_Type(CFBag);
+	Is_CF_Type(Bag);
 	
-	Is_CF_Type(CFBinaryHeap);
+	Is_CF_Type(BinaryHeap);
 	
-	Is_CF_Type(CFBitVector);
+	Is_CF_Type(BitVector);
 	
-	Is_CF_Type(CFBoolean);
+	Is_CF_Type(Boolean);
 	
-	Is_CF_Type(CFBundle);
+	Is_CF_Type(Bundle);
 	
-	Is_CF_Type(CFCalendar);
+	Is_CF_Type(Calendar);
 	
-	Is_CF_Type(CFCharacterSet);
+	Is_CF_Type(CharacterSet);
 	
-	Is_CF_Type(CFData);
+	Is_CF_Type(Data);
 	
-	Is_CF_Type(CFDate);
+	Is_CF_Type(Date);
 	
-	Is_CF_Type(CFDateFormatter);
+	Is_CF_Type(DateFormatter);
 	
-	Is_CF_Type(CFDictionary);
+	Is_CF_Type(Dictionary);
 	
-	Is_CF_Type(CFError);
+	Is_CF_Type(Error);
 	
-	Is_CF_Type(CFFileDescriptor);
+	Is_CF_Type(FileDescriptor);
 	
-	Is_CF_Type(CFLocale);
+	Is_CF_Type(Locale);
 	
-	Is_CF_Type(CFMachPort);
+	Is_CF_Type(MachPort);
 	
-	Is_CF_Type(CFMessagePort);
+	Is_CF_Type(MessagePort);
 	
-	Is_CF_Type(CFMutableArray);
+	Is_CF_Type(MutableArray);
 	
-	Is_CF_Type(CFMutableAttributedString);
+	Is_CF_Type(MutableAttributedString);
 	
-	Is_CF_Type(CFMutableBag);
+	Is_CF_Type(MutableBag);
 	
-	Is_CF_Type(CFMutableBitVector);
+	Is_CF_Type(MutableBitVector);
 	
-	Is_CF_Type(CFMutableCharacterSet);
+	Is_CF_Type(MutableCharacterSet);
 	
-	Is_CF_Type(CFMutableData);
+	Is_CF_Type(MutableData);
 	
-	Is_CF_Type(CFMutableDictionary);
+	Is_CF_Type(MutableDictionary);
 	
-	Is_CF_Type(CFMutableSet);
+	Is_CF_Type(MutableSet);
 	
-	Is_CF_Type(CFMutableString);
+	Is_CF_Type(MutableString);
 	
-	Is_CF_Type(CFNotificationCenter);
+	Is_CF_Type(NotificationCenter);
 	
-	Is_CF_Type(CFNull);
+	Is_CF_Type(Null);
 	
-	Is_CF_Type(CFNumber);
+	Is_CF_Type(Number);
 	
-	Is_CF_Type(CFNumberFormatter);
+	Is_CF_Type(NumberFormatter);
 	
 #if 0
 	// CFPluginRef is a typedef to the same opaque type as CFBundleRef
-	Is_CF_Type(CFPlugIn);
+	Is_CF_Type(PlugIn);
 #endif
 	
-	Is_CF_Type(CFPlugInInstance);
+	Is_CF_Type(PlugInInstance);
 	
 #if 0
 	// CFTypeRef and CFPropertyListRef are both typedefs for void const *
-	Is_CF_Type(CFPropertyList);
+	Is_CF_Type(PropertyList);
 #endif
 	
-	Is_CF_Type(CFReadStream);
+	Is_CF_Type(ReadStream);
 	
-	Is_CF_Type(CFRunLoop);
+	Is_CF_Type(RunLoop);
 	
-	Is_CF_Type(CFRunLoopObserver);
+	Is_CF_Type(RunLoopObserver);
 	
-	Is_CF_Type(CFRunLoopSource);
+	Is_CF_Type(RunLoopSource);
 	
-	Is_CF_Type(CFRunLoopTimer);
+	Is_CF_Type(RunLoopTimer);
 	
-	Is_CF_Type(CFSet);
+	Is_CF_Type(Set);
 	
-	Is_CF_Type(CFSocket);
+	Is_CF_Type(Socket);
 	
-	Is_CF_Type(CFString);
+	Is_CF_Type(String);
 	
-	Is_CF_Type(CFStringTokenizer);
+	Is_CF_Type(StringTokenizer);
 	
-	Is_CF_Type(CFTimeZone);
+	Is_CF_Type(TimeZone);
 	
-	Is_CF_Type(CFTree);
+	Is_CF_Type(Tree);
 	
-	Is_CF_Type(CFType);
+	Is_CF_Type(Type);
 	
-	Is_CF_Type(CFURL);
+	Is_CF_Type(URL);
 	
-	Is_CF_Type(CFUserNotification);
+	Is_CF_Type(UserNotification);
 	
-	Is_CF_Type(CFUUID);
+	Is_CF_Type(UUID);
 	
-	Is_CF_Type(CFWriteStream);
+	Is_CF_Type(WriteStream);
 	
-	Is_CF_Type(CFXMLNode);
+	Is_CF_Type(XMLNode);
 	
-	Is_CF_Type(CFXMLParser);
+	Is_CF_Type(XMLParser);
 	
 #if 0
 	// CFXMLTreeRef is a typedef for CFTreeRef
-	Is_CF_Type(CFXMLTree);
+	Is_CF_Type(XMLTree);
 #endif
 #undef Is_CF_Type
 } /* Detail namespace */

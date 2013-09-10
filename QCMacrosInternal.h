@@ -2,8 +2,7 @@
  *  QCMacrosInternal.h
  *  CFRaii
  *
- *  Created by Richard Brown on 3/13/11.
- *  Copyright 2011 Javacool Software Development, LLC. All rights reserved.
+ * Copyright (c) 2009-2012 Richard A. Brown
  *
  */
 
@@ -35,7 +34,7 @@
 	#define WARNING_DECLARATION(x)		// ???
 #else
 	#warn Unknown compiler
-	#define DEPRECATED_DECLARATION(x)	// as nothing
+	#define DEPRECATED_DECLARATION(x)	// ???
 	#define WARNING_DECLARATION(x)		// ???
 #endif
 
