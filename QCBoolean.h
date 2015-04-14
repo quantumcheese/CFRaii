@@ -2,7 +2,7 @@
  *  QCBoolean.h
  *  CFRaii
  *
- * Copyright (c) 2009 Richard A. Brown
+ * Copyright (c) 2009-2015 Richard A. Brown
  *
  * See license.txt for licensing terms and conditions.
  */
@@ -42,10 +42,28 @@ private:
 	}
 	
 public:
+	static QCBoolean const kQCBooleanTrue;
+	static QCBoolean const kQCBooleanFalse;
+
+	static QCBoolean QCBooleanFromBool(bool const b)
+	{
+		return b ? kQCBooleanTrue : kQCBooleanFalse;
+	}
+
+	static QCBoolean QCBooleanFromBool(Boolean const b)
+	{
+		return b ? kQCBooleanTrue : kQCBooleanFalse;
+	}
+
+	static QCBoolean QCBooleanFromBool(CFBooleanRef const b)
+	{
+		return QCBooleanFromBool(CFBooleanGetValue(b));
+	}
+
 	explicit QCBoolean(bool const inBool)
 	: boolean( CFBooleanFromBool(inBool) )
 	{ }
-	
+
 	explicit QCBoolean(Boolean const inBool)
 	: boolean( CFBooleanFromBoolean(inBool) )
 	{ }

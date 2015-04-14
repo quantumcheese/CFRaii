@@ -12,6 +12,9 @@
 
 BEGIN_QC_NAMESPACE
 
+QCBoolean const QCBoolean::kQCBooleanTrue(kCFBooleanTrue);
+QCBoolean const QCBoolean::kQCBooleanFalse(kCFBooleanFalse);
+
 void QCBoolean::show() const
 {
 #ifndef NDEBUG
