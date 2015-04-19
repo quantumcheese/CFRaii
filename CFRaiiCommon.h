@@ -39,7 +39,7 @@ static inline bool isNotNull(CFTypeRef cf)
  */
 
 template < class T >
-inline T Retain(T const &object)
+inline T Retain(T const &object) __attribute((enable_if(is_CFType<T>::value, "Retain is only available for Core Foundation types.")))
 {
 	if (isNotNull(object)) CFRetain(object);
 	return object;
