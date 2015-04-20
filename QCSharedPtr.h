@@ -149,6 +149,7 @@ private:
 template<class T>
 class CFProxy
 {
+static_assert(is_CFType<T>::value, "CFProxy is only compatible with Core Foundation types.");
 private:
 	// data members
 	T obj;
