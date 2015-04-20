@@ -81,19 +81,19 @@ public:
 	{
 		_ptr.swap(sp);
 	}
-    void reset()
+	void reset()
 	{
 		_ptr.reset();
 	}
 	
 	// default reset should use our Deleter
-    template < class Other >
+	template < class Other >
 	void reset(Other * o)
 	{
 		_ptr.reset(o, Deleter());
 	}
 	
-    template < class Other, class D >
+	template < class Other, class D >
 	void reset(Other *o, D d)
 	{
 		_ptr.reset(o, d);
@@ -103,24 +103,24 @@ public:
 	{
 		return _ptr.get();
 	}
-    T& operator*() const
+	T& operator*() const
 	{
 		return *_ptr;
 	}
-    T *operator->() const
+	T *operator->() const
 	{
 		// forward the operator explicitly
 		return _ptr.operator->();
 	}
-    long use_count() const
+	long use_count() const
 	{
 		return _ptr.use_count();
 	}
-    bool unique() const
+	bool unique() const
 	{
 		return _ptr.unique();
 	}
-    operator bool() const
+	operator bool() const
 	{
 		return _ptr;
 	}
