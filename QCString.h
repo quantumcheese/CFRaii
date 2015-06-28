@@ -28,7 +28,7 @@ private:
 	CFMutableStringRef	mString;
 	CFStringRef			string;
 	
-	CFMutableStringRef CFMutableStringFromCFString(CFStringRef const &inString) const
+	CFMutableStringRef CFMutableStringFromCFString(CFStringRef inString) const
 	{
 		CFMutableStringRef temp(NULL);
 		if (inString != NULL)
@@ -62,39 +62,42 @@ private:
 	}
 	
 public:
+    /* empty QCString */
 	QCString( )
 	: string( NULL )
 	, mString( NULL )
 	{ }
-	
+
+    /* Take ownership of a Mutable String */
 	explicit QCString(CFMutableStringRef const &inString)
 	: string( NULL )
 	, mString( inString )
 	{ }
-	
+
+    /* Take ownership of an immutable String */
 	explicit QCString(CFStringRef const &inString)
 	: string( inString )
 	, mString( NULL ) // maybe we'll never need it
 	{ }
-	
+
+    /* Convert HFSUniStr255 into an immutable String */
 	explicit QCString(HFSUniStr255 const &inString)
 	: string( CFStringFromHFSUniStr255(inString) )
 	, mString( NULL )
-//	: mString( CFMutableStringFromHFSUniStr255(inString) )
 	{ }
 	
-	// creating a CFString from a C-string
+	/* Convert C-style string into an immutable String */
 	explicit QCString(char const * const inString)
 	: string( CFStringFromCString(inString) )
 	, mString( NULL )
 	{ }
-	
+
+    /* Convert C++ native string into an immutable String */
 	explicit QCString(std::string const &inString)
 	: string( CFStringFromCString(inString.c_str()) )
 	, mString( NULL )
 	{ }
-	
-	
+
 	// copy constructor
 	QCString(QCString const &inString)
 	: string( Retain(inString.string) )
@@ -118,27 +121,19 @@ public:
 		return isNotNull(string) ? string : mString;
 	}
 	
-	
-	// not threadsafe!  (should become an atomic function)
-	void makeUnique()
-	{
-		// don't care if 'string' is shared, just 'mString'
-		// nevertheless, make the string mutable
-		
-		if (!isNull(mString))
-		{
-			// relinquish our ownership
-			CFMutableStringRef newString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, mString);
-			CFRelease(mString);
-			mString = newString;
-		}
-		else if (!isNull(string))
-		{
-			mString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, string);
-			CFRelease(string);
-			string = NULL;
-		}
-	}
+    void makeUniqueMutable() {
+        if (NULL != mString) {
+            CFMutableStringRef tmp = mString;
+            mString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, mString);
+            CFRelease(tmp);
+        } else if (NULL != string) {
+            mString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, string);
+            CFRelease(string);
+            string = NULL;
+        } else {
+            mString = CFStringCreateMutable(kCFAllocatorDefault, 0);
+        }
+    }
 	
 	bool null() const
 	{
@@ -163,7 +158,11 @@ public:
 		return CFStringGetCharacterAtIndex(CFString(), idx);
 	}
 	
-	// Operators
+    CFStringRef get() const {
+        return NULL != mString ? mString : string;
+    }
+
+    // Operators
 	
 	// copy assignment -- copy and swap
 	QCString & operator = (QCString const &rhs)
@@ -177,8 +176,7 @@ public:
 	// comparison operators
 	bool operator == (QCString const &rhs) const
 	{
-		return (CFString() == rhs.CFString()) // optimization
-				|| (CFStringCompare(CFString(), rhs.CFString(), 0) == kCFCompareEqualTo);
+		return kCFCompareEqualTo == CFStringCompare(CFString(), rhs.CFString(), 0);
 	}
 	
 	bool operator != (QCString const &rhs) const
@@ -186,18 +184,14 @@ public:
 		return !(*this == rhs);
 	}
 	
-	bool operator < (QCString const &rhs) const
-	{
-		return (CFString() != rhs.CFString()) // quick optimization -- check pointer inequality before comparing strings
-				&& (CFStringCompare(CFString(), rhs.CFString(), 0) == kCFCompareLessThan);
-	}
-	
-	bool operator > (QCString const &rhs) const
-	{
-		return (CFString() != rhs.CFString())
-				&& (CFStringCompare(CFString(), rhs.CFString(), 0) == kCFCompareGreaterThan);
-	}
-	
+    bool operator < (QCString const & rhs) const {
+        return kCFCompareLessThan == CFStringCompare(get(), rhs.get(), 0);
+    }
+
+    bool operator > (QCString const & rhs) const {
+        return kCFCompareGreaterThan == CFStringCompare(get(), rhs.get(), 0);
+    }
+
 	// conversion operators
 	
 	operator CFStringRef () const
@@ -209,8 +203,7 @@ public:
 	// concatenate operator
 	QCString & operator += (QCString const &rhs)
 	{
-//		makeMutable();
-		makeUnique();
+        makeUniqueMutable();
 //		return (*this += rhs.string); // would this work?
 		
 		if (isNull(mString))
@@ -229,9 +222,8 @@ public:
 	{
 		if (rhs != NULL)
 		{
-//			makeMutable();
-			makeUnique();
-			if (isNull(mString))
+            makeUniqueMutable();
+            if (isNull(mString))
 			{
 				mString = Retain(rhs);
 			}
@@ -243,38 +235,27 @@ public:
 		return *this;
 	}
 	
-	QCString & operator += (CFStringRef const &rhs)
-	{
-		if (rhs != NULL)
-		{
-//			makeMutable();
-			makeUnique();
-			
-			if (isNull(mString))
-			{
-				mString = CFMutableStringFromCFString(rhs);
-			}
-			else
-			{
-				CFStringAppend(mString, rhs);
-			}
-		}
-		return *this;
-	}
-	
+    QCString & operator += (CFStringRef rhs) {
+        if (rhs != NULL) {
+            makeUniqueMutable();
+            CFStringAppend(mString, rhs);
+        }
+        return *this;
+    }
+
 	QCString & operator += (char const *rhs)
 	{
-		makeUnique();
-		
+        makeUniqueMutable();
+
 		return (rhs == NULL) ? *this : *this += QCString(rhs);
 	}
 	
-	bool hasPrefix(CFStringRef const &prefix) const
+	bool hasPrefix(CFStringRef const prefix) const
 	{
 		return CFStringHasPrefix(CFString(), prefix) == true;
 	}
 	
-	bool hasSuffix(CFStringRef const &suffix) const
+	bool hasSuffix(CFStringRef const suffix) const
 	{
 		return CFStringHasSuffix(CFString(), suffix) == true;
 	}

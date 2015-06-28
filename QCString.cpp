@@ -35,7 +35,7 @@ char *QCString::CString_malloc() const
 	return NULL;
 }
 
-// returns a C-string that requires delete[]-ing
+// returns a C-string that requires delete[]-ing or NULL
 char *QCString::CString_new() const
 {
 	if (null()) return NULL;

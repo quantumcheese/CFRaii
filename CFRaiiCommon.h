@@ -39,32 +39,16 @@ static inline bool isNotNull(CFTypeRef cf)
  */
 
 template < class T >
-inline T Retain(T const &object) __attribute((enable_if(is_CFType<T>::value, "Retain is only available for Core Foundation types.")))
+inline T Retain(T ref) __attribute((enable_if(is_CFType<T>::value, "Retain is available only for Core Foundation types.")))
 {
-	if (isNotNull(object)) CFRetain(object);
-	return object;
+    if (isNotNull(object)) { CFRetain(ref) };
+	return ref;
 }
 
-// QCRetain is being deprecated in favor of unprefixed Retain
 template < class T >
-inline T QCRetain(T const &object) DEPRECATED_DECLARATION("QCRetain is deprecated; use Retain instead.");
-template < class T >
-inline T QCRetain(T const &object)
+inline void Release(T ref) __attribute((enable_if(is_CFType<T>::value, "Release is available only for Core Foundation types.")))
 {
-	return Retain(object);
-}
-
-// non-template version -- is there any reason to templatize Release ?
-inline void Release(CFTypeRef object)
-{
-	if (isNotNull(object)) CFRelease(object);
-}
-
-void QCRelease(CFTypeRef object) DEPRECATED_DECLARATION("QCRelease is deprecated; use Release instead.");
-inline void QCRelease(CFTypeRef object)
-{
-	Release(object);
-	return;
+    if (isNotNull(ref)) { CFRelease(ref); }
 }
 
 END_QC_NAMESPACE

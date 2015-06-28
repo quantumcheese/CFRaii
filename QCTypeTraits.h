@@ -156,7 +156,7 @@ struct _is_CFType <CF##Type##Ref> : public true_type \
 #undef Is_CF_Type
 } /* Detail namespace */
 
-// MARK: public-facing is_CFType<> interface
+// -- public-facing is_CFType<> interface
 template <class T>
 /* we need to remove_cv (from the pointer-to-opaque-CF-type)
  * in order to ensure matching the above template specialization
